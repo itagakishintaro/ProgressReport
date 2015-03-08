@@ -22,5 +22,10 @@ module ProgressReport
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Set timezone. I saw this site.
+    # http://qiita.com/norifumi-y@github/items/fbc89daa2206cd6f75d1
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
   end
 end

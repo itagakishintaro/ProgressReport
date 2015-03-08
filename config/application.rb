@@ -27,5 +27,7 @@ module ProgressReport
     # http://qiita.com/norifumi-y@github/items/fbc89daa2206cd6f75d1
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :local
+    # for bootstrap sass
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
   end
 end

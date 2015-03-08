@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'bootstrap-sass'
+
 # 追加（HerokuデプロイでWARNINGがでるから）
 ruby '2.2.0'
 

@@ -16,4 +16,6 @@
 Issueにリクエストや障害報告をしてもらえらたらもっと嬉しいです。<br>
 PullRequestやForkをしてもらえたらそんなに嬉しいことはありません。
 
-[Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](http://creativecommons.org/licenses/by-nc/4.0/)
+![Creative Commons License](https://i.creativecommons.org/l/by-nc/4.0/88x31.png)<br>
+
+This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](http://creativecommons.org/licenses/by-nc/4.0/).

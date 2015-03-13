@@ -1,19 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
+<div>
+  <span class="label label-default">Tag</span>
+  <% @report.tag.split(",").each { |tag| %>
+  <%= tag %>
+  <% } %>
+</div>
+
+<div id="title-view">
   <%= @report.title %>
-</p>
+</div>
 
-<p>
-  <strong>Tag:</strong>
-  <%= @report.tag %>
-</p>
-
-<p>
-  <strong>Content:</strong>
+<div id="content-view">
   <%= @report.content %>
-</p>
+</div>
 
 <p>
   <strong>User:</strong>
@@ -22,13 +22,13 @@
 
 <p>
   <strong>Created at:</strong>
-  <%= @report.created_at %>
+  <%= @report.created_at.strftime("%Y/%m/%d %H:%M") %>
 </p>
 
 <p>
   <strong>Updated at:</strong>
-  <%= @report.updated_at %>
+  <%= @report.updated_at.strftime("%Y/%m/%d %H:%M") %>
 </p>
 
-<%= link_to 'Edit', edit_report_path(@report) %> |
-<%= link_to 'Back', reports_path %>
+<%= link_to 'Edit', edit_report_path(@report), class: "btn btn-default" %>
+<%= link_to 'Back', reports_path, class: "btn btn-default" %>

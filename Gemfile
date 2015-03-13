@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
+# 追加
 gem 'bootstrap-sass'
+gem 'sprockets'
 
 # 追加（HerokuデプロイでWARNINGがでるから）
 ruby '2.2.0'

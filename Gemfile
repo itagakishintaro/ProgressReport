@@ -7,6 +7,10 @@ gem 'sprockets'
 # 追加（HerokuデプロイでWARNINGがでるから）
 ruby '2.2.0'
 
+# 追加 for angular.js
+# http://soplana.hateblo.jp/entry/2014/03/01/231008
+gem 'angular-rails-engine'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use sqlite3 as the database for Active Record

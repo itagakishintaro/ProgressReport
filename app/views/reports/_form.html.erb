@@ -22,17 +22,20 @@
         <%= f.text_field :title, id: "title", class: "form-control", placeholder:"title" %>
       </div>
       <div class="field form-group">
-        <%= f.text_area :content, id: "content", class: "form-control", placeholder:"content", rows: 20 %>
+        <%= f.text_area :content, id: "content", class: "form-control", placeholder:"content", rows: 20, "ng-model" => "content" %>
       </div>
       <div class="field form-group">
         <%= f.label :user_id %><br>
         <%= f.number_field :user_id, class: "form-control" %>
       </div>
       <div class="actions">
-        <button class="btn btn-default"><%= link_to 'Back', reports_path %></button>
+        <%= link_to 'Back', reports_path, class: "btn btn-default" %>
         <%= submit_tag name, class: "btn btn-primary" %>
       </div>
     <% end %>
+
+    <pre>{{content|json}}</pre>
+    <pre>{{html|json}}</pre>
   </div>
 
   <div class="col-md-6">

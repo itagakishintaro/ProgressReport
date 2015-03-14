@@ -29,7 +29,7 @@
         <%= f.number_field :user_id, class: "form-control" %>
       </div>
       <div class="actions">
-        <button class="btn btn-default"><%= link_to 'Back', reports_path %></button>
+        <%= link_to 'Back', reports_path, class: "btn btn-default" %>
         <%= submit_tag name, class: "btn btn-primary" %>
       </div>
     <% end %>

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :api, { format: 'json' } do
+    resources :tags
+  end
+
   resources :reports
 
   resources :users

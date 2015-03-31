@@ -15,3 +15,4 @@
 //= require turbolinks
 //= require marked.min
 //= require_tree .
+//= require bootstrap3-typeahead.min

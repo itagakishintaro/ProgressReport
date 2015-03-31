@@ -14,3 +14,17 @@ convertMarkdown = ->
 
 convertMarkdown()
 $( () -> $('#content').keyup( () -> convertMarkdown() ) )
+
+
+# For typeahead of Tag
+# https://twitter.github.io/typeahead.js/examples/
+
+$( () ->
+    $.getJSON('/api/tags', (json) ->
+        $('.typeahead').typeahead({
+            source: json.map( (d) -> d.tag ),
+            autoSelect: true
+        })
+    )
+)
+

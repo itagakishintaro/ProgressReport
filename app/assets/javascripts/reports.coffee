@@ -13,7 +13,7 @@ convertMarkdown = ->
 	$('#content-view').html(marked(markdown))
 
 convertMarkdown()
-$( () -> $('#content').keyup( () -> convertMarkdown() ) )
+$('#content').keyup( () -> convertMarkdown() )
 
 
 # For typeahead of Tag
@@ -28,3 +28,4 @@ $( () ->
     )
 )
 
+$('#progress').click( () -> alert('test') )

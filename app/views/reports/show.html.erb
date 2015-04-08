@@ -1,12 +1,14 @@
 <p id="notice"><%= notice %></p>
 
+<button id="progress" class="btn btn-info">成長したね！</button>
+
+<hr>
 <div>
   <span class="label label-default">タグ</span>
   <% @report.tag.split(",").each { |tag| %>
   <%= tag %>
   <% } %>
 </div>
-<hr>
 <div id="title-view">
   <%= @report.title %>
 </div>

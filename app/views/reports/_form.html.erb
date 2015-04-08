@@ -16,7 +16,7 @@
 
       <div class="field form-group form-inline">
         <%= f.label :tag %>
-        <%= f.text_field :tag, class: "form-control typeahead" %>
+        <%= f.text_field :tag, class: "form-control typeahead", autocomplete: "off" %>
       </div>
       <div class="field form-group">
         <%= f.text_field :title, id: "title", class: "form-control", placeholder:"title" %>

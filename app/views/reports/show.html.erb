@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <div>
-  <span class="label label-default">Tag</span>
+  <span class="label label-default">タグ</span>
   <% @report.tag.split(",").each { |tag| %>
   <%= tag %>
   <% } %>
 </div>
-
+<hr>
 <div id="title-view">
   <%= @report.title %>
 </div>
@@ -14,21 +14,21 @@
 <div id="content-view">
   <%= @report.content %>
 </div>
-
+<br>
 <p>
-  <strong>User:</strong>
-  <%= @report.user_id %>
+  <strong>ユーザー:</strong>
+  <%= @report.user.name %>
 </p>
 
 <p>
-  <strong>Created at:</strong>
+  <strong>作成日時:</strong>
   <%= @report.created_at.strftime("%Y/%m/%d %H:%M") %>
 </p>
 
 <p>
-  <strong>Updated at:</strong>
+  <strong>更新日時:</strong>
   <%= @report.updated_at.strftime("%Y/%m/%d %H:%M") %>
 </p>
-
-<%= link_to 'Edit', edit_report_path(@report), class: "btn btn-default" %>
-<%= link_to 'Back', reports_path, class: "btn btn-default" %>
+<hr>
+<%= link_to '戻る', reports_path, class: "btn btn-default" %>
+<%= link_to '更新', edit_report_path(@report), class: "btn btn-primary" %>

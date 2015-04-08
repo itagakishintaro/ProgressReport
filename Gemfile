@@ -3,6 +3,10 @@ source 'https://rubygems.org'
 gem 'bootstrap-sass'
 gem 'sprockets'
 
+# 検索用ransack
+gem 'rails-i18n'
+gem 'ransack'
+
 # 追加（HerokuデプロイでWARNINGがでるから）
 ruby '2.2.0'
 

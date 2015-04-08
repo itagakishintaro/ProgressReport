@@ -4,7 +4,9 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    @reports = Report.all
+    # @reports = Report.all
+    @search = Report.search(params[:q])
+    @reports = @search.result.includes(:user) # https://github.com/activerecord-hackery/ransack
   end
 
   # GET /reports/1
@@ -28,7 +30,8 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       if @report.save
-        format.html { redirect_to @report, notice: 'Report was successfully created.' }
+        # format.html { redirect_to @report, notice: 'Report was successfully created.' }
+        format.html { redirect_to action: 'index', notice: 'Report was successfully created.' }
         format.json { render :show, status: :created, location: @report }
       else
         format.html { render :new }
@@ -43,8 +46,10 @@ class ReportsController < ApplicationController
     respond_to do |format|
       if @report.update(report_params)
         @report.touch
-        format.html { redirect_to @report, notice: 'Report was successfully updated.' }
+        # format.html { redirect_to @report, notice: 'Report was successfully updated.' }
+        format.html { redirect_to action: 'index', notice: 'Report was successfully updated.' }
         format.json { render :show, status: :ok, location: @report }
+        # redirect_to action: 'index'
       else
         format.html { render :edit }
         format.json { render json: @report.errors, status: :unprocessable_entity }

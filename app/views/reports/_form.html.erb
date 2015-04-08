@@ -24,12 +24,13 @@
       <div class="field form-group">
         <%= f.text_area :content, id: "content", class: "form-control", placeholder:"content", rows: 20 %>
       </div>
-      <div class="field form-group">
-        <%= f.label :user_id %><br>
-        <%= f.number_field :user_id, class: "form-control" %>
+      <div class="field form-group form-inline">
+        <%= f.label :user_id %>
+        <%= f.collection_select :user_id, User.all, :id, :name, {}, {class: "form-control"} %>
       </div>
+      <hr>
       <div class="actions">
-        <%= link_to 'Back', reports_path, class: "btn btn-default" %>
+        <%= link_to '戻る', reports_path, class: "btn btn-default" %>
         <%= submit_tag name, class: "btn btn-primary" %>
       </div>
     <% end %>

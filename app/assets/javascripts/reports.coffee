@@ -27,5 +27,3 @@ $( () ->
         })
     )
 )
-
-$('#progress').click( () -> alert('test') )

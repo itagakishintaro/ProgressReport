@@ -1,5 +1,11 @@
 class ReportsController < ApplicationController
-  before_action :set_report, only: [:show, :edit, :update, :destroy]
+  before_action :set_report, only: [:show, :edit, :update, :destroy, :progress]
+
+  def progress
+      Report.increment_counter(:progress, params[:id])
+      @report.reload
+      redirect_to action: 'show'
+  end
 
   # GET /reports
   # GET /reports.json

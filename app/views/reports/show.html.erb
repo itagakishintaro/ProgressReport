@@ -1,8 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<button id="progress" class="btn btn-info">成長したね！</button>
-
-<hr>
 <div>
   <span class="label label-default">タグ</span>
   <% @report.tag.split(",").each { |tag| %>
@@ -32,5 +29,7 @@
   <%= @report.updated_at.strftime("%Y/%m/%d %H:%M") %>
 </p>
 <hr>
-<%= link_to '戻る', reports_path, class: "btn btn-default" %>
-<%= link_to '更新', edit_report_path(@report), class: "btn btn-primary" %>
+<%= link_to '戻る', reports_path, class: "btn btn-default pull-left mr5" %>
+<%= link_to '更新', edit_report_path(@report), class: "btn btn-primary pull-left mr40" %>
+<%= link_to '成長したね！', progress_report_path(@report), method: :post, class: "btn btn-success pull-left" %>
+<div class="arrow_box pull-left"><%= @report.progress %></div>

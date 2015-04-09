@@ -13,3 +13,47 @@
 .btn-primary {
 	color: white;
 }
+.mr5 {
+	margin: 0 5px 0 0;
+}
+.mr40 {
+	margin: 0 40px 0 0;
+}
+
+// created by http://cssarrowplease.com/
+.arrow_box {
+	text-align: center;
+	width: 50px;
+	height: 34px;
+	line-height: 30px;
+	margin-left: 10px;
+	color: #5CB85C;
+	border-radius: 8px;
+
+	position: relative;
+	background: #fff;
+	border: 2px solid #5CB85C;
+}
+.arrow_box:after, .arrow_box:before {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-right-color: #fff;
+	border-width: 5px;
+	margin-top: -5px;
+}
+.arrow_box:before {
+	border-color: rgba(153, 153, 153, 0);
+	border-right-color: #5CB85C;
+	border-width: 8px;
+	margin-top: -8px;
+}

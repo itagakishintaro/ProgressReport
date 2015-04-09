@@ -28,6 +28,7 @@
         <th><%= sort_link(@search, :title, 'タイトル') %></th>
         <!-- <th><%= sort_link(@search, :user_name, '内容(1行目)') %></th> -->
         <th><%= sort_link(@search, :user_name, 'ユーザー') %></th>
+        <th><%= sort_link(@search, :progress, '成長ポイント') %></th>
         <!-- <th>Created at</th> -->
         <th><%= sort_link(@search, :updated_at, '更新日時') %></th>
         <th>操作</th>
@@ -41,6 +42,7 @@
           <td><%= report.title %></td>
           <!-- <td><%= report.content.split[0] %></td> -->
           <td><%= report.user.name %></td>
+          <td><%= report.progress %></td>
           <!-- <td><%= report.created_at.strftime("%Y/%m/%d %H:%M") %></td> -->
           <td><%= report.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
           <td>

@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
+  resources :progresses
+  
   namespace :api, { format: 'json' } do
     resources :tags
   end
 
-  resources :reports do
-    member do
-      post 'progress'
-    end
-  end
+  # resources :reports do
+  #   member do
+  #     post 'progress'
+  #   end
+  # end
   resources :reports
 
   resources :users

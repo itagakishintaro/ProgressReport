@@ -1,5 +1,6 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: [:show, :edit, :update, :destroy, :progress]
+	before_action :authenticate_user!, only: [:new, :edit, :index, :show, :destroy]
 
   # def progress
   #     Report.increment_counter(:progress, params[:id])

@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users
+  get 'home/index'
+
+  get 'home/show'
+
   resources :progresses
   
   namespace :api, { format: 'json' } do
@@ -13,6 +18,8 @@ Rails.application.routes.draw do
   resources :reports
 
   resources :users
+	
+	root to: "home#index"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

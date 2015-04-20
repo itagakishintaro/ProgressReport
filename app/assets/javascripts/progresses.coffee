@@ -10,6 +10,7 @@ sum = (arr) ->
 drawChart = ->
   $.getJSON '/api/progresses', (json) ->
 	  data = new (google.visualization.DataTable)
+	  console.log(json)
 
 	  users = json.map( (d) -> d.user ).filter( (d, i, self) -> self.indexOf(d) == i )
 	  dateList = json.map( (d) -> d.time.split('T')[0] ).filter( (d, i, self) -> self.indexOf(d) == i )

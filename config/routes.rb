@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
+  resources :progresses do
+    collection do
+      get 'report'
+    end
+  end
   resources :progresses
   
   namespace :api, { format: 'json' } do
     resources :tags
+    resources :progresses
   end
 
   # resources :reports do

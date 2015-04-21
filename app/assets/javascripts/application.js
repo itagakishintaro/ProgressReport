@@ -14,5 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require marked.min
+//= require d3.min
+//= require c3.min
 //= require_tree .
 //= require bootstrap3-typeahead.min

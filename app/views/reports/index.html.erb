@@ -16,8 +16,8 @@
   <%= f.text_field :tag_cont, :class => 'form-control' %>
   <%= f.label :title_cont, 'タイトル' %>
   <%= f.text_field :title_cont, :class => 'form-control' %>
-  <%= f.label :user_name_cont, 'ユーザー' %>
-  <%= f.text_field :user_name_cont, :class => 'form-control' %>
+  <%= f.label :user_id_eq, 'ユーザー' %>
+	<%= f.collection_select :user_id_eq, User.all, :id, :name, {include_blank: true}, class: 'form-control' %>
   <br><br>
   <%= f.label :updated_at, '更新日' %>
   <%= f.date_select :updated_at_gteq, {use_month_numbers: true}, :class => 'form-control' %>

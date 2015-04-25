@@ -52,9 +52,11 @@
           <!-- <td><%= report.created_at.strftime("%Y/%m/%d %H:%M") %></td> -->
           <td><%= report.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
           <td>
-            <%= link_to '参照', report, class: "btn btn-default" %>
-            <%= link_to '更新', edit_report_path(report), class: "btn btn-default" %>
-            <%= link_to '削除', report, method: :delete, data: { confirm: '削除しますか?' }, class: "btn btn-default" %>
+						<%= link_to '参照', report, class: "btn btn-default" %>
+						<% if report.user_id == current_user.id %> 
+							<%= link_to '更新', edit_report_path(report), class: "btn btn-default"  %>
+							<%= link_to '削除', report, method: :delete, data: { confirm: '削除しますか?' }, class: "btn btn-default" %>
+						<% end %>
           </td>
         </tr>
       <% end %>

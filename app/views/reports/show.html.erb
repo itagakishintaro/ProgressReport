@@ -30,6 +30,8 @@
 </p>
 <hr>
 <%= link_to '戻る', reports_path, class: "btn btn-default pull-left mr5" %>
-<%= link_to '更新', edit_report_path(@report), class: "btn btn-primary pull-left mr40" %>
+<% if @report.user_id == current_user.id %> 
+	<%= link_to '更新', edit_report_path(@report), class: "btn btn-primary pull-left mr40" %>
+<% end %>
 <%= link_to '成長したね！', progresses_path( progress: {point:1, report_id:@report.id, user_id:1} ), method: :post, class: "btn btn-success pull-left" %>
 <div class="arrow_box pull-left"><%= @report.progresses.map{|item| item.point}.sum %></div>

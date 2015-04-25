@@ -25,13 +25,14 @@
         <%= f.text_area :content, id: "content", class: "form-control", placeholder:"content", rows: 20 %>
       </div>
       <div class="field form-group form-inline">
-        <%= f.label :user_id %>
-        <%= f.collection_select :user_id, User.all, :id, :name, {}, {class: "form-control"} %>
+				<%= f.hidden_field :user_id, :value => current_user.id %>
       </div>
       <hr>
       <div class="actions">
         <%= link_to '戻る', reports_path, class: "btn btn-default" %>
-        <%= submit_tag name, class: "btn btn-primary" %>
+				<% unless name == '更新' && @report.user_id != current_user.id %> 
+					<%= submit_tag name, class: "btn btn-primary" %>
+				<% end %>
       </div>
     <% end %>
   </div>

@@ -14,20 +14,35 @@
   <%= @report.content %>
 </div>
 <br>
-<p>
-  <strong>ユーザー:</strong>
-  <%= @report.user.name %>
-</p>
 
-<p>
-  <strong>作成日時:</strong>
-  <%= @report.created_at.strftime("%Y/%m/%d %H:%M") %>
-</p>
+<div class="row">
+  <div class="col-md-4">
+    ユーザー:
+    <%= @report.user.name %>
+  </div>
 
-<p>
-  <strong>更新日時:</strong>
-  <%= @report.updated_at.strftime("%Y/%m/%d %H:%M") %>
-</p>
+  <div class="col-md-4">
+    作成日時:
+    <%= @report.created_at.strftime("%Y/%m/%d %H:%M") %>
+  </div>
+
+  <div class="col-md-4">
+    更新日時:
+    <%= @report.updated_at.strftime("%Y/%m/%d %H:%M") %>
+  </div>
+</div>
+<hr>
+<span class="label label-info">コメント</span>
+<div id="comments">
+  <% @report.comments.each { |c| %>
+  <div class="comment">
+    <span class="time"><%= c.updated_at.strftime("%Y/%m/%d %H:%M") %></span>
+    <br>
+    <span class="name"><%= c.user.name %></span>
+    <span><%= c.comment %></span>
+  </div>
+  <% } %>
+</div>
 <hr>
 <%= link_to '戻る', reports_path, class: "btn btn-default pull-left mr5" %>
 <% if @report.user_id == current_user.id %> 

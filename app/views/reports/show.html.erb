@@ -39,7 +39,7 @@
     <div class="comment">
       <span class="time"><%= c.updated_at.strftime("%Y/%m/%d %H:%M") %></span>
       <span class="name"><%= c.user.name %></span>
-      <span><%= simple_format(h(c.comment)) %></span>
+      <span><%= auto_link(simple_format(h(c.comment))) %></span>
     </div>
     <% } %>
   </div>

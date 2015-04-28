@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+gem 'rails_autolink'
+
 # 追加
 gem 'bootstrap-sass'
 gem 'sprockets'

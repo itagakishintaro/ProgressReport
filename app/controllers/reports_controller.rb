@@ -9,9 +9,29 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    # @reports = Report.all
-    @search = Report.search(params[:q])
-    @reports = @search.result.includes(:user, :attachments) # https://github.com/activerecord-hackery/ransack
+    # 検索条件の指定がないときは、デフォルトで7日前からの検索にする
+    # index.html.erbの初期値との整合性に注意
+    if params[:q].nil?
+      params[:q] = {
+        'updated_at_gteq(1i)' => 7.day.ago.year, 'updated_at_gteq(2i)' => 7.day.ago.month, 'updated_at_gteq(3i)' => 7.day.ago.day,
+        'updated_at_lteq_end_of_day(1i)' => 0.day.ago.year, 'updated_at_lteq_end_of_day(2i)' => 0.day.ago.month, 'updated_at_lteq_end_of_day(3i)' => 0.day.ago.day
+      }
+    end
+
+    @base = Report.includes(:user, :attachments, :progresses)
+                  .joins('left outer join progresses on reports.id = progresses.report_id')
+                  .select('reports.*, sum("progresses"."point") AS progress_points')
+                  .group('reports.id')
+    # ransakで検索
+    # https://github.com/activerecord-hackery/ransack
+    @q = @base.ransack(params[:q])
+    # left joinしたprogress_pointsはransakでは直接扱えないため、個別対応
+    if params[:q][:s].nil? || !params[:q][:s].include?('progress_points')
+      # 基本は成長ポイント降順ソート
+      @reports = @q.result.order('progress_points desc')
+    else
+      @reports = @q.result.order(params[:q][:s])
+    end
   end
 
   # GET /reports/1

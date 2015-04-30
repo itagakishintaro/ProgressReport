@@ -27,8 +27,10 @@
 </div>
 <br>
 <div>
-  <span><%= @report.attachments.first.name %></span>
-  <%= link_to 'ダウンロード', donwload_path, class: 'btn btn-default btn-sm' %>
+  <% if @report.attachments.presence %>
+    <span><%= @report.attachments.first.name %></span>
+    <%= link_to 'ダウンロード', donwload_path, class: 'btn btn-default btn-sm' %>
+  <% end %>
 </div>
 
 <hr>

@@ -104,8 +104,8 @@ class ReportsController < ApplicationController
 
     def update_or_create_attachment
       if @attachment != nil
-        return @attachment.update(attachment_params)
-      else
+        @attachment.update(attachment_params)
+      elsif params[:report][:attachment] != nil
         @attachment = Attachment.new(attachment_params)
         return @attachment.save
       end

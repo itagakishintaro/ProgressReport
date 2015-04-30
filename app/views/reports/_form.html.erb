@@ -25,6 +25,9 @@
         <%= f.text_area :content, id: "content", class: "form-control", placeholder:"content", rows: 20 %>
       </div>
       <div class="field form-group">
+        <% @report.attachments.each { |a| %>
+          <%= a.name %><br>
+        <% } %>
         <%= f.file_field :attachment, id: "attachment" %>
       </div>
       <div class="field form-group form-inline">

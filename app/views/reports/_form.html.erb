@@ -24,6 +24,9 @@
       <div class="field form-group">
         <%= f.text_area :content, id: "content", class: "form-control", placeholder:"content", rows: 20 %>
       </div>
+      <div class="field form-group">
+        <%= f.file_field :attachment, id: "attachment" %>
+      </div>
       <div class="field form-group form-inline">
 				<%= f.hidden_field :user_id, :value => current_user.id %>
       </div>

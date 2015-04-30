@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'reports/download/:id'=> 'reports#download', as: :donwload
+
   resources :comments
 
   resources :progresses do

@@ -5,6 +5,18 @@
   <% @report.tag.split(",").each { |tag| %>
   <%= tag %>
   <% } %>
+  <span>
+    <span class="label label-default">ユーザー</span>
+    <%= @report.user.name %>
+  </span>
+  <span>
+    <span class="label label-default">作成日時</span>
+    <%= @report.created_at.strftime("%Y/%m/%d %H:%M") %>
+  </span>
+  <span>
+    <span class="label label-default">更新日時</span>
+    <%= @report.updated_at.strftime("%Y/%m/%d %H:%M") %>
+  </span>
 </div>
 <div id="title-view">
   <%= @report.title %>
@@ -14,24 +26,13 @@
   <%= @report.content %>
 </div>
 <br>
-
-<div class="row">
-  <div class="col-md-4">
-    ユーザー:
-    <%= @report.user.name %>
-  </div>
-
-  <div class="col-md-4">
-    作成日時:
-    <%= @report.created_at.strftime("%Y/%m/%d %H:%M") %>
-  </div>
-
-  <div class="col-md-4">
-    更新日時:
-    <%= @report.updated_at.strftime("%Y/%m/%d %H:%M") %>
-  </div>
+<div>
+  <span><%= @report.attachments.first.name %></span>
+  <%= link_to 'ダウンロード', donwload_path, class: 'btn btn-default btn-sm' %>
 </div>
+
 <hr>
+
 <span class="label label-info">コメント</span>
 <div class="row">
   <div class="col-md-6">
@@ -49,7 +50,7 @@
         <%= text_area :comment, :comment, class: "form-control", placeholder: "コメントする..." %>
         <%= hidden_field :comment, :report_id, value: @report.id %>
         <%= hidden_field :comment, :user_id, value: current_user.id %>
-        <%= submit_tag "送信", class: "btn btn-sm btn-info" %>
+        <%= submit_tag "送信", class: "btn btn-sm btn-info mt5" %>
       </div>
     <% end %>
   </div>

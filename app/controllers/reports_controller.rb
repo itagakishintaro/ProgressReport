@@ -18,16 +18,13 @@ class ReportsController < ApplicationController
       }
     end
 
-    @base = Report.joins('left outer join progresses on reports.id = progresses.report_id')
-                  .select('reports.*, sum("progresses"."point") AS progress_points')
-                  .group('reports.id')
+    @base = Report.with_progress_points
     # ransakで検索
     # https://github.com/activerecord-hackery/ransack
     @q = @base.ransack(params[:q])
     # left joinしたprogress_pointsはransakでは直接扱えないため、個別対応
     if params[:q][:s].nil? || !params[:q][:s].include?('progress_points')
-      # 基本は、1:成長ポイント降順, 2:更新日付降順 でソート
-      @reports = @q.result.order('progress_points desc').order('updated_at desc')
+      @reports = @q.result.index_default_order
     else
       @reports = @q.result.order(params[:q][:s])
     end

@@ -20,10 +20,10 @@
 	<%= f.collection_select :user_id_eq, User.all, :id, :name, {include_blank: true}, class: 'form-control' %>
   <br><br>
   <%= f.label :updated_at, '更新日' %>
-  <%= f.date_select :updated_at_gteq, {use_month_numbers: true, default: 7.days.ago}, :class => 'form-control' %>
+  <%= f.date_field :updated_at_gteq, :class => 'form-control', :value => 7.day.ago.strftime('%Y-%m-%d') %>
   〜
   <% # http://qiita.com/LuckOfWise/items/e020e896e71d47d0c6a4 %>
-  <%= f.date_select :updated_at_lteq_end_of_day, {use_month_numbers: true}, class: 'form-control' %>
+  <%= f.date_field :updated_at_lteq_end_of_day, class: 'form-control', :value => 0.day.ago.strftime('%Y-%m-%d') %>
   <%= f.submit '検索', :class => 'btn btn-info pull-right' %>
 <% end %>
 <br>

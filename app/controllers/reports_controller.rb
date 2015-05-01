@@ -9,12 +9,13 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
+    logger.debug(params[:q])
     # 検索条件の指定がないときは、デフォルトで7日前からの検索にする
     # index.html.erbの初期値との整合性に注意
     if params[:q].nil?
       params[:q] = {
-        'updated_at_gteq(1i)' => 7.day.ago.year, 'updated_at_gteq(2i)' => 7.day.ago.month, 'updated_at_gteq(3i)' => 7.day.ago.day,
-        'updated_at_lteq_end_of_day(1i)' => 0.day.ago.year, 'updated_at_lteq_end_of_day(2i)' => 0.day.ago.month, 'updated_at_lteq_end_of_day(3i)' => 0.day.ago.day
+        'updated_at_gteq' => 7.day.ago.strftime('%Y-%m-%d'),
+        'updated_at_lteq_end_of_day' => 0.day.ago.strftime('%Y-%m-%d')
       }
     end
 

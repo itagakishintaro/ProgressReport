@@ -18,8 +18,7 @@ class ReportsController < ApplicationController
       }
     end
 
-    @base = Report.includes(:user, :attachments, :progresses)
-                  .joins('left outer join progresses on reports.id = progresses.report_id')
+    @base = Report.joins('left outer join progresses on reports.id = progresses.report_id')
                   .select('reports.*, sum("progresses"."point") AS progress_points')
                   .group('reports.id')
     # ransakで検索

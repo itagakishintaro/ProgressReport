@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-gem 'rails_autolink'
 
-# 追加
+# ---------- featureに応じて追加したgem ----------
+
 gem 'bootstrap-sass'
 gem 'sprockets'
 
@@ -9,21 +9,20 @@ gem 'sprockets'
 gem 'rails-i18n'
 gem 'ransack'
 
+# ログイン認証追加
+gem 'devise'
+
+# URLを自動でリンクにする
+gem 'rails_autolink'
+
+# ---------- 基本的なgem ----------
+
 # 追加（HerokuデプロイでWARNINGがでるから）
 ruby '2.2.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
-# Use sqlite3 as the database for Active Record
-# gem 'sqlite3'
-group :development do
-  gem 'sqlite3'
-end
-# 追加
-group :production do
-  gem 'pg'
-  gem 'rails_12factor'
-end
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -42,9 +41,6 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-# ログイン認証追加
-gem 'devise'
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -53,6 +49,19 @@ gem 'devise'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+# ---------- 場合分けするgem ----------
+
+# Use sqlite3 as the database for Active Record
+# gem 'sqlite3'
+group :development do
+  gem 'sqlite3'
+end
+# 追加
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

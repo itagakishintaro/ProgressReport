@@ -9,13 +9,12 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    logger.debug(params[:q])
     # 検索条件の指定がないときは、デフォルトで7日前からの検索にする
     # index.html.erbの初期値との整合性に注意
     if params[:q].nil?
       params[:q] = {
-        'updated_at_gteq' => 7.day.ago.strftime('%Y-%m-%d'),
-        'updated_at_lteq_end_of_day' => 0.day.ago.strftime('%Y-%m-%d')
+        updated_at_gteq: 7.day.ago.strftime('%Y-%m-%d'),
+        updated_at_lteq_end_of_day: 0.day.ago.strftime('%Y-%m-%d')
       }
     end
 
@@ -61,7 +60,7 @@ class ReportsController < ApplicationController
         end
         format.html { redirect_to action: 'index', notice: 'Report was successfully created.' }
         format.json { render :show, status: :created, location: @report }
-      rescue => e
+      rescue
         format.html { render :new }
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
@@ -80,7 +79,7 @@ class ReportsController < ApplicationController
         end
         format.html { redirect_to action: 'index', notice: 'Report was successfully updated.' }
         format.json { render :show, status: :ok, location: @report }
-      rescue => e
+      rescue
         format.html { render :edit }
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
@@ -122,7 +121,7 @@ class ReportsController < ApplicationController
         attachment[:name] = file.original_filename
       end
       attachment[:report_id] = params[:id]
-      return attachment
+      attachment
     end
 
     def update_or_create_attachment!(data)

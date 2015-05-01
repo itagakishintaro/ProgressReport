@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
+  # ---------- 認証関連 ----------
+  root to: "reports#index"
+  devise_for :users
+  resources :users
+
+  # ---------- reports関連 ----------
+  resources :reports
   get 'reports/download/:id'=> 'reports#download', as: :donwload
-
   resources :comments
-
   resources :progresses do
     collection do
       get 'report'
@@ -10,19 +15,11 @@ Rails.application.routes.draw do
   end
   resources :progresses
 
-  devise_for :users
-  get 'home/index'
-  get 'home/show'
-
+  # ---------- api関連 ----------
   namespace :api, { format: 'json' } do
     resources :tags
     resources :progresses
   end
-
-  resources :reports
-  resources :users
-	
-	root to: "reports#index"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

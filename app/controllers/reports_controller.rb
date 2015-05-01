@@ -52,15 +52,16 @@ class ReportsController < ApplicationController
   # POST /reports
   # POST /reports.json
   def create
-    report = Report.create(report_params)
-    attachment = report.attachments.create(attachment_params)
-
     respond_to do |format|
-      if report != nil && attachment != nil
-        # format.html { redirect_to @report, notice: 'Report was successfully created.' }
+      begin
+        Report.transaction do
+          @report = Report.new(report_params)
+          report = @report.save!
+          update_or_create_attachment!(attachment_params)
+        end
         format.html { redirect_to action: 'index', notice: 'Report was successfully created.' }
         format.json { render :show, status: :created, location: @report }
-      else
+      rescue => e
         format.html { render :new }
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
@@ -71,14 +72,15 @@ class ReportsController < ApplicationController
   # PATCH/PUT /reports/1.json
   def update
     respond_to do |format|
-      if @report.update(report_params) && update_or_create_attachment
-        @report.touch
-        @attachment.touch
-        # format.html { redirect_to @report, notice: 'Report was successfully updated.' }
+      begin
+        Report.transaction do
+          @report.update!(report_params)
+          @report.touch
+          update_or_create_attachment!(attachment_params)
+        end
         format.html { redirect_to action: 'index', notice: 'Report was successfully updated.' }
         format.json { render :show, status: :ok, location: @report }
-        # redirect_to action: 'index'
-      else
+      rescue => e
         format.html { render :edit }
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
@@ -115,7 +117,7 @@ class ReportsController < ApplicationController
       params.require(:report).permit(:id, :attachment)
       file = params[:report][:attachment]
       attachment = {}
-      if file != nil
+      unless file.nil?
         attachment[:file] = file.read
         attachment[:name] = file.original_filename
       end
@@ -123,12 +125,15 @@ class ReportsController < ApplicationController
       return attachment
     end
 
-    def update_or_create_attachment
-      if @attachment != nil
-        @attachment.update(attachment_params)
-      elsif params[:report][:attachment] != nil
-        @attachment = Attachment.new(attachment_params)
-        return @attachment.save
+    def update_or_create_attachment!(data)
+      # 検索した@attachmentが空でなければupdate
+      unless @attachment.nil?
+        @attachment.update!(data)
+        @attachment.touch
+      end
+      # 検索した@attachementが空で、リクエストのattachmentが空でなければcreate
+      unless params[:report][:attachment].nil?
+        @attachment = Attachment.create!(data)
       end
     end
 end

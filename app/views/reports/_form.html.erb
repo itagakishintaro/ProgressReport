@@ -27,7 +27,7 @@
       <div>
         <% @report.attachments.each { |a| %>
           <%= a.name %>
-          <%= link_to '削除', a, method: :delete, data: { confirm: '削除してよいですか?' }, class: "btn btn-warning btn-sm" %>
+          <%= link_to '削除', a, method: :delete, data: { confirm: '削除しますか?' }, class: "btn btn-warning btn-sm" %>
         <% } %>
       </div>
       <br>

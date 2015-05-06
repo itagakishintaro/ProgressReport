@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     end
   end
   resources :progresses
+  resources :attachments
 
   # ---------- api関連 ----------
   namespace :api, { format: 'json' } do

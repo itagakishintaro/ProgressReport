@@ -24,10 +24,14 @@
       <div class="field form-group">
         <%= f.text_area :content, id: "content", class: "form-control", placeholder:"content", rows: 20 %>
       </div>
-      <div class="field form-group">
+      <div>
         <% @report.attachments.each { |a| %>
-          <%= a.name %><br>
+          <%= a.name %>
+          <%= link_to '削除', a, method: :delete, data: { confirm: '削除してよいですか?' }, class: "btn btn-warning btn-sm" %>
         <% } %>
+      </div>
+      <br>
+      <div class="field form-group">
         <%= f.file_field :attachment, id: "attachment" %>
       </div>
       <div class="field form-group form-inline">

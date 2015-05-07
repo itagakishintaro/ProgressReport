@@ -1,6 +1,7 @@
 class ReportsController < ApplicationController
   before_action :set_report, :set_attachment, only: [:show, :edit, :update, :destroy, :progress, :download]
 	before_action :authenticate_user!, only: [:new, :edit, :index, :show, :destroy]
+  before_action :set_user_with_progress_points, only: :index
 
   def download
     send_data @attachment.file, filename: @attachment.name
@@ -101,6 +102,10 @@ class ReportsController < ApplicationController
     def set_attachment
       # TODO: 複数ファイル対応
       @attachment = Attachment.find_by(report_id: params[:id])
+    end
+
+    def set_user_with_progress_points
+      @user_with_progress_points = User.progress_points
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

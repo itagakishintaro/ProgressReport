@@ -2,6 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.lg-font {
+	font-size: 16px;
+}
+.md-font {
+	font-size: 14px;
+}
+.ranking {
+	background-color: rgba(213,255,233,.25);
+	height: 60px;
+	line-height: 40px;
+	padding: 10px;
+}
+
 #content-view {
 	padding: 1em;
 	background-color: rgba(250,250,250,1);
@@ -18,6 +31,9 @@
 }
 .mr5 {
 	margin-right: 5px;
+}
+.mr20 {
+	margin-right: 20px
 }
 .mr40 {
 	margin-right: 40px;
@@ -36,6 +52,7 @@
 	position: relative;
 	background: #fff;
 	border: 2px solid #5CB85C;
+	padding: 0 10px;
 }
 .arrow_box:after, .arrow_box:before {
 	right: 100%;

@@ -1,6 +1,5 @@
 class ReportsController < ApplicationController
   before_action :set_report, :set_attachment, only: [:show, :edit, :update, :destroy, :progress, :download]
-	before_action :authenticate_user!, only: [:new, :edit, :index, :show, :destroy]
   before_action :set_user_with_progress_points, only: :index
 
   def download

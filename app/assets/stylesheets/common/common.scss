@@ -1,0 +1,88 @@
+// font
+.font-lg {
+	font-size: 16px;
+}
+.font-md {
+	font-size: 14px;
+}
+
+// background
+.background-color-lightgreen {
+	background-color: $lightgreen;
+}
+.background-color-white {
+	background-color: white;
+}
+.background-color-green {
+	background-color: $green;
+}
+.background-color-grade1 {
+	background-color: gold;
+}
+.background-color-grade2 {
+	background-color: silver;
+}
+.background-color-grade3 {
+	background-color: $bronze;
+}
+
+// margin
+.margin-top-sm {
+	margin-top: 5px;
+}
+.margin-bottom-sm {
+	margin-bottom: 5px;
+}
+.margin-right-sm {
+	margin-right: 5px;
+}
+.margin-right-md {
+	margin-right: 20px
+}
+.margin-right-lg {
+	margin-right: 40px;
+}
+
+// others
+.border-0 {
+	border: 0;
+}
+
+// created by http://cssarrowplease.com/
+.arrow_box {
+	text-align: center;
+	width: 50px;
+	height: 34px;
+	line-height: 30px;
+	margin-left: 10px;
+	color: $green;
+	border-radius: 8px;
+
+	position: relative;
+	background: #fff;
+	border: 2px solid $green;
+	padding: 0 10px;
+}
+.arrow_box:after, .arrow_box:before {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-right-color: #fff;
+	border-width: 5px;
+	margin-top: -5px;
+}
+.arrow_box:before {
+	border-color: rgba(153, 153, 153, 0);
+	border-right-color: $green;
+	border-width: 8px;
+	margin-top: -8px;
+}

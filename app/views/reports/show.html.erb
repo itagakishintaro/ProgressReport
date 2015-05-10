@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<div>
+<div class="margin-bottom-sm">
   <span class="label label-default">タグ</span>
   <% @report.tag.split(",").each { |tag| %>
   <%= tag %>
@@ -37,7 +37,7 @@
 
 <span class="label label-info">コメント</span>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6 comments">
     <% @report.comments.each { |c| %>
     <div class="comment">
       <span class="time"><%= c.updated_at.strftime("%Y/%m/%d %H:%M") %></span>
@@ -52,15 +52,12 @@
         <%= text_area :comment, :comment, class: "form-control", placeholder: "コメントする..." %>
         <%= hidden_field :comment, :report_id, value: @report.id %>
         <%= hidden_field :comment, :user_id, value: current_user.id %>
-        <%= submit_tag "送信", class: "btn btn-sm btn-info mt5" %>
+        <%= submit_tag "送信", class: "btn btn-sm btn-info margin-top-sm" %>
       </div>
     <% end %>
   </div>
 </div>
 <hr>
-<%= link_to '戻る', reports_path, class: "btn btn-default pull-left mr5" %>
-<% if @report.user_id == current_user.id %> 
-	<%= link_to '更新', edit_report_path(@report), class: "btn btn-primary pull-left mr40" %>
-<% end %>
+<%= link_to '戻る', reports_path, class: "btn btn-default pull-left margin-right-lg" %>
 <%= link_to '成長したね！', progresses_path( progress: {point:1, report_id:@report.id, user_id:current_user.id} ), method: :post, class: "btn btn-success pull-left" %>
 <div class="arrow_box pull-left"><%= @report.progresses.map{|item| item.point}.sum %></div>

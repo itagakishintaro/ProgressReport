@@ -2,10 +2,9 @@
   <a href="http://ja.wikipedia.org/wiki/Markdown">Markdown記法</a>で入力してください。タグを複数設定する場合は半角スペースで区切ってください。
 </div>
 
-<div class="row">
-
-  <div class="col-md-6">
-    <%= form_for(@report) do |f| %>
+<%= form_for(@report) do |f| %>
+  <div class="row">
+    <div class="col-md-6">
       <% if @report.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
@@ -41,19 +40,18 @@
       <div class="field form-group form-inline">
 				<%= f.hidden_field :user_id, :value => current_user.id %>
       </div>
-      <hr>
-      <div class="actions">
-        <%= link_to '戻る', reports_path, class: "btn btn-default" %>
-				<% unless name == '更新' && @report.user_id != current_user.id %> 
-					<%= submit_tag name, class: "btn btn-primary" %>
-				<% end %>
-      </div>
-    <% end %>
-  </div>
+    </div>
 
-  <div class="col-md-6">
-    <div id="title-view"></div>
-    <div id="content-view"></div>
+    <div class="col-md-6">
+      <div id="title-view"></div>
+      <div id="content-view" class="content-view-edit"></div>
+    </div>
   </div>
-
-</div>
+  <hr>
+  <div class="actions">
+    <%= link_to '戻る', reports_path, class: "btn btn-default" %>
+		<% unless name == '更新' && @report.user_id != current_user.id %> 
+			<%= submit_tag name, class: "btn btn-primary" %>
+		<% end %>
+  </div>
+<% end %>

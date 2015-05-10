@@ -2,79 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.lg-font {
-	font-size: 16px;
-}
-.md-font {
-	font-size: 14px;
-}
-.well-green {
-	background-color: rgba(213,255,233,.25);
-	border: 0;
-}
-.badge-green {
-	background-color: #5CB85C;
-}
-
 #content-view {
-	padding: 1em;
-	background-color: rgba(250,250,250,1);
+	table {
+		@extend .table;
+		@extend .table-striped;
+		@extend .table-bordered;
+	}
+}
+.content-view-edit {
+	height: 55rem;
+	overflow: scroll;
 }
 #title-view {
-	font-size: 2em;
-	line-height: 2em;
-}
-.btn-primary {
-	color: white;
-}
-.mt5 {
-	margin-top: 5px;
-}
-.mr5 {
-	margin-right: 5px;
-}
-.mr20 {
-	margin-right: 20px
-}
-.mr40 {
-	margin-right: 40px;
-}
-
-// created by http://cssarrowplease.com/
-.arrow_box {
-	text-align: center;
-	width: 50px;
-	height: 34px;
-	line-height: 30px;
-	margin-left: 10px;
-	color: #5CB85C;
-	border-radius: 8px;
-
-	position: relative;
-	background: #fff;
-	border: 2px solid #5CB85C;
-	padding: 0 10px;
-}
-.arrow_box:after, .arrow_box:before {
-	right: 100%;
-	top: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-}
-
-.arrow_box:after {
-	border-color: rgba(255, 255, 255, 0);
-	border-right-color: #fff;
-	border-width: 5px;
-	margin-top: -5px;
-}
-.arrow_box:before {
-	border-color: rgba(153, 153, 153, 0);
-	border-right-color: #5CB85C;
-	border-width: 8px;
-	margin-top: -8px;
+	font-size: 3rem;
 }

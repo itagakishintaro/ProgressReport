@@ -37,7 +37,6 @@ $.getJSON '/api/users/with_progresses', (json) ->
 		)
 		rows.push(row)
 	)
-	console.log rows
 	draw rows
 	return
 return

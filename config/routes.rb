@@ -8,18 +8,17 @@ Rails.application.routes.draw do
   resources :reports
   get 'reports/download/:id'=> 'reports#download', as: :donwload
   resources :comments
-  resources :progresses do
-    collection do
-      get 'report'
-    end
-  end
   resources :progresses
   resources :attachments
 
   # ---------- api関連 ----------
   namespace :api, { format: 'json' } do
     resources :tags
-    resources :progresses
+    resources :users do
+      collection do
+        get 'with_progresses'
+      end
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

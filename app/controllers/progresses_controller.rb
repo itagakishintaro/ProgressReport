@@ -1,4 +1,7 @@
 class ProgressesController < ApplicationController
+  def index
+  end
+
   # POST /progresses
   # POST /progresses.json
   def create

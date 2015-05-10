@@ -7,7 +7,7 @@
    <span class="lg-font"  ><%= pp.user_name %></span>
    <span class="badge mr20"><%= pp.progress_points %></span>
   <% end %>
-  <%= link_to 'みんなの成長', report_progresses_path, class: "btn btn-success btn-sm pull-right" %>
+  <%= link_to 'みんなの成長', progresses_path, class: "btn btn-success btn-sm pull-right" %>
 </div>
 
 <%= search_form_for @q, :html => {:class => "form-inline"} do |f| %>

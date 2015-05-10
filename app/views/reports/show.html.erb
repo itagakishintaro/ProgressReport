@@ -28,8 +28,10 @@
 <br>
 <div>
   <% if @report.attachments.presence %>
-    <span><%= @report.attachments.first.name %></span>
-    <%= link_to 'ダウンロード', donwload_path, class: 'btn btn-default btn-sm' %>
+    <% @report.attachments.each do |a| %>
+      <span><%= a.name %></span>
+      <%= link_to 'ダウンロード', { action: :download, id: a[:id] }, class: 'btn btn-default btn-sm' %><br>
+    <% end %>
   <% end %>
 </div>
 
@@ -38,13 +40,13 @@
 <span class="label label-info">コメント</span>
 <div class="row">
   <div class="col-md-6 comments">
-    <% @report.comments.each { |c| %>
+    <% @report.comments.each do |c| %>
     <div class="comment">
       <span class="time"><%= c.updated_at.strftime("%Y/%m/%d %H:%M") %></span>
       <span class="name"><%= c.user.name %></span>
       <span><%= auto_link(simple_format(h(c.comment))) %></span>
     </div>
-    <% } %>
+    <% end %>
   </div>
   <div class="col-md-6">
     <%= form_tag('/comments', :method => :post) do %>

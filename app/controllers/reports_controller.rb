@@ -1,6 +1,7 @@
 class ReportsController < ApplicationController
-  before_action :set_report, :set_attachment, only: [:show, :edit, :update, :destroy, :progress, :download]
+  before_action :set_report, only: [:show, :edit, :update, :destroy, :progress]
   before_action :set_user_with_progress_points, only: :index
+  before_action :set_attachment, only: :download
 
   def download
     send_data @attachment.file, filename: @attachment.name
@@ -52,7 +53,7 @@ class ReportsController < ApplicationController
         Report.transaction do
           @report = Report.new(report_params)
           report = @report.save!
-          update_or_create_attachment!(attachment_params)
+          create_attachments!(attachment_params)
         end
         format.html { redirect_to action: 'index', notice: 'Report was successfully created.' }
         format.json { render :show, status: :created, location: @report }
@@ -71,11 +72,11 @@ class ReportsController < ApplicationController
         Report.transaction do
           @report.update!(report_params)
           @report.touch
-          update_or_create_attachment!(attachment_params)
+          create_attachments!(attachment_params)
         end
         format.html { redirect_to action: 'index', notice: 'Report was successfully updated.' }
         format.json { render :show, status: :ok, location: @report }
-      rescue
+      rescue => e
         format.html { render :edit }
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
@@ -98,13 +99,12 @@ class ReportsController < ApplicationController
       @report = Report.find(params[:id])
     end
 
-    def set_attachment
-      # TODO: 複数ファイル対応
-      @attachment = Attachment.find_by(report_id: params[:id])
-    end
-
     def set_user_with_progress_points
       @user_with_progress_points = User.progress_points
+    end
+
+    def set_attachment
+      @attachment = Attachment.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -113,26 +113,23 @@ class ReportsController < ApplicationController
     end
 
     def attachment_params
-      params.require(:report).permit(:id, :attachment)
-      file = params[:report][:attachment]
-      attachment = {}
-      unless file.nil?
-        attachment[:file] = file.read
-        attachment[:name] = file.original_filename
+      params.require(:report).permit(:id, :attachments)
+      
+      attachments = []
+      unless params[:report][:attachments].nil?
+        params[:report][:attachments].each do |a|
+          attachments.push( { file: a.read, name: a.original_filename, report_id: params[:id] } )
+        end
       end
-      attachment[:report_id] = params[:id]
-      attachment
+      attachments
     end
 
-    def update_or_create_attachment!(data)
-      # 検索した@attachmentが空でなければupdate
-      unless @attachment.nil?
-        @attachment.update!(data)
-        @attachment.touch
-      end
-      # 検索した@attachementが空で、リクエストのattachmentが空でなければcreate
-      unless params[:report][:attachment].nil?
-        @attachment = Attachment.create!(data)
+    def create_attachments!(data)
+      # リクエストのattachmentsが空でなければcreate
+      unless params[:report][:attachments].nil?
+        data.each do |a|
+          Attachment.create!(a)
+        end
       end
     end
 end

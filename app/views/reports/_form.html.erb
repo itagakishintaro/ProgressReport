@@ -27,15 +27,16 @@
         <%= f.text_area :content, id: "content", class: "form-control", placeholder:"内容", rows: 20 %>
       </div>
       <div>
-        <% @report.attachments.each { |a| %>
+        <% @report.attachments.each do |a| %>
           <%= a.name %>
           <%= link_to '削除', a, method: :delete, data: { confirm: '削除しますか?' }, class: "btn btn-warning btn-sm" %>
-        <% } %>
+          <br>
+        <% end %>
       </div>
       <br>
       <div class="field form-group">
-        <%= f.label :attachment, '添付ファイル' %>
-        <%= f.file_field :attachment, id: "attachment" %>
+        <%= f.label :attachments, '添付ファイル' %> <span>(複数ファイル選択できます)</span>
+        <%= f.file_field :attachments, id: "attachments", multiple: true %>
       </div>
       <div class="field form-group form-inline">
 				<%= f.hidden_field :user_id, :value => current_user.id %>

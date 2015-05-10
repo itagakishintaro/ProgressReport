@@ -10,8 +10,6 @@
   <%= link_to 'みんなの成長', report_progresses_path, class: "btn btn-success btn-sm pull-right" %>
 </div>
 
-<br>
-
 <%= search_form_for @q, :html => {:class => "form-inline"} do |f| %>
   <%= f.label :tag_cont, 'タグ' %>
   <%= f.text_field :tag_cont, :class => 'form-control' %>

@@ -1,3 +1,7 @@
+<div class="well well-sm">
+  <a href="http://ja.wikipedia.org/wiki/Markdown">Markdown記法</a>で入力してください。タグを複数設定する場合は半角スペースで区切ってください。
+</div>
+
 <div class="row">
 
   <div class="col-md-6">
@@ -14,15 +18,14 @@
         </div>
       <% end %>
 
-      <div class="field form-group form-inline">
-        <%= f.label :tag %>
-        <%= f.text_field :tag, class: "form-control typeahead", autocomplete: "off" %>
+      <div class="field form-group">
+        <%= f.text_field :tag, class: "form-control typeahead", placeholder:"タグ", autocomplete: "off" %>
       </div>
       <div class="field form-group">
-        <%= f.text_field :title, id: "title", class: "form-control", placeholder:"title" %>
+        <%= f.text_field :title, id: "title", class: "form-control", placeholder:"タイトル" %>
       </div>
       <div class="field form-group">
-        <%= f.text_area :content, id: "content", class: "form-control", placeholder:"content", rows: 20 %>
+        <%= f.text_area :content, id: "content", class: "form-control", placeholder:"内容", rows: 20 %>
       </div>
       <div>
         <% @report.attachments.each { |a| %>
@@ -32,6 +35,7 @@
       </div>
       <br>
       <div class="field form-group">
+        <%= f.label :attachment, '添付ファイル' %>
         <%= f.file_field :attachment, id: "attachment" %>
       </div>
       <div class="field form-group form-inline">
@@ -49,7 +53,6 @@
 
   <div class="col-md-6">
     <div id="title-view"></div>
-
     <div id="content-view"></div>
   </div>
 

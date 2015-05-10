@@ -8,11 +8,12 @@
 .md-font {
 	font-size: 14px;
 }
-.ranking {
+.well-green {
 	background-color: rgba(213,255,233,.25);
-	height: 60px;
-	line-height: 40px;
-	padding: 10px;
+	border: 0;
+}
+.badge-green {
+	background-color: #5CB85C;
 }
 
 #content-view {

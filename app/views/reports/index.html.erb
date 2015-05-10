@@ -1,16 +1,16 @@
 <p id="notice"><%= notice %></p>
 
-<div class="ranking">
-  <div class="label label-success pull-left md-font mr20">今月の人</div>
+<div class="well well-green">
+  <span class="md-font mr20">今月の人</span>
   <% @user_with_progress_points.first(3).each_with_index do |pp, i| %>
-   <div class="pull-left lg-font"><%= i + 1 %>位: <%= pp.user_name %></div> <div class="arrow_box pull-left mr20"><%= pp.progress_points %></div>
+   <span class="label label-success md-font mr5"><%= i + 1 %>位</span>
+   <span class="lg-font"  ><%= pp.user_name %></span>
+   <span class="badge mr20"><%= pp.progress_points %></span>
   <% end %>
-  <%= link_to 'みんなの成長', report_progresses_path, class: "btn btn-success pull-right" %>
+  <%= link_to 'みんなの成長', report_progresses_path, class: "btn btn-success btn-sm pull-right" %>
 </div>
 
-<h1>レポート一覧</h1>
-
-<hr>
+<br>
 
 <%= search_form_for @q, :html => {:class => "form-inline"} do |f| %>
   <%= f.label :tag_cont, 'タグ' %>

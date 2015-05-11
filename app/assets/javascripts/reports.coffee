@@ -10,7 +10,13 @@ convertMarkdown = ->
 		markdown = $('#content-view').text().replace(/(^\s+)|(\s+$)/g, "")
 	else # editの場合
 		markdown = $('#content').val().replace(/(^\s+)|(\s+$)/g, "")
+	# For highlight
+	marked.setOptions langPrefix: ''
 	$('#content-view').html(marked(markdown))
+	# For highlight
+	$('#content-view pre code').each (i, e) ->
+		hljs.highlightBlock e, e.className
+		return
 
 convertMarkdown()
 $('#content').keyup( () -> convertMarkdown() )

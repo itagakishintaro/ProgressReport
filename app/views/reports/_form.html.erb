@@ -52,7 +52,7 @@
   <div class="actions">
     <%= link_to '戻る', reports_path, class: "btn btn-default" %>
 		<% unless name == '更新' && @report.user_id != current_user.id %> 
-			<%= submit_tag name, class: "btn btn-primary" %>
+			<%= submit_tag '保存', class: "btn btn-primary" %>
 		<% end %>
   </div>
 <% end %>

@@ -1,24 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<div class="well background-color-lightgreen border-0">
+<div class="well">
   <span class="font-md margin-right-md">今月の人</span>
   <% @user_with_progress_points.first(3).each_with_index do |pp, i| %>
    <span class="label background-color-grade<%= i + 1 %> font-md margin-right-sm"><%= i + 1 %>位</span>
    <span class="font-lg"  ><%= pp.user_name %></span>
-   <span class="badge background-color-green margin-right-md"><%= pp.progress_points %></span>
+   <span class="badge margin-right-md"><%= pp.progress_points %></span>
   <% end %>
   <%= link_to 'みんなの成長', progresses_path, class: "btn btn-success btn-sm pull-right" %>
 </div>
 
 <%= search_form_for @q, :html => {:class => "form-inline"} do |f| %>
-  <%= f.label :tag_cont, 'タグ' %>
-  <%= f.text_field :tag_cont, :class => 'form-control' %>
-  <%= f.label :title_cont, 'タイトル' %>
-  <%= f.text_field :title_cont, :class => 'form-control' %>
-  <%= f.label :user_id_eq, 'ユーザー' %>
-	<%= f.collection_select :user_id_eq, User.all, :id, :name, {include_blank: true}, class: 'form-control' %>
-  <br><br>
-  <%= f.label :updated_at, '更新日' %>
+  <%= f.text_field :tag_cont, :class => 'form-control', placeholder: 'タグ' %>
+  <%= f.text_field :title_cont, :class => 'form-control', placeholder: 'タイトル' %>
+	<%= f.collection_select :user_id_eq, User.all, :id, :name, {prompt: 'ユーザー選択'}, class: 'form-control' %>
   <%= f.date_field :updated_at_gteq, :class => 'form-control', :value => 7.day.ago.strftime('%Y-%m-%d') %>
   〜
   <% # http://qiita.com/LuckOfWise/items/e020e896e71d47d0c6a4 %>

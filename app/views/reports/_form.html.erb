@@ -29,8 +29,7 @@
       <div>
         <% @report.attachments.each do |a| %>
           <%= a.name %>
-          <%= link_to '削除', a, method: :delete, data: { confirm: '削除しますか?' }, class: "btn btn-warning btn-sm" %>
-          <br>
+          <%= link_to '削除', a, method: :delete, data: { confirm: '削除しますか?' }, class: "btn btn-warning btn-xs margin-right-md" %>
         <% end %>
       </div>
       <br>
@@ -48,9 +47,9 @@
       <div id="content-view" class="content-view-edit"></div>
     </div>
   </div>
-  <hr>
+  <br>
   <div class="actions">
-    <%= link_to '戻る', reports_path, class: "btn btn-default" %>
+    <%= link_to '戻る', reports_path, class: "btn btn-default margin-right-md" %>
 		<% unless name == '更新' && @report.user_id != current_user.id %> 
 			<%= submit_tag '保存', class: "btn btn-primary" %>
 		<% end %>

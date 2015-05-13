@@ -2,7 +2,7 @@
 
 <% if @report.user_id == current_user.id %> 
   <div class="text-right">
-    <%= link_to '更新', edit_report_path(@report), class: "btn btn-primary"  %>
+    <%= link_to '更新', edit_report_path(@report), class: "btn btn-primary margin-right-md"  %>
     <%= link_to '削除', @report, method: :delete, data: { confirm: '削除しますか?' }, class: "btn btn-warning" %>
   </div>
 <% end %>
@@ -37,14 +37,14 @@
   <% if @report.attachments.presence %>
     <% @report.attachments.each do |a| %>
       <span><%= a.name %></span>
-      <%= link_to 'ダウンロード', { action: :download, id: a[:id] }, class: 'btn btn-default btn-sm' %><br>
+      <%= link_to 'ダウンロード', { action: :download, id: a[:id] }, class: 'btn btn-default btn-xs margin-right-md' %>
     <% end %>
   <% end %>
 </div>
 
 <hr>
 
-<span class="label label-info">コメント</span>
+<span class="label label-default">コメント</span>
 <div class="row">
   <div class="col-md-6 comments">
     <% @report.comments.each do |c| %>
@@ -66,7 +66,11 @@
     <% end %>
   </div>
 </div>
-<hr>
-<%= link_to '戻る', reports_path, class: "btn btn-default pull-left margin-right-lg" %>
+
+<br><br>
+
+<%= link_to '戻る', reports_path, class: "btn btn-default pull-left margin-right-md" %>
 <%= link_to '成長したね！', progresses_path( progress: {point:1, report_id:@report.id, user_id:current_user.id} ), method: :post, class: "btn btn-success pull-left" %>
 <div class="arrow_box pull-left"><%= @report.progresses.map{|item| item.point}.sum %></div>
+
+<br><br>

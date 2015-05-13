@@ -15,6 +15,8 @@ gem 'devise'
 # URLを自動でリンクにする
 gem 'rails_autolink'
 
+# iconなど
+gem 'font-awesome-rails'
 # ---------- 基本的なgem ----------
 
 # 追加（HerokuデプロイでWARNINGがでるから）

@@ -100,7 +100,7 @@ class ReportsController < ApplicationController
     end
 
     def set_user_with_progress_points
-      @user_with_progress_points = User.progress_points
+      @user_with_progress_points = Report.progress_points_by_user_this_month
     end
 
     def set_attachment

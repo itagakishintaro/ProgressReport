@@ -1,8 +1,8 @@
 class Report < ActiveRecord::Base
 	belongs_to :user
-	has_many :progresses
-	has_many :comments
-	has_many :attachments
+	has_many :progresses, dependent: :destroy
+	has_many :comments, dependent: :destroy
+	has_many :attachments, dependent: :destroy
 
 	validates :title,
 	  presence: true

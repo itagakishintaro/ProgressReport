@@ -43,6 +43,7 @@ class ReportsController < ApplicationController
 
   # GET /reports/1/edit
   def edit
+    redirect_to(root_path) unless current_user.id == @report.user_id
   end
 
   # POST /reports

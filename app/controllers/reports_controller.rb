@@ -2,6 +2,7 @@ class ReportsController < ApplicationController
   before_action :set_report, only: [:show, :edit, :update, :destroy, :progress]
   before_action :set_user_with_progress_points, only: :index
   before_action :set_attachment, only: :download
+  before_action :check_current_users_report, only: [:edit, :destroy]
 
   def download
     send_data @attachment.file, filename: @attachment.name
@@ -132,4 +133,9 @@ class ReportsController < ApplicationController
         end
       end
     end
+
+    def check_current_users_report
+      redirect_to(root_path) unless current_user.id == @report.user_id
+    end
+
 end

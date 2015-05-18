@@ -33,3 +33,42 @@ $( () ->
         })
     )
 )
+
+
+## For image file upload
+
+$('.image-uploader-input').on('change', () -> 
+	data = new FormData()
+	data.append('file', $('#image')[0].files[0])
+	data.append('content_type', $('#image')[0].files[0].type)
+	data.append('user_id', $('#report_user_id').val())
+	$.ajax(
+		url: '/images'
+		type: 'POST'
+		dataType: 'json'
+		data: data
+		processData: false
+		contentType: false
+	).done( (d) ->
+		org = $('#content').val()
+
+		insertAtCaret( $('#content'), ('![' + d + '](http://localhost:3000/images/show/' + d + ')') )
+
+		alert $('#content').val()
+		convertMarkdown()
+	)
+)
+
+insertAtCaret = (target, str) ->
+  target.focus()
+  if navigator.userAgent.match(/MSIE/)
+    r = document.selection.createRange()
+    r.text = str
+    r.select()
+  else
+    s = target.val()
+    p = target.get(0).selectionStart
+    np = p + str.length
+    target.val( s.substr(0, p) + str + s.substr(p) )
+    target.get(0).setSelectionRange( np, np )
+  return

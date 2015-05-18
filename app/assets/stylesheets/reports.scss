@@ -16,3 +16,29 @@
 #title-view {
 	font-size: 3rem;
 }
+img {
+	width: 100%;
+}
+
+// http://tsmd.hateblo.jp/entry/2013/05/09/045110
+.image-uploader {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  margin: 0;
+  padding: .5em;
+  width: 100%;
+  border-radius: .5em;
+  background-color: #eee;
+}
+
+.image-uploader-input {
+  opacity: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 0;
+  font-size: 100px;
+  cursor: pointer;
+}

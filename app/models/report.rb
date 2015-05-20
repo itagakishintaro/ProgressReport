@@ -1,8 +1,8 @@
 class Report < ActiveRecord::Base
 	belongs_to :user
-	has_many :progresses
-	has_many :comments
-	has_many :attachments
+	has_many :progresses, dependent: :destroy
+	has_many :comments, dependent: :destroy
+	has_many :attachments, dependent: :destroy
 
 	validates :title,
 	  presence: true
@@ -18,5 +18,14 @@ class Report < ActiveRecord::Base
   def self.index_default_order
     # 基本は、1:成長ポイント降順, 2:コメント数降順, 3:更新日付降順 でソート
     order('progress_points desc').order('comment_num desc').order('updated_at desc')
+  end
+
+  def self.progress_points_by_user_this_month
+    select('users.name AS user_name, SUM(progresses.point) AS progress_points')
+    .joins(:progresses)
+    .joins(:user)
+    .where('progresses.updated_at': Time.now.beginning_of_month...Time.now.end_of_month)
+    .group('users.id')
+    .order('progress_points desc')
   end
 end

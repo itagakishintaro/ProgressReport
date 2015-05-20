@@ -36,8 +36,10 @@
 <div>
   <% if @report.attachments.presence %>
     <% @report.attachments.each do |a| %>
-      <span><%= a.name %></span>
-      <%= link_to 'ダウンロード', { action: :download, id: a[:id] }, class: 'btn btn-default btn-xs margin-right-md' %>
+      <span class="nowrap">
+        <%= a.name %>
+        <%= link_to 'ダウンロード', { action: :download, id: a[:id] }, class: 'btn btn-default btn-xs margin-right-md' %>
+      </span>
     <% end %>
   <% end %>
 </div>

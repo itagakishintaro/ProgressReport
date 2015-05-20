@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   resources :comments
   resources :progresses
   resources :attachments
-
+  resources :images
+  get 'images/show/:id'=> 'images#show', as: :show_image
   # ---------- api関連 ----------
   namespace :api, { format: 'json' } do
     resources :tags

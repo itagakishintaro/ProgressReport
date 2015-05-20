@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 gem 'bootstrap-sass'
 gem 'sprockets'
+gem 'jquery-turbolinks'
 
 # 検索用ransack
 gem 'rails-i18n'

@@ -2,7 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$('#title-view').text( $('#title').val() )
+jQuery -> 
+	$('#title-view').text( $('#title').val() )
+	convertMarkdown()
+	$('#content').keyup( () -> convertMarkdown() )
 
 convertMarkdown = ->
 	markdown = ''
@@ -17,10 +20,6 @@ convertMarkdown = ->
 	$('#content-view pre code').each (i, e) ->
 		hljs.highlightBlock e, e.className
 		return
-
-convertMarkdown()
-$('#content').keyup( () -> convertMarkdown() )
-
 
 # For typeahead of Tag
 # https://twitter.github.io/typeahead.js/examples/
@@ -37,27 +36,28 @@ $( () ->
 
 ## For image file upload
 
-$('.image-uploader-input').on('change', () -> 
-	data = new FormData()
-	data.append('file', $('#image')[0].files[0])
-	data.append('content_type', $('#image')[0].files[0].type)
-	data.append('user_id', $('#report_user_id').val())
-	$.ajax(
-		url: '/images'
-		type: 'POST'
-		dataType: 'json'
-		data: data
-		processData: false
-		contentType: false
-	).done( (d) ->
-		org = $('#content').val()
+jQuery -> 
+	$('.image-uploader-input').on('change', () -> 
+		data = new FormData()
+		data.append('file', $('#image')[0].files[0])
+		data.append('content_type', $('#image')[0].files[0].type)
+		data.append('user_id', $('#report_user_id').val())
+		$.ajax(
+			url: '/images'
+			type: 'POST'
+			dataType: 'json'
+			data: data
+			processData: false
+			contentType: false
+		).done( (d) ->
+			org = $('#content').val()
 
-		insertAtCaret( $('#content'), ('![' + d + '](http://localhost:3000/images/show/' + d + ')') )
+			insertAtCaret( $('#content'), ('![' + d + '](http://localhost:3000/images/show/' + d + ')') )
 
-		alert $('#content').val()
-		convertMarkdown()
+			alert $('#content').val()
+			convertMarkdown()
+		)
 	)
-)
 
 insertAtCaret = (target, str) ->
   target.focus()

@@ -52,9 +52,8 @@ class ReportsController < ApplicationController
     respond_to do |format|
       begin
         Report.transaction do
-          @report = Report.new(report_params)
-          report = @report.save!
-          create_attachments!(attachment_params)
+          @report = Report.create!(report_params)
+          create_attachments!(attachment_params(@report.id))
         end
         format.html { redirect_to action: 'index', notice: 'Report was successfully created.' }
         format.json { render :show, status: :created, location: @report }
@@ -73,7 +72,7 @@ class ReportsController < ApplicationController
         Report.transaction do
           @report.update!(report_params)
           @report.touch
-          create_attachments!(attachment_params)
+          create_attachments!(attachment_params(params[:id]))
         end
         format.html { redirect_to action: 'index', notice: 'Report was successfully updated.' }
         format.json { render :show, status: :ok, location: @report }
@@ -113,13 +112,13 @@ class ReportsController < ApplicationController
       params.require(:report).permit(:title, :tag, :content, :user_id, :created_at, :updated_at)
     end
 
-    def attachment_params
+    def attachment_params(report_id)
       params.require(:report).permit(:id, :attachments)
       
       attachments = []
       unless params[:report][:attachments].nil?
         params[:report][:attachments].each do |a|
-          attachments.push( { file: a.read, name: a.original_filename, report_id: params[:id] } )
+          attachments.push( { file: a.read, name: a.original_filename, report_id: report_id } )
         end
       end
       attachments

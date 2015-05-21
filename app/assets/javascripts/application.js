@@ -11,11 +11,12 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
 //= require marked.min
 //= require d3.min
 //= require c3.min
 //= require highlight.pack
-//= require_tree .
 //= require bootstrap3-typeahead.min
+//= require_tree .
+//= require turbolinks

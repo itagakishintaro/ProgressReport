@@ -2,7 +2,11 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$('#title-view').text( $('#title').val() )
+$(document).ready( () ->
+	$('#title-view').text( $('#title').val() )
+	convertMarkdown()
+	$('#content').keyup( () -> convertMarkdown() )
+)
 
 convertMarkdown = ->
 	markdown = ''
@@ -18,10 +22,6 @@ convertMarkdown = ->
 		hljs.highlightBlock e, e.className
 		return
 
-convertMarkdown()
-$('#content').keyup( () -> convertMarkdown() )
-
-
 # For typeahead of Tag
 # https://twitter.github.io/typeahead.js/examples/
 
@@ -33,7 +33,6 @@ $( () ->
         })
     )
 )
-
 
 ## For image file upload
 

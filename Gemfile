@@ -17,6 +17,9 @@ gem 'rails_autolink'
 
 # iconなど
 gem 'font-awesome-rails'
+
+# turbolinksでjQueryの $(document).ready() を使う
+gem 'jquery-turbolinks'
 # ---------- 基本的なgem ----------
 
 # 追加（HerokuデプロイでWARNINGがでるから）

@@ -27,7 +27,7 @@
     <thead>
       <tr>
         <th><%= sort_link(@q, :progress_points, '成長') %></th>
-        <th><%= sort_link(@q, :comment_num, 'コメント') %></th>
+        <th><%= sort_link(@q, :number_of_comments, 'コメント') %></th>
         <th><%= sort_link(@q, :tag, 'タグ') %></th>
         <th><%= sort_link(@q, :title, 'タイトル') %></th>
         <!-- <th><%= sort_link(@q, :user_name, '内容(1行目)') %></th> -->
@@ -42,7 +42,7 @@
       <% @reports.each do |report| %>
         <tr>
           <td><%= report.progress_points %></td>
-          <td><%= report.comment_num %></td>
+          <td><%= report.number_of_comments %></td>
           <td><%= report.tag %></td>
           <td><%= link_to report.title, report %></td>
           <!-- <td><%= report.content.split[0] %></td> -->

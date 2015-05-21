@@ -20,7 +20,7 @@ class ReportsController < ApplicationController
       }
     end
 
-    @base = Report.with_progress_points_and_comment_num
+    @base = Report.with_progress_points_and_number_of_comments
     # ransakで検索
     # https://github.com/activerecord-hackery/ransack
     @q = @base.ransack(params[:q])

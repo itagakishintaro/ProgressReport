@@ -2,7 +2,7 @@ class ReportsController < ApplicationController
   before_action :set_report, only: [:show, :edit, :update, :destroy, :progress]
   before_action :set_user_with_progress_points, only: :index
   before_action :set_attachment, only: :download
-  before_action :check_current_users_report, only: [:update, :destroy]
+  before_action :check_current_users_report, only: [:edit, :update, :destroy]
 
   def download
     send_data @attachment.file, filename: @attachment.name

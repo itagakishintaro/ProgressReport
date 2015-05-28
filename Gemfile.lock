@@ -249,15 +249,8 @@ DEPENDENCIES
   font-awesome-rails
   jbuilder (~> 2.0)
   jquery-rails
-<<<<<<< HEAD
-<<<<<<< HEAD
   jquery-turbolinks
-=======
   launchy (~> 2.4.2)
->>>>>>> feature/#18
-=======
-  jquery-turbolinks
->>>>>>> 930a63076db12c74d2ea80f905b93228caaf4d08
   pg
   rails (= 4.2.0)
   rails-i18n

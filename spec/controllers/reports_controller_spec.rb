@@ -50,6 +50,13 @@ describe ReportsController do
       @attachment_9 = FactoryGirl.create(:attachment, report_id: 9)
     end
 
+    describe 'GET #edit' do
+      it 'redirects to root path when user is not author' do
+        get :edit, id: @report_9
+        expect(response).not_to render_template :edit
+      end
+    end
+
     describe 'PATCH #update' do
       before :each do
         @report = FactoryGirl.attributes_for(:report, title: 'updated')

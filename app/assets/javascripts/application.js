@@ -19,8 +19,3 @@
 //= require highlight.pack
 //= require bootstrap3-typeahead.min
 //= require_tree .
-<<<<<<< HEAD
-//= require turbolinks
-=======
-//= require bootstrap3-typeahead.min
->>>>>>> 930a63076db12c74d2ea80f905b93228caaf4d08

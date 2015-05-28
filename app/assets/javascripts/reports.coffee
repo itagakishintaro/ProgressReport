@@ -2,18 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-<<<<<<< HEAD
-$(document).ready( () ->
-	$('#title-view').text( $('#title').val() )
-	convertMarkdown()
-	$('#content').keyup( () -> convertMarkdown() )
-)
-=======
 jQuery -> 
 	$('#title-view').text( $('#title').val() )
 	convertMarkdown()
 	$('#content').keyup( () -> convertMarkdown() )
->>>>>>> 930a63076db12c74d2ea80f905b93228caaf4d08
 
 convertMarkdown = ->
 	markdown = ''

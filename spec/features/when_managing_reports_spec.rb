@@ -19,6 +19,8 @@ feature 'レポートを管理する' do
       ReportsIndex.go_to_new_report_page
       ReportsEdit.fill_report({tag: 'タグ', title: title, content: '内容'})
       ReportsEdit.insert_img("#{Rails.root}/spec/factories/progress.jpeg")
+      # TODO 画像が貼れたか確認したい
+      # expect(page).to have_selector '#content-view img'
       ReportsEdit.save_report
       ReportsIndex.search_report({title: title})
       expect(page).to have_link title
@@ -66,6 +68,9 @@ feature 'レポートを管理する' do
       expect(page).not_to have_content 'report.jpeg'
       expect(page).to have_content 'brokiga.jpeg'
     end
+
+    scenario 'レポートを登録するときにタグがサジェストされる'
+    scenario 'タグを日報、日付を今日から今日で検索すると、今日の日報が検索されて、ユーザーでソート、更新日時でソートする'
   end
 
   context '他人のレポートを操作するとき' do

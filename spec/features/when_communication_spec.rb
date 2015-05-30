@@ -5,7 +5,5 @@ require 'pages/reports'
 include ReportsIndex, ReportsShow
 
 feature 'レポートにコメント、成長したねする' do
-  scenario 'レポートをみて、コメントして、成長したねして、成長グラフをみる' do
-
-  end
+  scenario 'レポートをみて、コメントして、成長したねして、成長グラフをみる'
 end

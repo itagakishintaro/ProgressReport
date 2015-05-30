@@ -1,4 +1,8 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+<div id="notice" class="alert alert-success">
+  <%= notice %>
+</div>
+<% end %>
 
 <div class="well">
   <span class="font-md margin-right-md">今月の人</span>
@@ -60,4 +64,4 @@
   </table>
 </div>
 
-<%= link_to '作成', new_report_path, class: "btn btn-primary" %>
+<%= link_to '作成', new_report_path, id: 'new', class: "btn btn-primary" %>

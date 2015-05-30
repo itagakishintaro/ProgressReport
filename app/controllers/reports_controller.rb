@@ -52,7 +52,8 @@ class ReportsController < ApplicationController
     respond_to do |format|
       begin
         Report.transaction do
-          @report = Report.create!(report_params)
+          @report = Report.new(report_params)
+          @report.save!
           create_attachments!(attachment_params(@report.id))
         end
         format.html { redirect_to action: 'index', notice: 'Report was successfully created.' }
@@ -74,7 +75,7 @@ class ReportsController < ApplicationController
           @report.touch
           create_attachments!(attachment_params(params[:id]))
         end
-        format.html { redirect_to action: 'index', notice: 'Report was successfully updated.' }
+        format.html { redirect_to reports_url, notice: 'Report was successfully updated.' }
         format.json { render :show, status: :ok, location: @report }
       rescue => e
         format.html { render :edit }

@@ -50,10 +50,7 @@ jQuery ->
 			contentType: false
 		).done( (d) ->
 			org = $('#content').val()
-
 			insertAtCaret( $('#content'), ('![' + d + '](http://localhost:3000/images/show/' + d + ')') )
-
-			alert $('#content').val()
 			convertMarkdown()
 		)
 	)

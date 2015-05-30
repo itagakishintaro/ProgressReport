@@ -15,6 +15,7 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
+# for devise login of controller tests
 require 'devise'
 require 'support/controller_macros'
 
@@ -101,7 +102,7 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 
-  # for Devise
+  # for devise login of controller tests
   config.include Devise::TestHelpers, :type => :controller
   config.extend ControllerMacros, :type => :controller
 end

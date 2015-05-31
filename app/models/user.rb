@@ -9,9 +9,8 @@ class User < ActiveRecord::Base
 
   def self.with_progress_points
     select('users.id, users.name, SUM(progresses.point) AS progress_points, progresses.updated_at')
-    .group('users.id')
     .joins(:progresses)
-    # .group('users.id')
-    # .order('progress_points desc')
+    .group('users.id')
+    .order('progress_points desc')
   end
 end

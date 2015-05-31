@@ -8,8 +8,9 @@ class User < ActiveRecord::Base
   has_many :images
 
   def self.with_progress_points
-    select('users.id, users.name, SUM(progresses.point) AS progress_points, progresses.updated_at')
-    .joins(:progresses)
+    all
+    # select('users.id, users.name, SUM(progresses.point) AS progress_points, progresses.updated_at')
+    # .joins(:progresses)
     # .group('users.id')
     # .order('progress_points desc')
   end

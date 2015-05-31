@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   def self.with_progress_points
     select('users.id, users.name, SUM(progresses.point) AS progress_points, progresses.updated_at')
     .joins(:progresses)
-    # .group('users.id')
-    # .order('progress_points desc')
+    .group('users.id, users.name, progresses.updated_at')
+    .order('progress_points desc')
   end
 end

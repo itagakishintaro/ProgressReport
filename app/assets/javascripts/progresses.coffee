@@ -15,7 +15,7 @@ $(document).ready( () ->
 			dateList.forEach( (date, colIndex) ->
 				row[0] = name
 				row[colIndex + 1] =
-					sum( json.filter( (d) -> d.name == name ).filter( (d) -> d.updated_at.split('T')[0] == date ).map( (d) -> d.progress_points ) )
+					sum( json.filter( (d) -> d.name == name ).filter( (d) -> d.updated_at.split('T')[0] == date ).map( (d) -> d.point ) )
 			)
 			rows.push(row)
 		)

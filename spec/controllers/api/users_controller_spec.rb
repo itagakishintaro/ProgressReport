@@ -12,10 +12,10 @@ describe 'UsersController', type: :request do
     get '/api/users/with_progresses'
     expect(response).to have_http_status(:success)
     json = JSON.parse(response.body)
-    expect(json.size).to eq 2
-    expect(json[0]['id']).to eq 2
-    expect(json[0]['point']).to eq 3
-    expect(json[1]['id']).to eq 1
-    expect(json[1]['point']).to eq 1
+    expect(json.size).to eq 4
+    expect(json[0]['id']).to eq 1
+    expect(json[0]['point']).to eq 1
+    expect(json[3]['id']).to eq 2
+    expect(json[3]['point']).to eq 1
   end
 end

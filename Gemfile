@@ -21,6 +21,10 @@ gem 'font-awesome-rails'
 
 # turbolinksでjQueryの $(document).ready() を使う
 gem 'jquery-turbolinks'
+
+# 一覧画面のページング(paginate)を使う
+# http://ruby-rails.hatenadiary.com/entry/20141113/1415874683
+gem 'kaminari'
 # ---------- 基本的なgem ----------
 
 # 追加（HerokuデプロイでWARNINGがでるから）

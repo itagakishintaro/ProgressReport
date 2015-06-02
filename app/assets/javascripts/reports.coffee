@@ -23,7 +23,6 @@ convertMarkdown = ->
 
 # For typeahead of Tag
 # https://twitter.github.io/typeahead.js/examples/
-
 $( () ->
     $.getJSON('/api/tags', (json) ->
         $('.typeahead').typeahead({
@@ -34,7 +33,6 @@ $( () ->
 )
 
 ## For image file upload
-
 jQuery -> 
 	$('.image-uploader-input').on('change', () -> 
 		data = new FormData()

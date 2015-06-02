@@ -18,4 +18,6 @@
 //= require c3.min
 //= require highlight.pack
 //= require bootstrap3-typeahead.min
+//= require bootstrap-modal
+//= require bootstrap-modalmanager
 //= require_tree .

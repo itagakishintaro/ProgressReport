@@ -25,6 +25,9 @@ gem 'jquery-turbolinks'
 # 一覧画面のページング(paginate)を使う
 # http://ruby-rails.hatenadiary.com/entry/20141113/1415874683
 gem 'kaminari'
+
+# bootstrapのモーダル
+gem 'bootstrap-modal-rails'
 # ---------- 基本的なgem ----------
 
 # 追加（HerokuデプロイでWARNINGがでるから）

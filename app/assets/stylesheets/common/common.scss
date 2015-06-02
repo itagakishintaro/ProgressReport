@@ -6,6 +6,14 @@
 	font-size: 14px;
 }
 
+// text
+.text-right {
+	text-align: right;
+}
+.yellow-text {
+	color: yellow;
+}
+
 // background
 .background-color-lightgreen {
 	background-color: $lightgreen;
@@ -30,6 +38,9 @@
 .margin-top-sm {
 	margin-top: 5px;
 }
+.margin-top-md {
+	margin-top: 20px;
+}
 .margin-bottom-sm {
 	margin-bottom: 5px;
 }
@@ -49,9 +60,6 @@
 // others
 .border-0 {
 	border: 0;
-}
-.text-right {
-	text-align: right;
 }
 .nowrap {
 	white-space: nowrap;

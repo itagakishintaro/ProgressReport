@@ -44,6 +44,8 @@ GEM
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-modal-rails (2.2.5)
+      railties (>= 3.1)
     bootstrap-sass (3.3.3)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
@@ -241,6 +243,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-modal-rails
   bootstrap-sass
   byebug
   capybara (~> 2.4.3)

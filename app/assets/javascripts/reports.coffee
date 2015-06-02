@@ -3,9 +3,17 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery -> 
+	# For Markdown
 	$('#title-view').text( $('#title').val() )
 	convertMarkdown()
 	$('#content').keyup( () -> convertMarkdown() )
+
+	# For Header bell
+	$('#bell').on('click', () -> 
+		$.getJSON('/api/comments/for_user/' + $('#user_id').text(), (json) ->
+			console.log(json);
+		)
+	)
 
 convertMarkdown = ->
 	markdown = ''

@@ -16,6 +16,7 @@
 </head>
 <body>
 	<header>
+		<div id="user_id" class="hidden"><% if user_signed_in? %><%= current_user.id %><% end %></div>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -31,7 +32,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<% if user_signed_in? %> 
 							<li><i id="bell" class="fa fa-bell fa-lg margin-top-md yellow-text" data-toggle="modal" data-target="#myModal"></i></li>
-							<li class="loginuser">Logged in as <strong><%= current_user.email %></strong>.</li>
+							<li class="loginuser">Logged in as <strong><%= current_user.name %></strong>.</li>
 							<li><%= link_to "プロフィール変更", edit_user_registration_path %></li>
 							<li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
 						<% else %>

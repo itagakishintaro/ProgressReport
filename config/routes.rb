@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   # ---------- api関連 ----------
   namespace :api, { format: 'json' } do
     resources :tags
+    resources :comments do
+      collection do
+        get 'for_user/:user_id' => 'comments#for_user', as: :for_user
+      end
+    end
     resources :users do
       collection do
         get 'with_progresses'

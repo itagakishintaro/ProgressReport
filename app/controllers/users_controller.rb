@@ -17,6 +17,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def with_progresses
+    @user_with_progresses = User.with_progress_points
+    render :json => @user_with_progresses.to_json
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

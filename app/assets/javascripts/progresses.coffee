@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).ready( () ->
-	$.getJSON '/api/users/with_progresses', (json) ->
+	$.getJSON '/users/with_progresses', (json) ->
 		users = json.map( (d) -> d.name ).filter( (d, i, self) -> self.indexOf(d) == i )
 		dateList = json.map( (d) -> d.updated_at.split('T')[0] ).filter( (d, i, self) -> self.indexOf(d) == i )
 

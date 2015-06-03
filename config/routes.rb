@@ -2,6 +2,11 @@ Rails.application.routes.draw do
   # ---------- 認証関連 ----------
   root to: "reports#index"
   devise_for :users
+  resources :users do
+    collection do
+      get 'with_progresses'
+    end
+  end
   resources :users
 
   # ---------- reports関連 ----------
@@ -12,6 +17,7 @@ Rails.application.routes.draw do
   resources :attachments
   resources :images
   get 'images/show/:id'=> 'images#show', as: :show_image
+
   # ---------- api関連 ----------
   namespace :api, { format: 'json' } do
     resources :tags
@@ -20,11 +26,7 @@ Rails.application.routes.draw do
         get 'for_user/:user_id' => 'comments#for_user', as: :for_user
       end
     end
-    resources :users do
-      collection do
-        get 'with_progresses'
-      end
-    end
+
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -2,19 +2,50 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-jQuery -> 
+$ -> 
 	# For Markdown
 	$('#title-view').text( $('#title').val() )
 	convertMarkdown()
 	$('#content').keyup( () -> convertMarkdown() )
 
 	# For Header bell
-	$('#bell').on('click', () -> 
-		$.getJSON('/api/comments/for_user/' + $('#user_id').text(), (json) ->
-			console.log(json);
+	getComments()
+	$('#notice').on('click', () -> 
+		getComments()
+	)
+
+# For notice
+getComments = ->
+	console.log new Date
+	$.getJSON('/api/comments/for_user/' + $('#user_id').text(), (json) ->
+		$('#notice-body').empty()
+
+		report_id_list = json.map( (v, i) ->
+			return v.report_id # report_idだけの配列にして
+		).filter( (x, i, self) ->
+            return self.indexOf(x) == i # 重複を排除
+        )
+        
+		report_id_list.forEach( (report_id, i) ->
+			open = '<div class="notice-row"><a href="/reports/' + report_id + '">'
+			body = ''
+			close = 'があなたのレポートにコメントしました。</a></div>'
+
+			json.filter( (v, i) ->
+				return v.report_id == report_id # report_idで絞って
+			).map( (v, i) ->
+				return v.user_name # user_nameだけの配列にして
+			).filter( (x, i, self) ->
+		        return self.indexOf(x) == i # 重複を排除して
+		    ).forEach( (v, i) ->
+				body += "#{v}さん " # 名前を追記する
+			)
+
+			$('#notice-body').append(open + body + close)
 		)
 	)
 
+# For markdown
 convertMarkdown = ->
 	markdown = ''
 	if $('#content').size() == 0 # showの場合
@@ -41,7 +72,7 @@ $( () ->
 )
 
 ## For image file upload
-jQuery -> 
+$ -> 
 	$('.image-uploader-input').on('change', () -> 
 		data = new FormData()
 		data.append('file', $('#image')[0].files[0])

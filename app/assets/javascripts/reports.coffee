@@ -17,7 +17,7 @@ $ ->
 # For notice
 getComments = ->
 	console.log new Date
-	$.getJSON('/api/comments/for_user/' + $('#user_id').text(), (json) ->
+	$.getJSON('/comments/for_user/' + $('#user_id').text(), (json) ->
 		$('#notice-body').empty()
 
 		report_id_list = json.map( (v, i) ->
@@ -63,7 +63,7 @@ convertMarkdown = ->
 # For typeahead of Tag
 # https://twitter.github.io/typeahead.js/examples/
 $( () ->
-    $.getJSON('/api/tags', (json) ->
+    $.getJSON('/reports/tags', (json) ->
         $('.typeahead').typeahead({
             source: json.map( (d) -> d.tag ),
             autoSelect: true

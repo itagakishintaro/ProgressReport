@@ -7,6 +7,11 @@ class CommentsController < ApplicationController
     redirect_to :back
   end
 
+  def for_user
+    @for_user = Comment.for_user(params[:user_id])
+    render :json => @for_user.to_json
+  end
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params

@@ -10,24 +10,23 @@ Rails.application.routes.draw do
   resources :users
 
   # ---------- reports関連 ----------
+  resources :reports do
+    collection do
+      get 'tags'
+    end
+  end
   resources :reports
   get 'reports/download/:id'=> 'reports#download', as: :donwload
+  resources :comments do
+    collection do
+      get 'for_user/:user_id' => 'comments#for_user', as: :for_user
+    end
+  end
   resources :comments
   resources :progresses
   resources :attachments
   resources :images
   get 'images/show/:id'=> 'images#show', as: :show_image
-
-  # ---------- api関連 ----------
-  namespace :api, { format: 'json' } do
-    resources :tags
-    resources :comments do
-      collection do
-        get 'for_user/:user_id' => 'comments#for_user', as: :for_user
-      end
-    end
-
-  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

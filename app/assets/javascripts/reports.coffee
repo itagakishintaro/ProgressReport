@@ -16,7 +16,6 @@ $ ->
 
 # For notice
 getComments = ->
-	console.log new Date
 	$.getJSON('/comments/for_user/' + $('#user_id').text(), (json) ->
 		$('#notice-body').empty()
 
@@ -27,11 +26,16 @@ getComments = ->
         )
         
 		report_id_list.forEach( (report_id, i) ->
-			open = '<div class="notice-row"><a href="/reports/' + report_id + '">'
+			commented_at = Math.max.apply(null, json.filter( (v) ->
+				return v.report_id == report_id
+			).map( (o) ->
+				return new XDate(o.updated_at).getTime()
+			))
+			open = '<div class="notice-row" data-at="' + commented_at + '"><a href="/reports/' + report_id + '">'
 			body = ''
 			close = 'があなたのレポートにコメントしました。</a></div>'
-
-			json.filter( (v, i) ->
+			
+			json.filter( (v) ->
 				return v.report_id == report_id # report_idで絞って
 			).map( (v, i) ->
 				return v.user_name # user_nameだけの配列にして

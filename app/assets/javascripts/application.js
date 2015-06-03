@@ -16,6 +16,7 @@
 //= require marked.min
 //= require d3.min
 //= require c3.min
+//= require xdate
 //= require highlight.pack
 //= require bootstrap3-typeahead.min
 //= require bootstrap-modal

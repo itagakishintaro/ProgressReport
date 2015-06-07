@@ -35,6 +35,9 @@ Rails.application.routes.draw do
     end
   end
   resources :progresses
+  # ---------- notice関連 ----------
+  post 'notices/upsert' => 'notices#upsert', as: :upsert
+  resources :notices
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

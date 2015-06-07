@@ -31,7 +31,7 @@
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
 						<% if user_signed_in? %> 
-							<li><i id="notice" class="fa fa-bell fa-lg margin-top-md yellow-text" data-toggle="modal" data-target="#myModal"></i></li>
+							<li><i id="notice" class="fa fa-bell fa-lg margin-top-md lightgray-text" data-toggle="modal" data-target="#myModal"></i></li>
 							<li class="loginuser">Logged in as <strong><%= current_user.name %></strong>.</li>
 							<li><%= link_to "プロフィール変更", edit_user_registration_path %></li>
 							<li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
@@ -47,6 +47,17 @@
 	<p class="notice"><%= notice %></p>
 	<p class="alert"><%= alert %></p>
 	<div class="container">
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-body">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <div id="notice-body" class="margin-top-lg"></div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	<%= yield %>
 	<footer>
 		<hr>

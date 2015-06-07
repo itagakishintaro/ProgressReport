@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518120445) do
+ActiveRecord::Schema.define(version: 20150607063150) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "name"
@@ -36,6 +36,13 @@ ActiveRecord::Schema.define(version: 20150518120445) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "content_type"
+  end
+
+  create_table "notices", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "watched_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "progresses", force: :cascade do |t|

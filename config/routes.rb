@@ -17,16 +17,24 @@ Rails.application.routes.draw do
   end
   resources :reports
   get 'reports/download/:id'=> 'reports#download', as: :donwload
+
+  resources :attachments
+  resources :images
+  get 'images/show/:id'=> 'images#show', as: :show_image
+  # ---------- comments関連 ----------
   resources :comments do
     collection do
       get 'for_user/:user_id' => 'comments#for_user', as: :for_user
     end
   end
   resources :comments
+  # ---------- progresses関連 ----------
+  resources :progresses do
+    collection do
+      get 'for_user/:user_id' => 'progresses#for_user', as: :for_user
+    end
+  end
   resources :progresses
-  resources :attachments
-  resources :images
-  get 'images/show/:id'=> 'images#show', as: :show_image
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

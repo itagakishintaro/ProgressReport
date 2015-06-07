@@ -9,16 +9,15 @@ $ ->
 	$('#content').keyup( () -> convertMarkdown() )
 
 	# For Header bell
-	getComments()
 	$('#notice').on('click', () -> 
-		getComments()
+		$('#notice-body').empty()
+		getXForUser('comments', $('#user_id').text())
+		getXForUser('progresses', $('#user_id').text())		
 	)
 
 # For notice
-getComments = ->
-	$.getJSON('/comments/for_user/' + $('#user_id').text(), (json) ->
-		$('#notice-body').empty()
-
+getXForUser = (x, user) ->
+	$.getJSON("/#{x}/for_user/#{user}", (json) ->
 		report_id_list = json.map( (v, i) ->
 			return v.report_id # report_idだけの配列にして
 		).filter( (x, i, self) ->
@@ -26,14 +25,17 @@ getComments = ->
         )
         
 		report_id_list.forEach( (report_id, i) ->
-			commented_at = Math.max.apply(null, json.filter( (v) ->
+			at = Math.max.apply(null, json.filter( (v) ->
 				return v.report_id == report_id
 			).map( (o) ->
 				return new XDate(o.updated_at).getTime()
 			))
-			open = '<div class="notice-row" data-at="' + commented_at + '"><a href="/reports/' + report_id + '">'
+			open = '<div class="notice-row" data-at="' + at + '"><a href="/reports/' + report_id + '">'
 			body = ''
-			close = 'があなたのレポートにコメントしました。</a></div>'
+
+			xJa = 'コメント' if x == 'comments'
+			xJa = '成長したね' if x == 'progresses'
+			close = "があなたのレポートに#{xJa}しました。</a></div>"
 			
 			json.filter( (v) ->
 				return v.report_id == report_id # report_idで絞って
@@ -47,7 +49,13 @@ getComments = ->
 
 			$('#notice-body').append(open + body + close)
 		)
+
+		sortNoticeBody()
 	)
+
+sortNoticeBody = () ->
+	sorted = $('#notice-body').children().sort( (a, b) -> return $(b).data('at') - $(a).data('at') )
+	$('#notice-body').html(sorted)
 
 # For markdown
 convertMarkdown = ->

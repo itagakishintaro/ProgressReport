@@ -7,7 +7,7 @@ class Comment < ActiveRecord::Base
     .joins(:user)
     .joins(:report)
     .where('comments.updated_at >= ?', 7.days.ago)
-    .where("reports.user_id == #{user_id}")
+    .where("reports.user_id = #{user_id}")
     .order('comments.updated_at desc')
   end
 end

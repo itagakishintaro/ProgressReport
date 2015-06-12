@@ -1,5 +1,12 @@
 include Capybara::DSL
 
+module ReportsComment
+  def add_new_comment(d)
+    if d[:comment] then fill_in 'comment_comment', with: d[:comment] end
+    click_on '送信'
+  end
+end
+
 module ReportsIndex
   def go_to_new_report_page
     click_on '作成'

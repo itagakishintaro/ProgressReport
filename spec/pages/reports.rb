@@ -5,6 +5,10 @@ module ReportsComment
     if d[:comment] then fill_in 'comment_comment', with: d[:comment] end
     click_on '送信'
   end
+
+  def click_grew_button
+    click_on '成長したね！'
+  end
 end
 
 module ReportsIndex

@@ -10,8 +10,6 @@ class NoticesController < ApplicationController
       Notice.create(notices_params)
       render :json => {status: :created}
     else
-      logger.debug('------------')
-      logger.debug(notices_params)
       @notice.update(notices_params)
       render :json => {status: :updated}
     end

@@ -94,11 +94,6 @@ class ReportsController < ApplicationController
     end
   end
 
-  def tags
-    @tags = Report.select(:tag).uniq
-    render json: @tags
-  end
-
   def tagcloud
   end
   def tagcount

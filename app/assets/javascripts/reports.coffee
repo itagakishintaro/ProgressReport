@@ -26,12 +26,13 @@ convertMarkdown = ->
 # For typeahead of Tag
 # https://twitter.github.io/typeahead.js/examples/
 $( () ->
-    $.getJSON('/reports/tags', (json) ->
-        $('.typeahead').typeahead({
-            source: json.map( (d) -> d.tag ),
-            autoSelect: true
-        })
-    )
+    $.getJSON('/reports/tagcount', (json) ->
+    	console.log json
+    	$('.typeahead').typeahead(
+    		source: json.map( (d) -> d.text )
+    		autoSelect: true
+		)
+	)
 )
 
 ## For image file upload

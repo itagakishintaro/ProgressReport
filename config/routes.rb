@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   # ---------- reports関連 ----------
   resources :reports do
     collection do
-      get 'tags'
       get 'tagcount'
       get 'tagcloud'
     end

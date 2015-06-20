@@ -21,4 +21,5 @@
 //= require bootstrap3-typeahead.min
 //= require bootstrap-modal
 //= require bootstrap-modalmanager
+//= require jqcloud.min
 //= require_tree .

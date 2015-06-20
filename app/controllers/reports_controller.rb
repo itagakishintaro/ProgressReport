@@ -95,8 +95,24 @@ class ReportsController < ApplicationController
   end
 
   def tags
-    @tags = Report.select("tag").uniq
+    @tags = Report.select(:tag).uniq
     render json: @tags
+  end
+
+  def tagcloud
+  end
+  def tagcount
+    uniq_tags = Report.select(:tag).uniq.map{|v| v.tag}
+
+    # 複数タグを半角スペース区切りで入力している場合があるのでそれを分離
+    tags = Report.select(:tag).map{|v| v.tag}
+    all_tags = []
+    tags.each do |tag|
+      all_tags.concat(tag.split(' '))
+    end
+
+    # uniq_tagsには半角スペース区切りのタグが含まれていて、それのカウントは0になるので、最後のselectでそれを除外
+    render json: uniq_tags.map{ |tag| { text: tag, weight: all_tags.count(tag) } }.select { |v| v[:weight] > 0 }
   end
 
   private

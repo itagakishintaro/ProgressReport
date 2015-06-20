@@ -27,7 +27,6 @@ convertMarkdown = ->
 # https://twitter.github.io/typeahead.js/examples/
 $( () ->
     $.getJSON('/reports/tagcount', (json) ->
-    	console.log json
     	$('.typeahead').typeahead(
     		source: json.map( (d) -> d.text )
     		autoSelect: true

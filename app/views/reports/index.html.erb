@@ -23,18 +23,11 @@
   〜
   <% # http://qiita.com/LuckOfWise/items/e020e896e71d47d0c6a4 %>
   <%= f.date_field :updated_at_lteq_end_of_day, class: 'form-control', :value => 0.day.ago.strftime('%Y-%m-%d') %>
-  <%= f.submit '検索', :class => 'btn btn-info pull-right' %>
+  <%= f.submit '検索', :class => 'btn btn-info margin-left-md' %>
 <% end %>
 <hr>
   
-<div class="row">
-  <div class="col-md-11 bottom-0">
-    <%= page_entries_info @reports %>
-  </div>
-  <div class="col-md-1 text-right">
-    <%= link_to '作成', new_report_path, id: 'new', class: "btn btn-primary" %>
-  </div>
-</div>
+<%= page_entries_info @reports %>
 <div class="table-responsive">
   <table class="table table-striped table-bordered">
     <thead>
@@ -73,3 +66,7 @@
   </table>
 </div>
 <%= paginate @reports %>
+
+<%= link_to new_report_path, id: 'new', class: "new-report" do %>
+  <span class="font-xlg">新</span>しい<div class="margin-left-md"><span class="font-lg">R</span>eport</div>
+<% end %>

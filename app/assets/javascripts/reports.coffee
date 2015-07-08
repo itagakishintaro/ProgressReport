@@ -7,6 +7,10 @@ $ ->
 	$('#title-view').text( $('#title').val() )
 	convertMarkdown()
 	$('#content').keyup( () -> convertMarkdown() )
+	$('.like').on( 'click', (event) -> 
+		event.preventDefault()
+		likeAction() )
+	new jBox('Tooltip', {attach: $('.like')})
 
 # For markdown
 convertMarkdown = ->
@@ -68,3 +72,14 @@ insertAtCaret = (target, str) ->
     target.val( s.substr(0, p) + str + s.substr(p) )
     target.get(0).setSelectionRange( np, np )
   return
+
+## For like button
+likeAction = () ->
+	return false if $('.like').hasClass('in-progress')
+	$('.like').addClass('in-progress')
+	$('.like-count').hide()
+	$('.like').stop().animate({
+	    fontSize: '25rem'
+	}, 100).animate({
+	    fontSize: '15rem'
+	}, 100)

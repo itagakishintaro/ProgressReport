@@ -50,3 +50,39 @@ img {
   font-size: 100px;
   cursor: pointer;
 }
+
+.new-report {
+  position: fixed;
+  bottom: -5rem;
+  right: -3rem;
+  background-color: $blue;
+  width: 15rem;
+  height: 15rem;
+  border-radius: 50%;
+  padding-top: 3rem;
+  padding-left: 4rem;
+  color: white;
+}
+.new-report:hover {
+  color: white;
+  text-decoration: none;
+  background-color: rgba(12,48,128,0.5);
+}
+
+.like {
+  position: fixed;
+  bottom: -5rem;
+  right: -3rem;
+  font-size: 15rem;
+  color: rgba(240,144,141,1);
+}
+.like:hover, .like:focus{
+  color: rgba(240,144,141,1) !important;
+}
+.like-count {
+  position: fixed;
+  bottom: 4rem;
+  right: 3rem;
+  font-size: 2.5rem;
+  color: white;
+}

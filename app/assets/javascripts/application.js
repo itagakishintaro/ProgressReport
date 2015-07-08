@@ -22,4 +22,5 @@
 //= require bootstrap-modal
 //= require bootstrap-modalmanager
 //= require jqcloud.min
+//= require jBox.min
 //= require_tree .

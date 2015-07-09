@@ -31,7 +31,11 @@ setNoticeMark = ->
 
 sortNoticeBody = ->
 	sorted = $('#notice-body').children().sort( (a, b) -> return $(b).data('at') - $(a).data('at') )
-	$('#notice-body').html(sorted)
+	console.log sorted
+	if sorted.length > 0
+		$('#notice-body').html(sorted)
+	else
+		$('#notice-body').html('通知はありません。')
 
 setXForUser = (x, user) ->
 	$.ajax(

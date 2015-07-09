@@ -1,5 +1,6 @@
 userId = 0
 lastNoticeWatchTime = 0
+NOTICE_INTERVAL = 300000
 
 $ -> 
 	userId = $('#user_id').text()
@@ -8,7 +9,7 @@ $ ->
 	setInterval( () ->
 		setNotice()
 		setNoticeMark()
-	, 10000)
+	, NOTICE_INTERVAL)
 	$('#notice').on('click', () -> 
 		setNotice()
 		upsertLastNoticeWatchTime( userId, new XDate().toString() )

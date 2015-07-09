@@ -5,6 +5,10 @@ $ ->
 	userId = $('#user_id').text()
 	setNotice() # トップ画面表示の際にNoticeマークを変化させる
 	setNoticeMark()
+	setInterval( () ->
+		setNotice()
+		setNoticeMark()
+	, 10000)
 	$('#notice').on('click', () -> 
 		setNotice()
 		upsertLastNoticeWatchTime( userId, new XDate().toString() )
@@ -23,6 +27,7 @@ setNoticeMark = ->
 	getLastNoticeWatchTime()
 	latestNotice = $('#notice-body div:first-child').data('at')
 	if latestNotice > lastNoticeWatchTime
+		showDesktopNotice() if $('#notice').hasClass('lightgray-text') # デスクトップ通知
 		$('#notice').removeClass('lightgray-text')
 		$('#notice').addClass('yellow-text')
 	else
@@ -31,7 +36,6 @@ setNoticeMark = ->
 
 sortNoticeBody = ->
 	sorted = $('#notice-body').children().sort( (a, b) -> return $(b).data('at') - $(a).data('at') )
-	console.log sorted
 	if sorted.length > 0
 		$('#notice-body').html(sorted)
 	else
@@ -112,3 +116,30 @@ getLastNoticeWatchTime = ->
 		lastNoticeWatchTime = new XDate(json.watched_at).getTime() if json
 	)
 
+# デスクトップ通知
+# http://scrap.php.xdomain.jp/javascript_notification/
+showDesktopNotice = ->
+  # Notificationを取得
+  Notification = window.Notification or window.mozNotification or window.webkitNotification
+  # Notificationの権限チェック
+  Notification.requestPermission (permission) ->
+    # console.log permission
+    return
+  # 通知インスタンス生成
+  instance = new Notification('Progress Report',
+    body: 'ヘッダーの通知ベルをクリックしてみよう！'
+    icon: '')
+  
+  $(window).on('beforeunload', () ->
+    instance.close()
+  )
+  
+  instance.onclick = ->
+    window.open().close()
+    window.focus()
+    return
+
+  instance.onclose = () ->
+    return
+
+  return

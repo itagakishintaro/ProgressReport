@@ -7,10 +7,10 @@ $ ->
 	$('#title-view').text( $('#title').val() )
 	convertMarkdown()
 	$('#content').keyup( () -> convertMarkdown() )
-	$('.like').on( 'click', (event) -> 
+	$('.like-active').on( 'click', (event) -> 
 		event.preventDefault()
 		likeAction() )
-	new jBox('Tooltip', {attach: $('.like')})
+	new jBox('Tooltip', {attach: $('.like-active')})
 
 # For markdown
 convertMarkdown = ->

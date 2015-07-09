@@ -71,11 +71,17 @@
 <br>
 
 <%= link_to '戻る', reports_path, class: "btn btn-default pull-left margin-right-md" %>
-<%= link_to progresses_path( progress: {point:1, report_id:@report.id, user_id:current_user.id} ), method: :post, class: 'like', title: '「成長したね」と思ったらクリック！' do %>
-  <i class="fa fa-heart"></i>
-  <span class="like-count"><%= @report.progresses.map{|item| item.point}.sum %></span>
+<% if @report.user_id != current_user.id %> 
+  <%= link_to progresses_path( progress: {point:1, report_id:@report.id, user_id:current_user.id} ), method: :post, class: 'like like-active', title: '「成長したね」と思ったらクリック！' do %>
+    <i class="fa fa-heart"></i>
+    <span class="like-count"><%= @report.progresses.map{|item| item.point}.sum %></span>
+  <% end %>
+<% else %>
+  <div class="like">
+    <i class="fa fa-heart"></i>
+    <span class="like-count"><%= @report.progresses.map{|item| item.point}.sum %></span>
+  </div>
 <% end %>
-
 <!-- <div class="arrow_box pull-left"><%= @report.progresses.map{|item| item.point}.sum %></div> -->
 
 <br><br>

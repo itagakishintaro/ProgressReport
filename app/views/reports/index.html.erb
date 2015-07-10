@@ -9,7 +9,7 @@
   <span class="font-md margin-right-md">今月の人</span>
   <% @user_with_progress_points.first(3).each_with_index do |pp, i| %>
    <span class="label background-color-grade<%= i + 1 %> font-md margin-right-sm"><%= i + 1 %>位</span>
-   <span class="font-lg"  ><%= pp.user_name %></span>
+   <span class="font-lg"  ><%= pp.user_name %></span> さん
    <span class="badge margin-right-md"><%= pp.progress_points %></span>
   <% end %>
   <%= link_to progresses_path, class: "pull-right" do %>

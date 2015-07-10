@@ -12,8 +12,12 @@
    <span class="font-lg"  ><%= pp.user_name %></span>
    <span class="badge margin-right-md"><%= pp.progress_points %></span>
   <% end %>
-  <%= link_to 'みんなの成長', progresses_path, class: "btn btn-success btn-sm pull-right" %>
-  <%= link_to 'タグクラウド', tagcloud_reports_path, class: "btn btn-default btn-sm pull-right margin-right-sm" %>
+  <%= link_to progresses_path, class: "pull-right" do %>
+    <i class="fa fa-line-chart fa-2x green-text"></i>
+  <% end %>
+  <%= link_to tagcloud_reports_path, class: "pull-right margin-right-md" do %>
+    <i class="fa fa-cloud fa-2x gray-text"></i>
+  <% end %>
 </div>
 
 <%= search_form_for @q, :html => {:class => "form-inline"} do |f| %>

@@ -3,7 +3,7 @@ lastNoticeWatchTime = 0
 NOTICE_INTERVAL = 300000
 
 $ -> 
-	userId = $('#user_id').text()
+	userId = Number( $('#user_id').text() )
 	setNotice() # トップ画面表示の際にNoticeマークを変化させる
 	setNoticeMark()
 	setInterval( () ->
@@ -52,8 +52,8 @@ setXForUser = (x, user) ->
 		report_id_list.forEach( (report_id, i) ->
 			at = getAt(json, report_id)
 			watched = ''
-			watched = ' watched' if at < lastNoticeWatchTime
-			open = '<div class="notice-row' + watched + '" data-at="' + at + '"><a href="/reports/' + report_id + '">'
+			watched = 'watched' if at < lastNoticeWatchTime
+			open = "<div class='notice-row #{watched}' data-at='#{at}'><a href='/reports/#{report_id}'>"
 			
 			body = ''
 			names = getNames(json, report_id)
@@ -71,7 +71,9 @@ setXForUser = (x, user) ->
 
 # ヘルパー
 getReportIdList = (json) ->
-	json.map( (v, i) ->
+	json.filter( (v) ->
+		return v.user_id != userId # 自分の場合は排除
+	).map( (v) ->
 		return v.report_id # report_idだけの配列にして
 	).filter( (x, i, self) ->
         return self.indexOf(x) == i # 重複を排除
@@ -87,12 +89,14 @@ getAt = (json, report_id) ->
 getNames = (json, report_id) ->
 	names = []
 	json.filter( (v) ->
+		return v.user_id != userId # 自分の場合は排除
+	).filter( (v) ->
 		return v.report_id == report_id # report_idで絞って
 	).map( (v, i) ->
 		return v.user_name # user_nameだけの配列にして
 	).filter( (x, i, self) ->
         return self.indexOf(x) == i # 重複を排除して
-    ).forEach( (v, i) ->
+    ).forEach( (v) ->
 		names.push(v) # 名前を追記する
 	)
 	return names
@@ -100,7 +104,6 @@ getNames = (json, report_id) ->
 # 通知確認時刻の更新と取得
 upsertLastNoticeWatchTime = (userId, watchedAt) ->
 	data = {user_id: userId, watched_at: watchedAt}
-	console.log data
 	$.post(
 		'/notices/upsert',
 		data,

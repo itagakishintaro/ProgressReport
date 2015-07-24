@@ -12,7 +12,7 @@ class Report < ActiveRecord::Base
   def self.with_progress_points_and_number_of_comments
     joins('left outer join (SELECT SUM(point) AS progress_points, report_id FROM PROGRESSES GROUP BY report_id) AS p on reports.id = p.report_id')
     .joins('left outer join (SELECT COUNT(*) AS number_of_comments, report_id FROM COMMENTS GROUP BY report_id) AS c on reports.id = c.report_id')
-    .select('reports.*, progress_points, number_of_comments')
+    .select('reports.*, IFNULL(progress_points, 0) AS progress_points, IFNULL(number_of_comments, 0) AS number_of_comments')
   end
 
   def self.index_default_order

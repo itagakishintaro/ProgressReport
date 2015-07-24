@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
   has_many :images
 
   def self.with_progress_points
-    select('users.id, users.name, progresses.point, progresses.updated_at')
-    .joins(:progresses)
-    .order('users.id, progresses.updated_at')
+    select('users.id, users.name, p.point, p.updated_at')
+    .joins('left outer join (SELECT reports.user_id, progresses.point, progresses.updated_at FROM REPORTS left outer join PROGRESSES on reports.id = progresses.report_id) AS p on users.id = p.user_id')
+    .order('users.id, p.updated_at')
   end
 end

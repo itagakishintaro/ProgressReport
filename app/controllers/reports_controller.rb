@@ -15,7 +15,7 @@ class ReportsController < ApplicationController
     # index.html.erbの初期値との整合性に注意
     if params[:q].nil?
       params[:q] = {
-        updated_at_gteq: 7.day.ago.strftime('%Y-%m-%d'),
+        # updated_at_gteq: 7.day.ago.strftime('%Y-%m-%d'),
         updated_at_lteq_end_of_day: 0.day.ago.strftime('%Y-%m-%d')
       }
     end

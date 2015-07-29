@@ -3,17 +3,19 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ -> 
-	# For Markdown
-	$('#title-view').text( $('#title').val() )
-	convertMarkdown()
-	$('#content').keyup( () -> convertMarkdown() )
-	$('.like-active').on( 'click', (event) -> likeAction() ) # For 成長したねボタン
-	new jBox('Tooltip', {attach: $('.like-active')})
-	# For alert
-	$('#notice.alert-success').addClass('animated flash').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () ->
-	    $(this).removeClass('animated flash')
-	).delay(3000).hide(300)
-	$('.close').on('click', () -> $('#notice.alert-success').hide() )
+  # For Markdown
+  $('#title-view').text( $('#title').val() )
+  convertMarkdown()
+  $('#content').keyup( () -> convertMarkdown() )
+  $('.like-active').on( 'click', (event) -> likeAction() ) # For 成長したねボタン
+  new jBox('Tooltip', {attach: $('.like-active')})
+  # For alert
+  $('#notice.alert-success').addClass('animated flash').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () ->
+      $(this).removeClass('animated flash')
+  ).delay(3000).hide(300)
+  $('.close').on('click', () -> $('#notice.alert-success').hide() )
+  # For textarea autoresize
+  autosize($('textarea'))
 
 # For markdown
 convertMarkdown = ->

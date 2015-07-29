@@ -23,4 +23,9 @@
 //= require bootstrap-modalmanager
 //= require jqcloud.min
 //= require jBox.min
-//= require_tree .
+//= require remark.min
+
+// http://guides.rubyonrails.org/asset_pipeline.html
+// http://tech-kazuhisa.hatenablog.com/entry/20110918/1316351709
+// require_tree .
+//= require notices

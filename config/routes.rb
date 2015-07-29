@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   end
   resources :reports
   get 'reports/download/:id'=> 'reports#download', as: :donwload
+  get 'reports/:id/slide'=> 'reports#slide', as: :slide
 
   resources :attachments
   resources :images

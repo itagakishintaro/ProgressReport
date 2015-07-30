@@ -2,10 +2,10 @@ include Capybara::DSL
 
 module Header
   def go_to_edit_user_page
-    click_on 'プロフィール変更'
+    first('.settings').click
   end
   def logout
-    click_on 'ログアウト'
+    first('.signout').click
   end
 end
 
@@ -22,21 +22,21 @@ end
 
 module UsersSignUp
   def signup(d)
-    if d[:name] then fill_in 'Name', with: d[:name] end
-    if d[:email] then fill_in 'Email', with: d[:email] end
-    if d[:password] then fill_in 'Password', with: d[:password] end
-    if d[:confirmation] then fill_in 'Password confirmation', with: d[:confirmation] end
+    if d[:name] then fill_in 'user_name', with: d[:name] end
+    if d[:email] then fill_in 'user_email', with: d[:email] end
+    if d[:password] then fill_in 'user_password', with: d[:password] end
+    if d[:confirmation] then fill_in 'user_password_confirmation', with: d[:confirmation] end
     click_button 'サインアップ'
   end
 end
 
 module UsersEdit
   def update_user(d)
-    if d[:name] then fill_in 'Name', with: d[:name] end
-    if d[:email] then fill_in 'Email', with: d[:email] end
-    if d[:password] then fill_in 'Password', with: d[:password] end
-    if d[:confirmation] then fill_in 'Password confirmation', with: d[:confirmation] end
-    if d[:current] then fill_in 'Current password', with: d[:current] end
+    if d[:name] then fill_in 'user_name', with: d[:name] end
+    if d[:email] then fill_in 'user_email', with: d[:email] end
+    if d[:password] then fill_in 'user_password', with: d[:password] end
+    if d[:confirmation] then fill_in 'user_password_confirmation', with: d[:confirmation] end
+    if d[:current] then fill_in 'user_current_password', with: d[:current] end
     click_on '更新する'
   end
 

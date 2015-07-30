@@ -31,13 +31,13 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<% if user_signed_in? %> 
+						<% if user_signed_in? %>
 							<li><i id="notice" class="fa fa-bell fa-lg margin-top-md lightgray-text" data-toggle="modal" data-target="#myModal"></i></li>
 							<li class="loginuser"><%= current_user.name %> さん</li>
-							<li><%= link_to edit_user_registration_path, style: "padding: 15px 0 15px 15px;" do %>
+							<li><%= link_to edit_user_registration_path, style: "padding: 15px 0 15px 15px;", class: 'settings' do %>
 								<i class="fa fa-cog fa-lg white-text"></i>
 							<% end %></li>
-							<li class="margin-right-sm"><%= link_to destroy_user_session_path, method: :delete do %>
+							<li class="margin-right-sm"><%= link_to destroy_user_session_path, method: :delete, class: 'signout' do %>
 								<i class="fa fa-sign-out fa-lg white-text"></i>
 							<% end %></li>
 						<% else %>

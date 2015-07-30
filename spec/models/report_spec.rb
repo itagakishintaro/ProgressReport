@@ -39,7 +39,7 @@ describe Report do
     describe 'self.with_progress_points_and_number_of_comments' do
       it 'returns reports with progress points' do
         expect(Report.with_progress_points_and_number_of_comments[0].progress_points).to eq 4
-        expect(Report.with_progress_points_and_number_of_comments[1].progress_points).to eq nil
+        expect(Report.with_progress_points_and_number_of_comments[1].progress_points).to eq 0
         expect(Report.with_progress_points_and_number_of_comments[2].progress_points).to eq 1
         expect(Report.with_progress_points_and_number_of_comments[3].progress_points).to eq 1
       end
@@ -48,10 +48,10 @@ describe Report do
         expect(Report.with_progress_points_and_number_of_comments[0].number_of_comments).to eq 4
         expect(Report.with_progress_points_and_number_of_comments[1].number_of_comments).to eq 2
         expect(Report.with_progress_points_and_number_of_comments[2].number_of_comments).to eq 1
-        expect(Report.with_progress_points_and_number_of_comments[3].number_of_comments).to eq nil
+        expect(Report.with_progress_points_and_number_of_comments[3].number_of_comments).to eq 0
       end
     end
-    
+
     describe 'self.index_default_order' do
       it 'returns reports with progress points' do
         expect(Report.with_progress_points_and_number_of_comments.index_default_order[0].id).to eq 1

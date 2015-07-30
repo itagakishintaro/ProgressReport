@@ -24,10 +24,7 @@ describe ReportsController do
     end
 
     it 'has reports in default order' do
-      expect(assigns(:reports)).to eq( [@report_7_days_ago, @report_6_days_ago] )
-    end
-    it 'does not have a report 8 which created at 8 days ago' do
-      expect(assigns(:reports)).not_to match_array([@report_8_days_ago])
+      expect(assigns(:reports)).to eq( [@report_7_days_ago, @report_6_days_ago, @report_8_days_ago] )
     end
   end
 
@@ -99,12 +96,12 @@ describe ReportsController do
       FactoryGirl.create(:report, {tag: 'foo'})
       FactoryGirl.create(:report, {tag: 'foo'})
       FactoryGirl.create(:report, {tag: 'bar'})
-      get :tags
+      get :tagcount
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
       expect(json.size).to eq 2
-      expect(json[0]['tag']).to eq 'foo'
-      expect(json[1]['tag']).to eq 'bar'
+      expect(json[0]['text']).to eq 'foo'
+      expect(json[1]['text']).to eq 'bar'
     end
   end
 end

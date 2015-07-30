@@ -2,7 +2,7 @@ include Capybara::DSL
 
 module ReportsIndex
   def go_to_new_report_page
-    click_on '作成'
+    click_on '新しいReport'
   end
 
   def go_to_show_report_page(title)

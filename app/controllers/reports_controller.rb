@@ -48,6 +48,7 @@ class ReportsController < ApplicationController
 
   # GET /reports/1/slide
   def slide
+    render :slide, layout: "slide"
   end
 
   # POST /reports
@@ -131,7 +132,7 @@ class ReportsController < ApplicationController
 
     def attachment_params(report_id)
       params.require(:report).permit(:id, :attachments)
-      
+
       attachments = []
       unless params[:report][:attachments].nil?
         params[:report][:attachments].each do |a|

@@ -17,7 +17,7 @@ class Report < ActiveRecord::Base
 
   def self.index_default_order
     # 基本は、1:更新日付降順、2:成長ポイント降順, 3:コメント数降順, 4:更新日時降順 でソート（※日付と日時の違いに注意）
-    order("substr(updated_at, 0, 10) desc").order('progress_points desc').order('number_of_comments desc').order("updated_at desc")
+    order("DATE(updated_at) desc").order('progress_points desc').order('number_of_comments desc').order("updated_at desc")
   end
 
   def self.progress_points_by_user_this_month

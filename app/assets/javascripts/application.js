@@ -25,6 +25,7 @@
 //= require jBox.min
 //= require remark.min
 //= require autosize.min
+//= require ZeroClipboard.min
 
 // http://guides.rubyonrails.org/asset_pipeline.html
 // http://tech-kazuhisa.hatenablog.com/entry/20110918/1316351709

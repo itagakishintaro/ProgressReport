@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$ -> 
+$ ->
   # For Markdown
   $('#title-view').text( $('#title').val() )
   convertMarkdown()
@@ -16,6 +16,8 @@ $ ->
   $('.close').on('click', () -> $('#notice.alert-success').hide() )
   # For textarea autoresize
   autosize($('textarea'))
+  # For Clipboard
+  clip()
 
 # For markdown
 convertMarkdown = ->
@@ -44,8 +46,8 @@ $( () ->
 )
 
 ## For image file upload
-$ -> 
-	$('.image-uploader-input').on('change', () -> 
+$ ->
+	$('.image-uploader-input').on('change', () ->
 		data = new FormData()
 		data.append('file', $('#image')[0].files[0])
 		data.append('content_type', $('#image')[0].files[0].type)
@@ -59,7 +61,7 @@ $ ->
 			contentType: false
 		).done( (d) ->
 			org = $('#content').val()
-			insertAtCaret( $('#content'), ('![' + d + '](http://localhost:3000/images/show/' + d + ')') )
+			insertAtCaret( $('#content'), ('![' + d + '](' + location.protocol + '//' + location.host + '/images/show/' + d + ')') )
 			convertMarkdown()
 		)
 	)
@@ -88,3 +90,14 @@ likeAction = () ->
 	}, 100).animate({
 	    fontSize: '15rem'
 	}, 100)
+
+## For Clipboard
+clip = () ->
+  $('.clip').each( (i, v) ->
+    $(v).attr('data-clipboard-text', location.href + '/' + $(v).text())
+  )
+  client = new ZeroClipboard( $('.clip') )
+  new jBox('Modal', {
+    attach: $('.clip'),
+    content: 'クリップボードにレポートのURLをコピーしました'
+  })

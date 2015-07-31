@@ -18,6 +18,6 @@ class Comment < ActiveRecord::Base
 		.joins("INNER JOIN (SELECT report_id, updated_at FROM comments WHERE user_id = #{user_id}) AS SELF ON SELF.report_id = comments.report_id AND SELF.updated_at < comments.updated_at")
 		.where("comments.user_id != #{user_id}")
 		.where("reports.user_id != #{user_id}")
-		.group('comments.report_id, comments.updated_at')
+		.group('comments.report_id')
 	end
 end

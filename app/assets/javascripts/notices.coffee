@@ -2,7 +2,7 @@ userId = 0
 lastNoticeWatchTime = 0
 NOTICE_INTERVAL = 300000
 
-$ -> 
+$ ->
 	userId = Number( $('#user_id').text() )
 	setNotice() # トップ画面表示の際にNoticeマークを変化させる
 	setNoticeMark()
@@ -10,7 +10,7 @@ $ ->
 		setNotice()
 		setNoticeMark()
 	, NOTICE_INTERVAL)
-	$('#notice').on('click', () -> 
+	$('#notice').on('click', () ->
 		setNotice()
 		upsertLastNoticeWatchTime( userId, new XDate().toString() )
 		setNoticeMark()
@@ -22,6 +22,7 @@ setNotice = ->
 	getLastNoticeWatchTime()
 	setXForUser('comments', userId)
 	setXForUser('progresses', userId)
+	setCommentBackForUser(userId)
 	sortNoticeBody()
 
 setNoticeMark = ->
@@ -54,7 +55,7 @@ setXForUser = (x, user) ->
 			watched = ''
 			watched = 'watched' if at < lastNoticeWatchTime
 			open = "<div class='notice-row #{watched}' data-at='#{at}'><a href='/reports/#{report_id}'>"
-			
+
 			body = ''
 			names = getNames(json, report_id)
 			names.forEach( (v, i) ->
@@ -64,8 +65,24 @@ setXForUser = (x, user) ->
 			action = 'コメント'
 			action = '成長したね' if x == 'progresses'
 			close = "があなたのレポートに#{action}しました。</a></div>"
-			
+
 			$('#notice-body').append(open + body + close)
+		)
+	)
+
+setCommentBackForUser = (user) ->
+	$.ajax(
+		url: "/comments/back_for_user/#{user}"
+		dataType: 'json'
+		async: false
+	).done( (json) ->
+		json.forEach( (v, i) ->
+			at = new XDate(v.updated_at).getTime()
+			watched = ''
+			watched = 'watched' if at < lastNoticeWatchTime
+			open = "<div class='notice-row #{watched}' data-at='#{at}'><a href='/reports/#{v.report_id}'>"
+			close = "あなたがコメントしたレポートに他のコメントがありました。</a></div>"
+			$('#notice-body').append(open + close)
 		)
 	)
 
@@ -133,11 +150,11 @@ showDesktopNotice = ->
   instance = new Notification('Progress Report',
     body: 'ヘッダーの通知ベルをクリックしてみよう！'
     icon: '')
-  
+
   $(window).on('beforeunload', () ->
     instance.close()
   )
-  
+
   instance.onclick = ->
     window.open().close()
     window.focus()

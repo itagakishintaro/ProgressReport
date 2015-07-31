@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :comments do
     collection do
       get 'for_user/:user_id' => 'comments#for_user', as: :for_user
+      get 'back_for_user/:user_id' => 'comments#back_for_user', as: :back_for_user
     end
   end
   resources :comments

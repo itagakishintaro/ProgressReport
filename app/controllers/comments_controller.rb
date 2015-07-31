@@ -12,6 +12,11 @@ class CommentsController < ApplicationController
     render :json => @for_user.to_json
   end
 
+  def back_for_user
+    @back_for_user = Comment.back_for_user(params[:user_id])
+    render :json => @back_for_user.to_json
+  end
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params

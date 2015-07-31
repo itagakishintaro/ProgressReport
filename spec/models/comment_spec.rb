@@ -24,10 +24,12 @@ describe Comment do
 
 		describe 'self.back_for_user' do
       it 'returns others comments to commented reports for a user' do
-        expect(Comment.back_for_user(4).size).to eq 1
+        expect(Comment.back_for_user(4).length).to eq 1
         expect(Comment.back_for_user(4)[0].report_id).to eq 1
-        expect(Comment.back_for_user(4)[0].updated_at).to eq 0.days.ago
-				expect(Comment.back_for_user(1).size).to eq 0
+        expect(Comment.back_for_user(4)[0].updated_at.strftime('%Y-%m-%d')).to eq 0.days.ago.strftime('%Y-%m-%d')
+				expect(Comment.back_for_user(1).length).to eq 0
+				expect(Comment.back_for_user(2).length).to eq 0
+				expect(Comment.back_for_user(3).length).to eq 0
       end
     end
 	end

@@ -3,6 +3,10 @@
   '---'がスライドモードのスライドの区切りになります。
 </div>
 
+<% if name == '作成' %>
+  <%= collection_select :templates, :title, Report.where(tag: 'テンプレート'), :id, :title, {:prompt => "テンプレート選択"}, class: 'form-control margin-bottom-md js-template-select' %>
+<% end %>
+
 <%= form_for(@report) do |f| %>
   <div class="row">
     <div class="col-md-6">
@@ -57,7 +61,7 @@
   <br>
   <div class="actions">
     <%= link_to '戻る', reports_path, class: "btn btn-default margin-right-md" %>
-		<% unless name == '更新' && @report.user_id != current_user.id %> 
+		<% unless name == '更新' && @report.user_id != current_user.id %>
 			<%= submit_tag '保存', class: "btn btn-primary" %>
 		<% end %>
   </div>

@@ -1,15 +1,14 @@
 <div class="well well-sm">
   内容は<%= link_to 'Markdown記法', 'http://ja.wikipedia.org/wiki/Markdown', target: '_blank' %>で入力してください。<%= link_to 'GitHub Flavored Markdown', 'https://help.github.com/articles/github-flavored-markdown/', target: '_blank' %>も使えます。タグを複数設定する場合は半角スペースで区切ってください。<br>
-  '---'がスライドモードのスライドの区切りになります。
+  '---'がスライドモードのスライドの区切りになります。テンプレートのルールは<%= link_to 'こちら', '#', :id => 'templateRule' %>。
 </div>
-
-<% if name == '作成' %>
-  <%= collection_select :templates, :title, Report.where(tag: 'テンプレート'), :id, :title, {:prompt => "テンプレート選択"}, class: 'form-control margin-bottom-md js-template-select' %>
-<% end %>
 
 <%= form_for(@report) do |f| %>
   <div class="row">
     <div class="col-md-6">
+      <% if name == '作成' %>
+        <%= collection_select :templates, :title, Report.where('tag LIKE ?', '%テンプレート%'), :id, :title, {:prompt => "テンプレート選択"}, class: 'form-control margin-bottom-md js-template-select' %>
+      <% end %>
       <% if @report.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>

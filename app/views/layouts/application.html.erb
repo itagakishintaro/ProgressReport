@@ -33,7 +33,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<% if user_signed_in? %>
 							<li><i id="notice" class="fa fa-bell fa-lg margin-top-md lightgray-text" data-toggle="modal" data-target="#myModal"></i></li>
-							<li class="loginuser"><%= current_user.name %> さん</li>
+							<li class="loginuser"><span id="user_name"><%= current_user.name %></span> さん</li>
 							<li><%= link_to edit_user_registration_path, style: "padding: 15px 0 15px 15px;", class: 'settings' do %>
 								<i class="fa fa-cog fa-lg white-text"></i>
 							<% end %></li>

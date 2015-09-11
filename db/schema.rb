@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150607063150) do
+ActiveRecord::Schema.define(version: 20150911141727) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "name"
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 20150607063150) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "favarites", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "report_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "favarites", ["user_id", "report_id"], name: "index_favarites_on_user_id_and_report_id", unique: true
 
   create_table "images", force: :cascade do |t|
     t.string   "name"

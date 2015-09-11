@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :favarites
+
   # ---------- 認証関連 ----------
   root to: "reports#index"
   devise_for :users

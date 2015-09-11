@@ -1,153 +1,155 @@
+$sizes: xsm, sm, md, lg, xlg;
+$directions: top, right, bottom, left;
+$spaces: 1px, 5px, 20px, 40px, 60px;
+
 // font
-.font-xlg {
-	font-size: 24px;
-}
-.font-lg {
-	font-size: 16px;
-}
-.font-md {
-	font-size: 14px;
+$font-sizes: .5em, .8em, 1em, 1.2em, 1.5em;
+@each $size in $sizes {
+  $index-key: index($sizes, $size);
+
+  .font-#{$size} {
+    font-size: nth($font-sizes, $index-key);
+  }
 }
 
 // text
 .text-right {
-	text-align: right;
+  text-align: right;
 }
+
 .text-center {
-	text-align: center;
+  text-align: center;
 }
+
 .yellow-text {
-	color: yellow;
+  color: $yellow;
 }
+
 .green-text {
-	color: $green;
+  color: $green;
 }
+
 .lightgray-text {
-	color: lightgray;
+  color: $lightgray;
 }
+
 .gray-text {
-	color: gray;
+  color: $gray;
 }
+
 .white-text {
-	color: white;
+  color: $white;
 }
 
 // background
 .background-color-lightgreen {
-	background-color: $lightgreen;
+  background-color: $lightgreen;
 }
+
 .background-color-white {
-	background-color: white;
+  background-color: $white;
 }
+
 .background-color-green {
-	background-color: $green;
+  background-color: $green;
 }
+
 .background-color-grade1 {
-	background-color: gold;
+  background-color: $gold;
 }
+
 .background-color-grade2 {
-	background-color: silver;
+  background-color: $silver;
 }
+
 .background-color-grade3 {
-	background-color: $bronze;
+  background-color: $bronze;
 }
 
 // margin
-.margin-top-sm {
-	margin-top: 5px;
-}
-.margin-top-md {
-	margin-top: 20px;
-}
-.margin-top-lg {
-	margin-top: 40px;
-}
-.margin-bottom-sm {
-	margin-bottom: 5px;
-}
-.margin-bottom-md {
-	margin-bottom: 20px;
-}
-.margin-bottom-0 {
-	margin-bottom: 0;
-}
-.margin-right-sm {
-	margin-right: 5px;
-}
-.margin-right-md {
-	margin-right: 20px
-}
-.margin-right-lg {
-	margin-right: 40px;
-}
-.margin-left-sm {
-	margin-left: 5px;
-}
-.margin-left-md {
-	margin-left: 20px;
-}
-.margin-left-lg {
-	margin-left: 40px;
+@each $size in $sizes {
+  $index-key: index($sizes, $size);
+  @each $direction in $directions {
+    .margin-#{$size} {
+      margin: nth($spaces, $index-key);
+    }
+
+    .margin-#{$direction}-#{$size} {
+      margin-#{$direction}: nth($spaces, $index-key);
+    }
+  }
 }
 
 // padding
-.padding-sm {
-	padding: 5px;
-}
+@each $size in $sizes {
+  $index-key: index($sizes, $size);
+  @each $direction in $directions {
+    .padding-#{$size} {
+      padding: nth($spaces, $index-key);
+    }
 
+    .padding-#{$direction}-#{$size} {
+      padding-#{$direction}: nth($spaces, $index-key);
+    }
+  }
+}
 
 // others
 .border-0 {
-	border: 0;
+  border: 0;
 }
+
 .nowrap {
-	white-space: nowrap;
+  white-space: nowrap;
 }
 
 // footer
 footer ul {
-	text-align: center;
+  text-align: center;
 }
+
 footer li {
-	display: inline;  
-    margin-right: 1em;  
+  display: inline;
+  margin-right: 1em;
 }
 
 // created by http://cssarrowplease.com/
-.arrow_box {
-	text-align: center;
-	width: 50px;
-	height: 34px;
-	line-height: 30px;
-	margin-left: 10px;
-	color: $green;
-	border-radius: 8px;
-
-	position: relative;
-	background: #fff;
-	border: 2px solid $green;
-	padding: 0 10px;
-}
-.arrow_box:after, .arrow_box:before {
-	right: 100%;
-	top: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
+.arrow-box {
+  background: $white;
+  border: 2px solid $green;
+  border-radius: 8px;
+  color: $green;
+  height: 34px;
+  line-height: 30px;
+  margin-left: 10px;
+  padding: 0 10px;
+  position: relative;
+  text-align: center;
+  width: 50px;
 }
 
-.arrow_box:after {
-	border-color: rgba(255, 255, 255, 0);
-	border-right-color: #fff;
-	border-width: 5px;
-	margin-top: -5px;
+.arrow-box:after,
+.arrow-box:before {
+  border: solid transparent;
+  content: ' ';
+  height: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  width: 0;
 }
-.arrow_box:before {
-	border-color: rgba(153, 153, 153, 0);
-	border-right-color: $green;
-	border-width: 8px;
-	margin-top: -8px;
+
+.arrow-box:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-right-color: $white;
+  border-width: 5px;
+  margin-top: -5px;
+}
+
+.arrow-box:before {
+  border-color: rgba(153, 153, 153, 0);
+  border-right-color: $green;
+  border-width: 8px;
+  margin-top: -8px;
 }

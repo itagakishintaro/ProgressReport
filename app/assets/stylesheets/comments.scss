@@ -1,10 +1,12 @@
 .comments {
-	max-height: 300px;
-	overflow: scroll;
+  max-height: 300px;
+  overflow: scroll;
 }
+
 .comment {
-	margin: 10px;
+  margin: 10px;
 }
+
 .time {
-	color: gray;
+  color: $gray;
 }

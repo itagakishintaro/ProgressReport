@@ -30,10 +30,10 @@
   <%= @report.title %>
 </div>
 
-<div id="content-view">
+<div id="content-view" class="content-view">
   <%= @report.content %>
 </div>
-<br>
+
 <div>
   <% if @report.attachments.presence %>
     <% @report.attachments.each do |a| %>
@@ -69,20 +69,19 @@
     </div>
   </div>
 </div>
-<br>
 
-<%= link_to '戻る', reports_path, class: "btn btn-default pull-left margin-right-md" %>
-<% if @report.user_id != current_user.id %>
-  <%= link_to progresses_path( progress: {point:1, report_id:@report.id, user_id:current_user.id} ), method: :post, class: 'like like-active', title: '「成長したね」と思ったらクリック！' do %>
-    <i class="fa fa-heart"></i>
-    <span class="like-count"><%= @report.progresses.map{|item| item.point}.sum %></span>
+<div class="bottom-action">
+  <%= link_to '戻る', reports_path, class: "btn btn-default pull-left margin-right-md" %>
+  <% if @report.user_id != current_user.id %>
+    <%= link_to progresses_path( progress: {point:1, report_id:@report.id, user_id:current_user.id} ), method: :post, class: 'like like-active', title: '「成長したね」と思ったらクリック！' do %>
+      <i class="fa fa-heart"></i>
+      <span class="like-count"><%= @report.progresses.map{|item| item.point}.sum %></span>
+    <% end %>
+  <% else %>
+    <div class="like">
+      <i class="fa fa-heart"></i>
+      <span class="like-count"><%= @report.progresses.map{|item| item.point}.sum %></span>
+    </div>
   <% end %>
-<% else %>
-  <div class="like">
-    <i class="fa fa-heart"></i>
-    <span class="like-count"><%= @report.progresses.map{|item| item.point}.sum %></span>
-  </div>
-<% end %>
-<!-- <div class="arrow_box pull-left"><%= @report.progresses.map{|item| item.point}.sum %></div> -->
-
-<br><br>
+  <!-- <div class="arrow-box pull-left"><%= @report.progresses.map{|item| item.point}.sum %></div> -->
+</div>

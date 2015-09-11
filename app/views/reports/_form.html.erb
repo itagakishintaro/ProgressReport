@@ -34,7 +34,7 @@
         <a>カーソル位置に画像を挿入</a>
         <input id="image" type="file" class="image-uploader-input"></input>
       </div>
-      <br><br>
+
       <div class="field form-group">
         <%= f.label :attachments, '添付ファイル', class: 'label label-default' %> <span>(複数ファイル選択できます)</span>
         <%= f.file_field :attachments, id: "attachments", multiple: true, class: 'margin-top-sm form-control  ' %>
@@ -49,19 +49,19 @@
       </div>
     </div>
     <div class="field form-group form-inline">
-			<%= f.hidden_field :user_id, :value => current_user.id %>
+      <%= f.hidden_field :user_id, :value => current_user.id %>
     </div>
 
     <div class="col-md-6">
-      <div id="title-view"></div>
-      <div id="content-view" class="content-view-edit"></div>
+      <div id="title-view" class="title-view"></div>
+      <div id="content-view" class="content-view mode-edit"></div>
     </div>
   </div>
-  <br>
-  <div class="actions">
+
+  <div class="bottom-action">
     <%= link_to '戻る', reports_path, class: "btn btn-default margin-right-md" %>
-		<% unless name == '更新' && @report.user_id != current_user.id %>
-			<%= submit_tag '保存', class: "btn btn-primary" %>
-		<% end %>
+      <% unless name == '更新' && @report.user_id != current_user.id %>
+      <%= submit_tag '保存', class: "btn btn-primary" %>
+    <% end %>
   </div>
 <% end %>

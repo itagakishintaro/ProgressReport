@@ -1,88 +1,102 @@
 // Place all the styles related to the Reports controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.bottom-action {
+  margin-top: 1em;
+  overflow: hidden;
+}
 
-#content-view {
-	table {
-		@extend .table;
-		@extend .table-striped;
-		@extend .table-bordered;
-	}
+.content-view {
+  margin-bottom: 1em;
+
+  table {
+    @extend .table-bordered;
+    @extend .table-striped;
+    @extend .table;
+  }
+
+  &.mode-edit {
+    height: 55rem;
+    overflow: scroll;
+  }
 }
-.content-view-edit {
-	height: 55rem;
-	overflow: scroll;
+
+.title-view {
+  font-size: 3rem;
 }
-#title-view {
-	font-size: 3rem;
-}
+
 img {
-	width: 100%;
+  width: 100%;
 }
+
 .notice-row {
+  border-top: 1px solid $lightgray;
   margin: 0;
   padding: 5px 0;
-  border-top: 1px solid lightgray;
 }
+
 .watched {
-  background-color: #eee;
+  background-color: $verylightgray;
 }
 
 // http://tsmd.hateblo.jp/entry/2013/05/09/045110
 .image-uploader {
-  display: inline-block;
-  overflow: hidden;
-  position: relative;
-  margin: 0;
-  padding: .5em;
-  width: 100%;
+  background-color: $verylightgray;
   border-radius: .5em;
-  background-color: #eee;
+  display: inline-block;
+  margin: 0 0 2em;
+  overflow: hidden;
+  padding: .5em;
+  position: relative;
+  width: 100%;
 }
 
 .image-uploader-input {
+  cursor: pointer;
+  font-size: 100px;
+  margin: 0;
   opacity: 0;
-  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
   position: absolute;
   right: 0;
   top: 0;
-  margin: 0;
-  font-size: 100px;
-  cursor: pointer;
 }
 
 .new-report {
-  position: fixed;
-  bottom: -5rem;
-  right: -3rem;
   background-color: $blue;
-  width: 15rem;
-  height: 15rem;
   border-radius: 50%;
-  padding-top: 3rem;
+  bottom: -5rem;
+  color: $white;
+  height: 15rem;
   padding-left: 4rem;
-  color: white;
+  padding-top: 3rem;
+  position: fixed;
+  right: -3rem;
+  width: 15rem;
 }
+
 .new-report:hover {
-  color: white;
+  background-color: $clearblue;
+  color: $white;
   text-decoration: none;
-  background-color: rgba(12,48,128,0.5);
 }
 
 .like {
-  position: fixed;
   bottom: -5rem;
-  right: -3rem;
+  color: $pink;
   font-size: 15rem;
-  color: rgba(240,144,141,1);
-}
-.like:hover, .like:focus{
-  color: rgba(240,144,141,1) !important;
-}
-.like-count {
   position: fixed;
+  right: -3rem;
+}
+
+.like:hover,
+.like:focus {
+  color: $pink;
+}
+
+.like-count {
   bottom: 4rem;
-  right: 3rem;
+  color: $white;
   font-size: 2.5rem;
-  color: white;
+  position: fixed;
+  right: 3rem;
 }

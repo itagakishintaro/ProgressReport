@@ -11,9 +11,9 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field" hidden>
     <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
+    <%= f.number_field :user_id, value: current_user.id %>
   </div>
   <div class="field">
     <%= f.label :report_id %><br>

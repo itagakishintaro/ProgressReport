@@ -4,21 +4,7 @@ class FavaritesController < ApplicationController
   # GET /favarites
   # GET /favarites.json
   def index
-    @favarites = Favarite.all
-  end
-
-  # GET /favarites/1
-  # GET /favarites/1.json
-  def show
-  end
-
-  # GET /favarites/new
-  def new
-    @favarite = Favarite.new
-  end
-
-  # GET /favarites/1/edit
-  def edit
+    @favarites = Favarite.where(user_id: current_user.id).joins(:report)
   end
 
   # POST /favarites
@@ -32,20 +18,6 @@ class FavaritesController < ApplicationController
         format.json { render :show, status: :created, location: @favarite }
       else
         format.html { render :new }
-        format.json { render json: @favarite.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /favarites/1
-  # PATCH/PUT /favarites/1.json
-  def update
-    respond_to do |format|
-      if @favarite.update(favarite_params)
-        format.html { redirect_to @favarite, notice: 'Favarite was successfully updated.' }
-        format.json { render :show, status: :ok, location: @favarite }
-      else
-        format.html { render :edit }
         format.json { render json: @favarite.errors, status: :unprocessable_entity }
       end
     end

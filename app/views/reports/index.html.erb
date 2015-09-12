@@ -37,6 +37,7 @@
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
+        <th><i class="fa fa-star"></i></th>
         <th><%= sort_link(@q, :id, 'ID', default_order: :desc) %></th>
         <th><%= sort_link(@q, :progress_points, '成長', default_order: :desc) %></th>
         <th><%= sort_link(@q, :number_of_comments, 'コメント', default_order: :desc) %></th>
@@ -51,8 +52,18 @@
     </thead>
 
     <tbody>
+      <%= hidden_field_tag('authenticity_token', form_authenticity_token) %>
       <% @reports.each do |report| %>
         <tr>
+          <td>
+            <div>
+              <% if Favarite.where('report_id = ? AND user_id = ?', report.id, current_user.id).blank? %>
+                <i class="fa fa-star lightgray-text" data-favarite = false data-report-id=<%= report.id %> ></i>
+              <% else %>
+                <i class="fa fa-star yellow-text" data-favarite = true data-favarite-id=<%= Favarite.where('report_id = ? AND user_id = ?', report.id, current_user.id).first.id %> data-report-id=<%= report.id %>></i>
+              <% end %>
+            </div>
+          </td>
           <td><a class="clip" data-clipboard-text="" title="Click to copy me."><%= report.id %></a></td>
           <td><%= report.progress_points %></td>
           <td><%= report.number_of_comments %></td>

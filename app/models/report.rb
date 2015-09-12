@@ -1,13 +1,12 @@
 class Report < ActiveRecord::Base
-	belongs_to :user
-	has_many :progresses, dependent: :destroy
-	has_many :comments, dependent: :destroy
-	has_many :attachments, dependent: :destroy
-
-	validates :title,
-	  presence: true
-	validates :content,
-	  presence: true
+  belongs_to :user
+  has_many :progresses, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :attachments, dependent: :destroy
+  has_many :favarite, dependent: :destroy
+  
+  validates :title, presence: true
+  validates :content, presence: true
 
   def self.with_progress_points_and_number_of_comments
     joins('left outer join (SELECT SUM(point) AS progress_points, report_id FROM PROGRESSES GROUP BY report_id) AS p on reports.id = p.report_id')

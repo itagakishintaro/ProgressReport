@@ -3,6 +3,10 @@ $directions: top, right, bottom, left;
 $spaces: 1px, 5px, 20px, 40px, 60px;
 
 // font
+body {
+  font-family: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
+}
+
 $font-sizes: .5em, .8em, 1em, 1.2em, 1.5em;
 @each $size in $sizes {
   $index-key: index($sizes, $size);

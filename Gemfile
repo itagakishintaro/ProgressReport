@@ -72,7 +72,7 @@ group :development do
 end
 # 追加
 group :production do
-  gem 'pg'
+  gem 'pg', '0.17.1' # For http://tkm9.hateblo.jp/entry/2015/02/17/210353
   gem 'rails_12factor'
 end
 

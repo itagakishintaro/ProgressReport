@@ -70,7 +70,11 @@
           <td><%= report.tag %></td>
           <td><%= link_to report.title, report %></td>
           <!-- <td><%= report.content.split[0] %></td> -->
-          <td><%= report.user.name %></td>
+          <td>
+            <% unless report.user.nil? %>
+            <%= report.user.name %>
+            <% end %>
+          </td>
           <td>
             <% report.attachments.each { |a| %>
             <%= a.name %><br>

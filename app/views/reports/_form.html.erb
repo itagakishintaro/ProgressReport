@@ -5,64 +5,67 @@
 </div>
 
 <%= form_for(@report) do |f| %>
-  <div class="row">
-    <div class="col-md-6">
-      <% if name == '作成' %>
-        <%= collection_select :templates, :title, Report.where('tag LIKE ?', '%テンプレート%'), :id, :title, {:prompt => "テンプレート選択"}, class: 'form-control margin-bottom-md js-template-select' %>
-      <% end %>
-      <% if @report.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
-
-          <ul>
-          <% @report.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <div class="field form-group">
-        <%= f.text_field :tag, class: "form-control typeahead", placeholder:"タグ", autocomplete: "off" %>
-      </div>
-      <div class="field form-group">
-        <%= f.text_field :title, id: "title", class: "form-control", placeholder:"タイトル" %>
-      </div>
-      <div class="field form-group margin-bottom-0">
-        <%= f.text_area :content, id: "content", class: "form-control", placeholder:"内容", rows: 20 %>
-      </div>
-      <div class="image-uploader">
-        <a>カーソル位置に画像を挿入</a>
-        <input id="image" type="file" class="image-uploader-input"></input>
-      </div>
-
-      <div class="field form-group">
-        <%= f.label :attachments, '添付ファイル', class: 'label label-default' %> <span>(複数ファイル選択できます)</span>
-        <%= f.file_field :attachments, id: "attachments", multiple: true, class: 'margin-top-sm form-control  ' %>
-      </div>
-      <div>
-        <% @report.attachments.each do |a| %>
-          <span class="nowrap">
-            <%= a.name %>
-            <%= link_to '削除', a, method: :delete, data: { confirm: '削除しますか?' }, class: "btn btn-warning btn-xs margin-right-md" %>
-          </span>
-        <% end %>
-      </div>
-    </div>
-    <div class="field form-group form-inline">
-      <%= f.hidden_field :user_id, :value => current_user.id %>
-    </div>
-
-    <div class="col-md-6">
-      <div id="title-view" class="title-view"></div>
-      <div id="content-view" class="content-view mode-edit"></div>
-    </div>
-  </div>
-
-  <div class="bottom-action">
-    <%= link_to '戻る', reports_path, class: "btn btn-default margin-right-md" %>
-      <% unless name == '更新' && @report.user_id != current_user.id %>
-      <%= submit_tag '保存', class: "btn btn-primary" %>
+<div class="row">
+  <div class="col-md-6">
+    <% if name == '作成' %>
+    <%= collection_select :templates, :title, Report.where('tag LIKE ?', '%テンプレート%'), :id, :title, {:prompt => "テンプレート選択"}, class: 'form-control margin-bottom-md js-template-select' %>
     <% end %>
+    <% if @report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@report.errors.count, "error") %>
+        prohibited this report from being saved:</h2>
+
+      <ul>
+        <% @report.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+
+    <div class="field form-group">
+      <%= f.text_field :tag, class: "form-control typeahead", placeholder:"タグ", autocomplete: "off" %>
+    </div>
+    <div class="field form-group">
+      <%= f.text_field :title, id: "title", class: "form-control", placeholder:"タイトル" %>
+    </div>
+    <div class="field form-group margin-bottom-0">
+      <%= f.text_area :content, id: "content", class: "form-control", placeholder:"内容", rows: 20 %>
+    </div>
+    <div class="image-uploader">
+      <a>カーソル位置に画像を挿入</a>
+      <input class="image-uploader-input" id="image" type="file"></input>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :attachments, '添付ファイル', class: 'label label-default' %>
+      <span>(複数ファイル選択できます)</span>
+      <%= f.file_field :attachments, id: "attachments", multiple: true, class: 'margin-top-sm form-control  ' %>
+    </div>
+    <div>
+      <% @report.attachments.each do |a| %>
+      <span class="nowrap">
+        <%= a.name %>
+        <%= link_to '削除', a, method: :delete, data: { confirm: '削除しますか?' }, class: "btn btn-warning btn-xs margin-right-md" %>
+      </span>
+      <% end %>
+    </div>
   </div>
+  <div class="field form-group form-inline">
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+  </div>
+
+  <div class="col-md-6">
+    <div class="title-view" id="title-view"></div>
+    <div class="content-view mode-edit" id="content-view"></div>
+  </div>
+</div>
+
+<div class="bottom-action">
+  <%= link_to '戻る', reports_path, class: "btn btn-default margin-right-md" %>
+  <%= submit_tag '保存', class: "btn btn-primary" %>
+  <span class="field form-group margin-left-sm">
+    <%= f.check_box :collaboration, { id: "collaboration" }, "1", "0" %>共同編集
+  </span>
+</div>
 <% end %>

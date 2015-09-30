@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150911141727) do
+ActiveRecord::Schema.define(version: 20150930051742) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "name"
@@ -67,8 +67,9 @@ ActiveRecord::Schema.define(version: 20150911141727) do
     t.string   "tag"
     t.string   "content"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "collaboration", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|

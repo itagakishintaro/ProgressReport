@@ -48,7 +48,7 @@ class ReportsController < ApplicationController
 
   # GET /reports/1/slide
   def slide
-    render :slide, layout: "slide"
+    render :slide, layout: 'slide'
   end
 
   # POST /reports
@@ -101,59 +101,60 @@ class ReportsController < ApplicationController
 
   def tagcloud
   end
+
   def tagcount
     # 複数タグを半角スペース区切りで入力している場合があるのでそれを分離
-    tags = Report.select(:tag).map{|v| v.tag}
+    tags = Report.select(:tag).map(&:tag)
     all_tags = []
     tags.each { |tag| all_tags.concat(tag.split(' ')) }
 
     uniq_tags = all_tags.uniq
-    render json: uniq_tags.map{ |tag| { text: tag, weight: all_tags.count(tag) } }
+    render json: uniq_tags.map { |tag| { text: tag, weight: all_tags.count(tag) } }
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_report
-      @report = Report.find(params[:id])
-    end
 
-    def set_user_with_progress_points
-      @user_with_progress_points = Report.progress_points_by_user_this_month
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_report
+    @report = Report.find(params[:id])
+  end
 
-    def set_attachment
-      @attachment = Attachment.find(params[:id])
-    end
+  def set_user_with_progress_points
+    @user_with_progress_points = Report.progress_points_by_user_this_month
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def report_params
-      params.require(:report).permit(:title, :tag, :content, :user_id, :created_at, :updated_at)
-    end
+  def set_attachment
+    @attachment = Attachment.find(params[:id])
+  end
 
-    def attachment_params(report_id)
-      params.require(:report).permit(:id, :attachments)
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def report_params
+    params.require(:report).permit(:title, :tag, :content, :user_id, :created_at, :updated_at, :collaboration)
+  end
 
-      attachments = []
-      unless params[:report][:attachments].nil?
-        params[:report][:attachments].each do |a|
-          attachments.push( { file: a.read, name: a.original_filename, report_id: report_id } )
-        end
-      end
-      attachments
-    end
+  def attachment_params(report_id)
+    params.require(:report).permit(:id, :attachments)
 
-    def create_attachments!(data)
-      # リクエストのattachmentsが空でなければcreate
-      unless params[:report][:attachments].nil?
-        data.each do |a|
-          Attachment.create!(a)
-        end
+    attachments = []
+    unless params[:report][:attachments].nil?
+      params[:report][:attachments].each do |a|
+        attachments.push(file: a.read, name: a.original_filename, report_id: report_id)
       end
     end
+    attachments
+  end
 
-    def check_current_users_report
-      puts @report.user_id
-      redirect_to(root_path) unless current_user.id == @report.user_id
+  def create_attachments!(data)
+    # リクエストのattachmentsが空でなければcreate
+    unless params[:report][:attachments].nil?
+      data.each do |a|
+        Attachment.create!(a)
+      end
     end
+  end
 
+  def check_current_users_report
+    puts @report.user_id
+    redirect_to(root_path) unless current_user.id == @report.user_id || @report.collaboration == 1
+  end
 end

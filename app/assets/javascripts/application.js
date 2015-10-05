@@ -26,6 +26,8 @@
 //= require remark.min
 //= require autosize.min
 //= require ZeroClipboard.min
+//= require moment
+//= require fullcalendar
 
 // http://guides.rubyonrails.org/asset_pipeline.html
 // http://tech-kazuhisa.hatenablog.com/entry/20110918/1316351709

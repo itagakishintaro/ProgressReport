@@ -27,6 +27,10 @@ gem 'kaminari'
 
 # bootstrapのモーダル
 gem 'bootstrap-modal-rails'
+
+# カレンダー
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 # ---------- 基本的なgem ----------
 
 # 追加（HerokuデプロイでWARNINGがでるから）

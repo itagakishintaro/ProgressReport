@@ -1,5 +1,8 @@
-<p id="notice"><%= notice %></p>
-
-<h1>カレンダー</h1>
+<% if notice %>
+<div id="notice" class="alert alert-success">
+  <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <%= notice %>
+</div>
+<% end %>
 
 <div id="calendar"></div>

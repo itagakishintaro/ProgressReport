@@ -11,27 +11,30 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
+  <div class="field form-group">
+    <%= f.label :title, class: "width-5rem" %>
+    <%= f.text_field :title, class: "form-inline" %>
   </div>
-  <div class="field">
-    <%= f.label :start %><br>
-    <%= f.datetime_select :start %>
+  <div class="field form-group">
+    <%= f.label :start, class: "width-5rem" %>
+    <%= f.datetime_select :start, class: "form-inline" %>
   </div>
-  <div class="field">
-    <%= f.label :end %><br>
-    <%= f.datetime_select :end %>
+  <div class="field form-group">
+    <%= f.label :end, class: "width-5rem" %>
+    <%= f.datetime_select :end, class: "form-inline" %>
   </div>
-  <div class="field">
-    <%= f.label :color %><br>
-    <%= f.text_field :color %>
+  <div class="field form-group">
+    <%= f.label :color, class: "width-5rem" %>
+    <%= f.text_field :color, class: "form-inline" %>
   </div>
-  <div class="field">
-    <%= f.label :allDay %><br>
-    <%= f.check_box :allDay %>
+  <div class="field form-group">
+    <%= f.label :allDay, class: "width-5rem" %>
+    <%= f.check_box :allDay, class: "form-inline" %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="bottom-action">
+    <%= link_to '戻る', events_path, class: "btn btn-default margin-right-md" %>
+    <%= submit_tag '保存', class: "btn btn-primary margin-right-md" %>
+    <%= link_to '削除', @event, method: :delete, data: { confirm: '削除しますか?' }, class: 'btn btn-warning' %>
   </div>
 <% end %>

@@ -8,7 +8,7 @@ $ ->
   convertMarkdown()
   $('#content').keyup( () -> convertMarkdown() )
   $('.like-active').on( 'click', (event) -> likeAction() ) # For 成長したねボタン
-  new jBox('Tooltip', {attach: $('.like-active')})
+  new jBox('Tooltip', {attach: $('.like-active') } )
   # For textarea autoresize
   autosize($('textarea'))
   # For Clipboard
@@ -20,7 +20,7 @@ $ ->
 convertMarkdown = ->
   markdown = ''
   if $('#content').size() == 0 # showの場合
-    markdown = $('#content-view').text().replace(/(^\s+)|(\s+$)/g, "")
+    markdown = $('#content-view').text().replace(/(^\s+)|(\s+$)/g,  "")
   else # editの場合
     markdown = $('#content').val().replace(/(^\s+)|(\s+$)/g, "")
   # For highlight
@@ -34,10 +34,10 @@ convertMarkdown = ->
 # For typeahead of Tag
 # https://twitter.github.io/typeahead.js/examples/
 $( () ->
-    $.getJSON('/reports/tagcount', (json) ->
-      $('.typeahead').typeahead(
-        source: json.map( (d) -> d.text )
-        autoSelect: true
+  $.getJSON('/reports/tagcount', (json) ->
+    $('.typeahead').typeahead(
+      source: json.map( (d) -> d.text )
+      autoSelect: true
     )
   )
 )
@@ -58,7 +58,7 @@ $ ->
       contentType: false
     ).done( (d) ->
       org = $('#content').val()
-      insertAtCaret( $('#content'), ('![' + d + '](' + location.protocol + '//' + location.host + '/images/show/' + d + ')') )
+      insertAtCaret( $('#content'), ('![' + d + '](' + location.protocol + '//' + location.host + '/images/show/' + d + ')')  )
       convertMarkdown()
     )
   )
@@ -83,10 +83,10 @@ likeAction = () ->
   $('.like').addClass('in-progress')
   $('.like-count').hide()
   $('.like').stop().animate({
-      fontSize: '25rem'
-  }, 100).animate({
-      fontSize: '15rem'
-  }, 100)
+    fontSize: '25rem'
+  } , 100).animate({
+    fontSize: '15rem'
+  } , 100)
 
 ## For Clipboard
 clip = () ->
@@ -97,7 +97,7 @@ clip = () ->
   new jBox('Modal', {
     attach: $('.clip'),
     content: 'クリップボードにレポートのURLをコピーしました'
-  })
+  } )
 
 ## For Favarite
 toggleFavor = () ->

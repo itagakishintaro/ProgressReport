@@ -33,3 +33,4 @@
 // http://tech-kazuhisa.hatenablog.com/entry/20110918/1316351709
 // require_tree .
 //= require notices
+//= require websocket_rails/main

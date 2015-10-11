@@ -31,6 +31,10 @@ gem 'bootstrap-modal-rails'
 # カレンダー
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
+
+# websocket
+gem 'websocket-rails'
+
 # ---------- 基本的なgem ----------
 
 # 追加（HerokuデプロイでWARNINGがでるから）

@@ -30,7 +30,7 @@ class EventsController < ApplicationController
         # <----- websocket -----
         logger.debug('-----------------------------------------')
         WebsocketRails[:streaming].trigger 'create', @event
-        head :ok
+        # head :ok
         logger.debug('-----------------------------------------')
         # ----- websocket----->
         format.html { redirect_to @event, notice: 'Event was successfully created.' }

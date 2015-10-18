@@ -15,6 +15,9 @@ $ ->
   clip()
   # For Favarite
   toggleFavor()
+  # For index of page
+  makeIndex()
+
 
 # For markdown
 convertMarkdown = ->
@@ -138,3 +141,16 @@ unfavor = (element) ->
     element.addClass('lightgray-text')
     element.data('favarite', false)
   )
+
+## For index of report
+makeIndex = () ->
+  $('.content-view').jumpto
+    firstLevel: 'h1'
+    secondLevel: 'h2'
+    innerWrapper: '.content-view'
+    offset: 400
+    animate: 1000
+    navContainer: '.content-nav'
+    anchorTopPadding: 20
+    showTitle: '目次'
+    closeButton: false

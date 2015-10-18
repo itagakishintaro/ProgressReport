@@ -20,14 +20,13 @@
  *= require jBox
  *= require animate
  *= require fullcalendar
- */
-
+*/
 // base css
-@import "bootstrap";
+@import 'bootstrap';
 
 // common css
-@import "common/common_variables.scss";
-@import "common/common.scss";
+@import 'common/common_variables';
+@import 'common/common';
 
 // others
-@import "./*";
+@import './*';

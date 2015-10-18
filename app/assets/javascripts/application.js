@@ -28,6 +28,7 @@
 //= require ZeroClipboard.min
 //= require moment
 //= require fullcalendar
+//= require jquery.jumpto.min
 
 // http://guides.rubyonrails.org/asset_pipeline.html
 // http://tech-kazuhisa.hatenablog.com/entry/20110918/1316351709

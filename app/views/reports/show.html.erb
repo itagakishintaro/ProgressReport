@@ -28,48 +28,56 @@
   <%= @report.updated_at.strftime("%Y/%m/%d %H:%M") %>
 </span>
 </div>
-<div id="title-view">
-<%= @report.title %>
-</div>
 
-<div class="content-view" id="content-view">
-<%= @report.content %>
-</div>
-
-<div>
-<% if @report.attachments.presence %>
-<% @report.attachments.each do |a| %>
-<span class="nowrap">
-  <%= a.name %>
-  <%= link_to 'ダウンロード', { action: :download, id: a[:id] }, class: 'btn btn-default btn-xs margin-right-md' %>
-</span>
-<% end %>
-<% end %>
-</div>
-
-<div class=" background-color-lightgreen padding-sm">
-<span class="label label-success">コメント</span>
-<div class="row">
-  <div class="col-md-6 comments">
-    <% @report.comments.each do |c| %>
-    <div class="comment">
-      <span class="time"><%= c.updated_at.strftime("%Y/%m/%d %H:%M") %></span>
-      <span class="name"><%= c.user.name %></span>
-      <span><%= auto_link(simple_format(h(c.comment))) %></span>
-    </div>
-    <% end %>
+<div class="content-flex">
+  <div class="content-index">
+    <div class="content-nav"></div>
   </div>
-  <div class="col-md-6">
-    <%= form_tag('/comments', :method => :post) do %>
-    <div class="field form-group">
-      <%= text_area :comment, :comment, class: "form-control", placeholder: "コメントする..." %>
-      <%= hidden_field :comment, :report_id, value: @report.id %>
-      <%= hidden_field :comment, :user_id, value: current_user.id %>
-      <%= submit_tag "送信", class: "btn btn-sm btn-default margin-top-sm" %>
+  <div class="content-body">
+      <div id="title-view" class="title-view">
+      <%= @report.title %>
+      </div>
+
+      <div class="content-view" id="content-view">
+          <%= @report.content %>
+      </div>
+
+      <div>
+      <% if @report.attachments.presence %>
+      <% @report.attachments.each do |a| %>
+      <span class="nowrap">
+        <%= a.name %>
+        <%= link_to 'ダウンロード', { action: :download, id: a[:id] }, class: 'btn btn-default btn-xs margin-right-md' %>
+      </span>
+      <% end %>
+      <% end %>
+      </div>
+
+      <div class=" background-color-lightgreen padding-sm">
+      <span class="label label-success">コメント</span>
+      <div class="row">
+        <div class="col-md-6 comments">
+          <% @report.comments.each do |c| %>
+          <div class="comment">
+            <span class="time"><%= c.updated_at.strftime("%Y/%m/%d %H:%M") %></span>
+            <span class="name"><%= c.user.name %></span>
+            <span><%= auto_link(simple_format(h(c.comment))) %></span>
+          </div>
+          <% end %>
+        </div>
+        <div class="col-md-6">
+          <%= form_tag('/comments', :method => :post) do %>
+          <div class="field form-group">
+            <%= text_area :comment, :comment, class: "form-control", placeholder: "コメントする..." %>
+            <%= hidden_field :comment, :report_id, value: @report.id %>
+            <%= hidden_field :comment, :user_id, value: current_user.id %>
+            <%= submit_tag "送信", class: "btn btn-sm btn-default margin-top-sm" %>
+          </div>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <% end %>
   </div>
-</div>
 </div>
 
 <div class="bottom-action">

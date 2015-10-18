@@ -23,7 +23,7 @@
 <%= search_form_for @q, :html => {:class => "form-inline"} do |f| %>
   <%= f.text_field :tag_cont, :class => 'form-control typeahead', placeholder: 'タグ', autocomplete: "off" %>
   <%= f.text_field :title_cont, :class => 'form-control', placeholder: 'タイトル' %>
-	<%= f.collection_select :user_id_eq, User.all, :id, :name, {prompt: 'ユーザー選択'}, class: 'form-control' %>
+	<%= f.collection_select :user_id_eq, User.all, :id, :name, {:include_blank => true, :prompt => "ユーザー"}, class: 'form-control' %>
   <%= f.date_field :updated_at_gteq, :class => 'form-control' %>
   〜
   <% # http://qiita.com/LuckOfWise/items/e020e896e71d47d0c6a4 %>

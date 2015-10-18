@@ -5,8 +5,7 @@
 }
 
 .content-index {
-  min-width: 80px;
-  width: 30%;
+  min-width: 100px;
 }
 
 .content-body {
@@ -30,7 +29,7 @@
     left: auto;
     position: fixed;
     top: 60px;
-    width: 79.6875px;
+    width: 100px;
 
     &.bottom {
       bottom: 0;
@@ -70,20 +69,35 @@
 }
 
 @media screen and (min-width: 768px) {
+  .content-index {
+    width: 100px;
+  }
+
+  .jumpto-subnav,
   .jumpto-subnav.fixed {
-    width: 98.3281px;
+    width: 100px;
   }
 }
 
 @media screen and (min-width: 992px) {
+  .content-index {
+    min-width: 150px;
+  }
+
+  .jumpto-subnav,
   .jumpto-subnav.fixed {
-    width: 161.313px;
+    width: 150px;
   }
 }
 
 @media screen and (min-width: 1200px) {
+  .content-index {
+    min-width: 200px;
+  }
+
+  .jumpto-subnav,
   .jumpto-subnav.fixed {
-    width: 229.25px;
+    width: 200px;
   }
 }
 

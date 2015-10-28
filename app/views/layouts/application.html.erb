@@ -64,19 +64,23 @@
                     <i class="fa fa-cog fa-lg white-text"></i>
                     <% end %>
                 </li>
-                <li>
-                  <%= link_to destroy_user_session_path, method: :delete do %>
-                    <i class="fa fa-sign-out fa-lg white-text"></i>
-                    <% end %>
-                </li>
-                <% else %>
+                <% if current_user.admin? %>
                   <li>
-                    <%= link_to "サインアップ", new_user_registration_path %>
-                  </li>
-                  <li>
-                    <%= link_to "ログイン", new_user_session_path %>
+                    <%= link_to users_sign_up_path do %>
+                      <i class="fa fa-meh-o fa-lg white-text"></i>
+                      <% end %>
                   </li>
                   <% end %>
+                    <li>
+                      <%= link_to destroy_user_session_path, method: :delete do %>
+                        <i class="fa fa-sign-out fa-lg white-text"></i>
+                        <% end %>
+                    </li>
+                    <% else %>
+                      <li>
+                        <%= link_to "ログイン", new_user_session_path %>
+                      </li>
+                      <% end %>
             </ul>
           </div>
         </div>

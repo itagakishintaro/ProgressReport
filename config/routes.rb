@@ -3,14 +3,23 @@ Rails.application.routes.draw do
   resources :favarites
 
   # ---------- 認証関連 ----------
-  root to: "reports#index"
-  devise_for :users
+  root to: 'reports#index'
+  devise_scope :user do
+    get '/users/sign_up' => 'users#sign_up', as: :users_sign_up
+    # get '/users' => 'users#index', as: :users_index
+    post 'users/admin_create' => 'users#admin_create', :as => 'user_admin_create'
+  end
+  devise_for :users, :skip => [:registrations]
+  as :user do
+    get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
+    put 'users' => 'devise/registrations#update', :as => 'user_registration'
+  end
+
   resources :users do
     collection do
       get 'with_progresses'
     end
   end
-  resources :users
 
   # ---------- reports関連 ----------
   resources :reports do

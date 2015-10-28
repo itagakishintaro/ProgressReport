@@ -15,6 +15,8 @@
   })
 end
 
+User.where(id: 1)[0].update(admin: true)
+
 100.times do |i|
   Report.create!({
     tag: "タグ#{i}",

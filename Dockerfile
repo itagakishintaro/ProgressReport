@@ -26,28 +26,68 @@ ENV PATH "$RBENV_ROOT/bin:$RBENV_ROOT/shims:/usr/local/sbin:/usr/local/bin:/usr/
 # $RBENV_ROOT/shims:$RBENV_ROOT/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # install ruby
+
 RUN rbenv --version
 RUN rbenv install 2.2.0
 RUN rbenv global 2.2.0
 RUN ruby -v
 RUN rbenv rehash
 
-# [postgresql](https://docs.docker.com/examples/postgresql_service/)
+# [postgresql](https://github.com/CentOS/CentOS-Dockerfiles/tree/master/postgres/centos7)
 
-RUN rpm -i http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-redhat93-9.3-1.noarch.rpm
-RUN yum install postgresql93-server  postgresql93-devel postgresql93-docs postgresql93-libs
+RUN yum -y update; yum clean all
+RUN yum -y install sudo epel-release; yum clean all
+RUN yum -y install postgresql-server postgresql postgresql-contrib supervisor; yum clean all
 
-USER postgres
+ADD ./postgresql-setup /usr/bin/postgresql-setup
+ADD ./supervisord.conf /etc/supervisord.conf
+ADD ./start_postgres.sh /start_postgres.sh
 
-RUN    /etc/init.d/postgresql start &&\
-    psql --command "CREATE USER postgres WITH SUPERUSER PASSWORD 'postgres123';" &&\
-    createdb -O postgres postgres123
+#Sudo requires a tty. fix that.
+RUN sed -i 's/.*requiretty$/#Defaults requiretty/' /etc/sudoers
+RUN chmod +x /usr/bin/postgresql-setup
+RUN chmod +x /start_postgres.sh
 
-RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.3/main/pg_hba.conf
-RUN echo "listen_addresses='*'" >> /etc/postgresql/9.3/main/postgresql.conf
+RUN /usr/bin/postgresql-setup initdb
+
+ADD ./postgresql.conf /var/lib/pgsql/data/postgresql.conf
+
+RUN chown -v postgres.postgres /var/lib/pgsql/data/postgresql.conf
+
+RUN echo "host    all             all             0.0.0.0/0               md5" >> /var/lib/pgsql/data/pg_hba.conf
+
+VOLUME ["/var/lib/pgsql"]
 
 EXPOSE 5432
 
-VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
+CMD ["/bin/bash", "/start_postgres.sh"]
 
-CMD ["/usr/lib/postgresql/9.3/bin/postgres", "-D", "/var/lib/postgresql/9.3/main", "-c", "config_file=/etc/postgresql/9.3/main/postgresql.conf"]
+# install apache
+
+RUN yum install httpd
+RUN systemctl start httpd
+RUN systemctl enable httpd
+
+# passengerのインストール
+
+RUN gem install passenger --no-ri --no-rdoc -V
+RUN yum -y install libcurl-devel httpd-devel
+RUN exit
+RUN passenger-install-apache2-module
+RUN cp -p /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
+RUN sed -e "s/AddDefaultCharset UTF-8/# AddDefaultCharset UTF-8/g" /etc/httpd/conf/httpd.conf
+RUN echo 'LoadModule passenger_module /home/pr-admin/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/passenger-5.0.15/buildout/apache2/mod_passenger.so' >> /etc/httpd/conf/httpd.conf
+RUN echo '<IfModule mod_passenger.c>' >> /etc/httpd/conf/httpd.conf
+RUN echo '  PassengerRoot /home/pr-admin/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/passenger-5.0.15' >> /etc/httpd/conf/httpd.conf
+RUN echo '  PassengerDefaultRuby /home/pr-admin/.rbenv/versions/2.2.0/bin/ruby' >> /etc/httpd/conf/httpd.conf
+RUN echo '</IfModule>' >> /etc/httpd/conf/httpd.conf
+RUN echo 'RailsEnv development' >> /etc/httpd/conf/httpd.conf
+
+# create user for Progress Report
+RUN useradd pr-admin
+RUN passwd -f -u pr123
+
+# install Progress Report
+USER pr-admin
+RUN cd /home/pr-admin
+RUN git clone https://github.com/itagakishintaro/ProgressReport.git

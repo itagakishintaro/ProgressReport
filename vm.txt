@@ -1,0 +1,310 @@
+■rootパス変更及びOSアップデート
+
+passwd root
+root123
+
+yum update
+
+■ユーザ追加
+
+useradd pr-admin
+
+passwd pr-admin
+pr123
+
+chmod 755 /home/pr-admin
+
+■iptablesの無効化
+
+service iptables stop
+
+chkconfig iptables off
+
+chkconfig --list | grep iptables
+
+■SELinuxの無効化
+
+cp -p /etc/selinux/config /etc/selinux/config.org
+
+vi /etc/selinux/config
+=================================================
+SELINUX=enforcing
+↓
+SELINUX=disabled
+=================================================
+:wq
+
+shutdown -r now
+
+■sshdセキュリティ
+
+cp -p /etc/ssh/sshd_config /etc/ssh/sshd_config.org
+
+vi /etc/ssh/sshd_config
+==========================
+PermitRootLogin no
+PermitEmptyPasswords no
+UseDNS no
+==========================
+:wq
+
+service sshd restart
+
+■apacheインストール
+
+yum install httpd
+
+chkconfig httpd on
+
+chkconfig --list | grep httpd
+
+■postgresql9.3系のインストール
+
+rpm -i http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-redhat93-9.3-1.noarch.rpm
+
+yum install postgresql93-server  postgresql93-devel postgresql93-docs postgresql93-libs
+
+chkconfig postgresql-9.3 on
+
+chkconfig --list | grep postgresql-9.3
+
+service postgresql-9.3 initdb
+
+service postgresql-9.3 start
+
+cp -p /var/lib/pgsql/9.3/data/postgresql.conf /var/lib/pgsql/9.3/data/postgresql.conf.org
+
+vi /var/lib/pgsql/9.3/data/postgresql.conf
+==============================================
+listen_addresses = 'localhost,192.168.60.133'
+port = 5432
+log_filename = 'postgresql.log'
+log_line_prefix = '%t %d [%p-%l]'
+log_directory = '/var/log/pgsql
+==============================================
+:wq
+
+mkdir /var/log/pgsql
+
+chown postgres.postgres /var/log/pgsql
+
+ログローテートの設定
+vi /etc/logrotate.d/postgresql
+-----------------------------------
+/var/log/pgsql/*log {
+    daily
+    compress
+    rotate 14
+    missingok
+    ifempty
+}
+-----------------------------------
+:wq
+
+passwd postgres
+postgres123
+
+service postgresql-9.3 restart
+
+■rubyのインストール
+
+# yum install zlib zlib-devel openssl-devel sqlite-devel gcc-c++ glibc-headers libyaml-devel readline readline-devel zlib-devel libffi-devel git
+
+# exit
+
+$ git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+
+$ git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+
+$ vi .bash_profile
+=========================================================
+PATH=$PATH:$HOME/bin:$HOME/.rbenv/bin:$HOME/.rbenv/shims
+=========================================================
+:wq
+
+$ . ~/.bash_profile
+
+$ rbenv -v
+
+$ rbenv install --list
+
+$ rbenv install 2.2.0
+
+$ rbenv rehash
+
+$ rbenv version
+
+$ rbenv global 2.2.0
+
+$ rbenv -v
+
+■railsのインストール
+
+$ gem update --system
+
+$ gem install --no-ri --no-rdoc rails
+
+$ gem install bundler
+
+$ rbenv rehash
+
+$ rails -v
+
+■passengerのインストール
+
+$ gem install passenger --no-ri --no-rdoc -V
+
+$ rbenv rehash
+
+$ su -
+
+# yum install libcurl-devel
+# yum install httpd-devel
+# exit
+
+$ passenger-install-apache2-module
+
+$ su -
+
+# cp -p /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
+
+# vi /etc/httpd/conf/httpd.conf
+============================================================================================================================================
+AddDefaultCharset UTF-8
+↓
+#AddDefaultCharset UTF-8
+
+最終行に以下追加
+LoadModule passenger_module /home/pr-admin/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/passenger-5.0.15/buildout/apache2/mod_passenger.so
+
+<IfModule mod_passenger.c>
+	PassengerRoot /home/pr-admin/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/passenger-5.0.15
+	PassengerDefaultRuby /home/pr-admin/.rbenv/versions/2.2.0/bin/ruby
+</IfModule>
+
+RailsEnv development
+============================================================================================================================================
+:wq
+
+■DBユーザおよびデータベースの作成
+
+# su - postgres
+
+psql
+
+postgres=# create user yourname with password 'password';
+
+postgres=# create database my_database owner yourname;
+
+postgres=# ¥q
+
+exit
+
+exit
+
+$ rails new app_name -d posgresql
+
+$ git clone https://github.com/itagakishintaro/ProgressReport.git
+
+$ cd ProgressReport
+
+$ bundle config build.pg --with-pg-config=/usr/pgsql-9.3/bin/pg_config
+$ bundle install
+
+$ vi Gemfile
+
+===================
+gem 'therubyracer'
+===================
+:wq
+
+$ bundle update
+
+$ bundle exec rake db:migrate
+
+$ su -
+
+# vi /etc/httpd/conf/httpd.conf
+==========================================================
+DocumentRoot "/home/pr-admin/ProgressReport/public"
+
+<Directory "/home/pr-admin/ProgressReport/public">
+
+Options Indexes FollowSymLinks
+↓
+Options -Indexes FollowSymLinks
+
+AllowOverride None
+↓
+AllowOverride All
+==========================================================
+:wq
+
+# service httpd start
+
+ブラウザでアクセス確認
+
+■DBリストア
+
+1. PgAdmin3でダンプ作成
+
+フォーマット：Plain
+エンコーディング：UTF8
+#1ダンプオプション-保存しない-特権：チェック
+
+2. リストア
+
+su - postgres
+
+psql my_database < /home/pr-admin/20150806_ProgressReport
+
+3. Apacheの設定
+
+/etc/httpd/conf/httpd.conf
+
+<Directory "/home/pr-admin/ProgressReport/public">配下に以下追記
+
+RailsEnv: 4s
+
+4. DB接続設定
+
+/home/pr-admin/ProgressReport/config/database.yml
+に以下を追記
+
+4s:
+  <<: *default
+  adapter: postgresql
+  host: 127.0.0.1
+  database: my_database
+  user: postgres
+  password: postgres123
+
+5. PostgreSQLの設定
+
+/var/lib/pgsql/9.3/data/pg_hba.conf
+
+# IPv4 local connections:
+#host    all             all             127.0.0.1/32            ident
+host    all             all             127.0.0.1/32            trust
+
+6. key設定（devise.rb）
+
+rails console -e 4s
+
+を実行すると、鍵を設定するようにエラーメッセージがでるので、その値をメモする。指定通りに、
+/home/pr-admin/ProgressReport/config/initializers/devise.rb
+に以下を追記する
+
+config.secret_key = 'メモした値'
+
+7. key設定（secrets.yml）
+
+/home/pr-admin/ProgressReport/config/secrets.yml
+に以下を追加
+
+4s:
+  secret_key_base: 6でメモした値
+
+8. enviroments設定
+
+cp /home/pr-admin/ProgressReport/config/environments/production.rb /home/pr-admin/ProgressReport/config/environments/4s.rb

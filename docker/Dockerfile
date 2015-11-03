@@ -37,8 +37,6 @@ CMD ["/bin/bash", "/start_postgres.sh"]
 
 # [httpd](https://github.com/CentOS/CentOS-Dockerfiles/blob/master/httpd/centos7)
 
-FROM centos:latest
-MAINTAINER http://www.centos.org
 LABEL Vendor="CentOS"
 LABEL License=GPLv2
 LABEL Version=2.4.6-31

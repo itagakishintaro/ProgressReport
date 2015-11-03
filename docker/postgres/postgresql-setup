@@ -4,7 +4,8 @@
 
 # PGVERSION is the full package version, e.g., 9.0.2
 # Note: the specfile inserts the correct value during package build
-PGVERSION=9.2.7
+# PGVERSION=9.2.7
+PGVERSION=9.3.1
 
 # PGENGINE is the directory containing the postmaster executable
 # Note: the specfile inserts the correct value during package build
@@ -12,11 +13,13 @@ PGENGINE=/usr/bin
 
 # PREVMAJORVERSION is the previous major version, e.g., 8.4, for upgrades
 # Note: the specfile inserts the correct value during package build
-PREVMAJORVERSION=9.2
+# PREVMAJORVERSION=9.2
+PREVMAJORVERSION=9.3
 
 # PREVPGENGINE is the directory containing the previous postmaster executable
 # Note: the specfile inserts the correct value during package build
-PREVPGENGINE=/usr/lib64/pgsql/postgresql-9.2/bin
+# PREVPGENGINE=/usr/lib64/pgsql/postgresql-9.2/bin
+PREVPGENGINE=/usr/lib64/pgsql/postgresql-9.3/bin
 
 # Absorb configuration settings from the specified systemd service file,
 # or the default "postgresql" service if not specified

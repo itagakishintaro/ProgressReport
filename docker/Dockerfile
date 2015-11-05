@@ -1,64 +1,43 @@
 # http://www.slideshare.net/cyberblackvoom?utm_campaign=profiletracking&utm_medium=sssite&utm_source=ssslideview
 
-From centos
+From centos:centos6
 MAINTAINER itagakishintaro on github
 
-# [postgresql](https://github.com/CentOS/CentOS-Dockerfiles/tree/master/postgres/centos7)
+# postgres
 
-RUN yum -y update; yum clean all
-RUN yum -y install sudo epel-release; yum clean all
-RUN yum -y install postgresql-server postgresql postgresql-contrib supervisor; yum clean all
+RUN rpm -i http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-redhat93-9.3-1.noarch.rpm
+RUN yum -y install postgresql93-server  postgresql93-devel postgresql93-docs postgresql93-libs; yum clean all
 
-ADD postgres/postgresql-setup /usr/bin/postgresql-setup
-ADD postgres/supervisord.conf /etc/supervisord.conf
-ADD postgres/start_postgres.sh /start_postgres.sh
+RUN chkconfig postgresql-9.3 on
+RUN service postgresql-9.3 initdb
+RUN echo "host    all             all             0.0.0.0/0               md5" >> /var/lib/pgsql/9.3/data/pg_hba.conf
+RUN sed -i -e "s/#bytea_output = 'hex'/bytea_output = 'escape'/g" /var/lib/pgsql/9.3/data/postgresql.conf
 
-#Sudo requires a tty. fix that.
-RUN sed -i 's/.*requiretty$/#Defaults requiretty/' /etc/sudoers
-RUN chmod +x /usr/bin/postgresql-setup
-RUN chmod +x /start_postgres.sh
+RUN service postgresql-9.3 start
 
-RUN /usr/bin/postgresql-setup initdb
-
-ADD postgres/postgresql.conf /var/lib/pgsql/data/postgresql.conf
-
-RUN chown -v postgres.postgres /var/lib/pgsql/data/postgresql.conf
-
-RUN echo "host    all             all             0.0.0.0/0               md5" >> /var/lib/pgsql/data/pg_hba.conf
-
-VOLUME ["/var/lib/pgsql"]
+ADD createdb.sh /createdb.sh
+RUN chmod +x /createdb.sh
+RUN /createdb.sh
 
 EXPOSE 5432
 
-ENV DB_NAME pr
-ENV DB_USER pr
-ENV DB_PASS pr123
-CMD ["/bin/bash", "/start_postgres.sh"]
-
-# [httpd](https://github.com/CentOS/CentOS-Dockerfiles/blob/master/httpd/centos7)
-
-LABEL Vendor="CentOS"
-LABEL License=GPLv2
-LABEL Version=2.4.6-31
+# httpd
 
 RUN yum -y update && yum clean all
 RUN yum -y install httpd && yum clean all
 
+RUN chkconfig httpd on
+RUN service httpd start
+
 EXPOSE 80
-
-# Simple startup script to avoid some issues observed with container restart
-ADD httpd/run-httpd.sh /run-httpd.sh
-RUN chmod -v +x /run-httpd.sh
-
-CMD ["/run-httpd.sh"]
 
 # [ruby](https://gist.github.com/deepak/5925003)
 
 # install rbenv
 
-RUN yum -y install git make
+RUN yum -y install git make tar
 # https://github.com/sstephenson/ruby-build/wiki#suggested-build-environment
-RUN yum install -y gcc openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel
+RUN yum -y install gcc openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel
 
 RUN git clone https://github.com/sstephenson/rbenv.git /usr/local/rbenv
 RUN echo '# rbenv setup' > /etc/profile.d/rbenv.sh
@@ -94,13 +73,13 @@ RUN passenger-install-apache2-module
 # set httpd.conf
 
 RUN cp -p /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
-RUN sed -e "s/AddDefaultCharset UTF-8/# AddDefaultCharset UTF-8/g" /etc/httpd/conf/httpd.conf
-RUN echo 'LoadModule passenger_module /home/pr-admin/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/passenger-5.0.15/buildout/apache2/mod_passenger.so' >> /etc/httpd/conf/httpd.conf
+RUN sed -i -e "s/AddDefaultCharset UTF-8/# AddDefaultCharset UTF-8/g" /etc/httpd/conf/httpd.conf
+RUN echo 'LoadModule passenger_module /usr/local/rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/passenger-5.0.21/buildout/apache2/mod_passenger.so' >> /etc/httpd/conf/httpd.conf
 RUN echo '<IfModule mod_passenger.c>' >> /etc/httpd/conf/httpd.conf
-RUN echo '  PassengerRoot /home/pr-admin/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/passenger-5.0.15' >> /etc/httpd/conf/httpd.conf
-RUN echo '  PassengerDefaultRuby /home/pr-admin/.rbenv/versions/2.2.0/bin/ruby' >> /etc/httpd/conf/httpd.conf
+RUN echo '  PassengerRoot /usr/local/rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/passenger-5.0.21' >> /etc/httpd/conf/httpd.conf
+RUN echo '  PassengerDefaultRuby /usr/local/rbenv/shims/ruby' >> /etc/httpd/conf/httpd.conf
 RUN echo '</IfModule>' >> /etc/httpd/conf/httpd.conf
-RUN echo 'RailsEnv development' >> /etc/httpd/conf/httpd.conf
+RUN echo 'RailsEnv docker' >> /etc/httpd/conf/httpd.conf
 
 # create user
 
@@ -110,6 +89,7 @@ RUN passwd -f -u pr
 
 # install Progress Report
 
+RUN yum -y install libxml2-devel libxslt-devel libpq-dev postgresql-devel
 RUN git clone https://github.com/itagakishintaro/ProgressReport.git /home/pr/ProgressReport
 RUN echo "gem 'therubyracer'" >> /home/pr/ProgressReport/Gemfile
 RUN chown -R pr /home/pr/ProgressReport
@@ -122,5 +102,8 @@ RUN chown pr /run-pr.sh
 USER pr
 CMD ["/run-pr.sh"]
 
-
-# add start service shell
+USER root
+#start service script
+RUN echo -e "service postgresql-9.3 start\nservice httpd start\n/bin/bash" > /start_service.sh
+RUN chmod o+x /start_service.sh
+CMD /start_service.sh

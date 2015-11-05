@@ -74,7 +74,7 @@ group :development do
   gem 'sqlite3'
 end
 # 追加
-group :production do
+group :production, :docker do
   gem 'pg'
   gem 'rails_12factor'
 end

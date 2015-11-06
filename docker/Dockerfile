@@ -3,6 +3,12 @@
 From centos:centos6
 MAINTAINER itagakishintaro on github
 
+# create user
+
+#RUN yum -y install passwd
+#RUN useradd pr
+#RUN passwd -f -u pr
+
 # postgres
 
 RUN rpm -i http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-redhat93-9.3-1.noarch.rpm
@@ -72,6 +78,12 @@ RUN passenger-install-apache2-module
 
 # set httpd.conf
 
+RUN sed -i -e 's/DocumentRoot "\/var\/www\/html"/DocumentRoot "\/home\/pr\/ProgressReport\/public"/g' /etc/httpd/conf/httpd.conf
+RUN echo '<Directory "/home/pr/ProgressReport/public">' >> /etc/httpd/conf/httpd.conf
+RUN echo 'Options -Indexes FollowSymLinks' >> /etc/httpd/conf/httpd.conf
+RUN echo 'AllowOverride All' >> /etc/httpd/conf/httpd.conf
+RUN echo '</Directory>' >> /etc/httpd/conf/httpd.conf
+
 RUN cp -p /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
 RUN sed -i -e "s/AddDefaultCharset UTF-8/# AddDefaultCharset UTF-8/g" /etc/httpd/conf/httpd.conf
 RUN echo 'LoadModule passenger_module /usr/local/rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/passenger-5.0.21/buildout/apache2/mod_passenger.so' >> /etc/httpd/conf/httpd.conf
@@ -81,28 +93,25 @@ RUN echo '  PassengerDefaultRuby /usr/local/rbenv/shims/ruby' >> /etc/httpd/conf
 RUN echo '</IfModule>' >> /etc/httpd/conf/httpd.conf
 RUN echo 'RailsEnv docker' >> /etc/httpd/conf/httpd.conf
 
-# create user
-
-RUN yum -y install passwd
-RUN useradd pr
-RUN passwd -f -u pr
-
 # install Progress Report
 
-RUN yum -y install libxml2-devel libxslt-devel libpq-dev postgresql-devel
+RUN yum -y install libxml2-devel libxslt-devel libpq-dev postgresql-devel sqlite-devel
 RUN git clone https://github.com/itagakishintaro/ProgressReport.git /home/pr/ProgressReport
 RUN echo "gem 'therubyracer'" >> /home/pr/ProgressReport/Gemfile
 RUN chown -R pr /home/pr/ProgressReport
+RUN chmod +x /home/pr
 RUN gem install bundler
 
 # bundle config build.pg --with-pg-config=/usr/pgsql-9.3/bin/pg_config
 ADD ./run-pr.sh /run-pr.sh
 RUN chmod -v +x /run-pr.sh
 RUN chown pr /run-pr.sh
-USER pr
+RUN echo "config.secret_key = 'b3b6eee7381b583dc16ae58e230767124d0ee73a962d85cffc3a4357a1b0bdd977bedbc1411d7f52a32ec6ee4de23b0d75202b03d155461cdc72cc965cba2de6'" >> /home/pr/ProgressReport/config/initializers/devise.rb
+
+#USER pr
 CMD ["/run-pr.sh"]
 
-USER root
+#USER root
 #start service script
 RUN echo -e "service postgresql-9.3 start\nservice httpd start\n/bin/bash" > /start_service.sh
 RUN chmod o+x /start_service.sh

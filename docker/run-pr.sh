@@ -6,3 +6,4 @@ gem install nokogiri -- --use-system-libraries=true --with-xml2-include=/usr/inc
 bundle install --without test development
 bundle update
 bundle exec rake db:migrate RAILS_ENV=docker
+bundle exec rake db:seed

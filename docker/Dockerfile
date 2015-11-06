@@ -5,9 +5,9 @@ MAINTAINER itagakishintaro on github
 
 # create user
 
-#RUN yum -y install passwd
-#RUN useradd pr
-#RUN passwd -f -u pr
+RUN yum -y install passwd
+RUN useradd pr
+RUN passwd -f -u pr
 
 # postgres
 
@@ -91,28 +91,25 @@ RUN echo '<IfModule mod_passenger.c>' >> /etc/httpd/conf/httpd.conf
 RUN echo '  PassengerRoot /usr/local/rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/passenger-5.0.21' >> /etc/httpd/conf/httpd.conf
 RUN echo '  PassengerDefaultRuby /usr/local/rbenv/shims/ruby' >> /etc/httpd/conf/httpd.conf
 RUN echo '</IfModule>' >> /etc/httpd/conf/httpd.conf
-RUN echo 'RailsEnv docker' >> /etc/httpd/conf/httpd.conf
+RUN echo 'RailsEnv pr' >> /etc/httpd/conf/httpd.conf
 
 # install Progress Report
 
 RUN yum -y install libxml2-devel libxslt-devel libpq-dev postgresql-devel sqlite-devel
 RUN git clone https://github.com/itagakishintaro/ProgressReport.git /home/pr/ProgressReport
-RUN echo "gem 'therubyracer'" >> /home/pr/ProgressReport/Gemfile
+RUN sed -i -e "s/# gem 'therubyracer'/gem 'therubyracer'/g" /home/pr/ProgressReport/Gemfile
 RUN chown -R pr /home/pr/ProgressReport
 RUN chmod +x /home/pr
 RUN gem install bundler
 
 # bundle config build.pg --with-pg-config=/usr/pgsql-9.3/bin/pg_config
-ADD ./run-pr.sh /run-pr.sh
-RUN chmod -v +x /run-pr.sh
-RUN chown pr /run-pr.sh
-RUN echo "config.secret_key = 'b3b6eee7381b583dc16ae58e230767124d0ee73a962d85cffc3a4357a1b0bdd977bedbc1411d7f52a32ec6ee4de23b0d75202b03d155461cdc72cc965cba2de6'" >> /home/pr/ProgressReport/config/initializers/devise.rb
+ADD ./run-pr.sh /home/pr/run-pr.sh
+RUN chmod -v +x /home/pr/run-pr.sh
+RUN chown pr /home/pr/run-pr.sh
+RUN sed -i -e "s/# config.secret_key = 'b3b6eee7381b583dc16ae58e230767124d0ee73a962d85cffc3a4357a1b0bdd977bedbc1411d7f52a32ec6ee4de23b0d75202b03d155461cdc72cc965cba2de6'/config.secret_key = 'b3b6eee7381b583dc16ae58e230767124d0ee73a962d85cffc3a4357a1b0bdd977bedbc1411d7f52a32ec6ee4de23b0d75202b03d155461cdc72cc965cba2de6'/g" /home/pr/ProgressReport/config/initializers/devise.rb
 
-#USER pr
-CMD ["/run-pr.sh"]
-
-#USER root
 #start service script
 RUN echo -e "service postgresql-9.3 start\nservice httpd start\n/bin/bash" > /start_service.sh
 RUN chmod o+x /start_service.sh
-CMD /start_service.sh
+
+CMD ["/start_service.sh", "/home/pr/run-pr.sh"]

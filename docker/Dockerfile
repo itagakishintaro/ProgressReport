@@ -16,17 +16,14 @@ RUN yum -y install postgresql93-server  postgresql93-devel postgresql93-docs pos
 
 RUN chkconfig postgresql-9.3 on
 RUN service postgresql-9.3 initdb
-
-RUN sed -i -e "s/local   all             all                                     peer/local   all             all                                     md5/g" /var/lib/pgsql/9.3/data/pg_hba.conf
-
 RUN echo "host    all             all             0.0.0.0/0               md5" >> /var/lib/pgsql/9.3/data/pg_hba.conf
 RUN sed -i -e "s/#bytea_output = 'hex'/bytea_output = 'escape'/g" /var/lib/pgsql/9.3/data/postgresql.conf
-
 RUN service postgresql-9.3 start
-
 ADD createdb.sh /createdb.sh
 RUN chmod +x /createdb.sh
 RUN /createdb.sh
+RUN sed -i -e "s/local   all             all                                     peer/local   all             all                                     md5/g" /var/lib/pgsql/9.3/data/pg_hba.conf
+RUN service postgresql-9.3 restart
 
 EXPOSE 5432
 

@@ -10,7 +10,7 @@ sleep 10
 ps aux
 
 su --login - postgres --command "psql -c \"CREATE USER pr with CREATEROLE superuser PASSWORD 'pr123';\""
-su --login - postgres --command "psql -c \"CREATE DATABASE pr owner pr;\""
+su --login - postgres --command "psql -c \"CREATE DATABASE pr OWNER pr;\""
 su --login - postgres --command "psql -c \"\du;\""
 }
 

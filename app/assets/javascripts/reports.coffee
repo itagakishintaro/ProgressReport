@@ -6,6 +6,7 @@ $ ->
   # For Markdown
   $('#title-view').text( $('#title').val() )
   convertMarkdown()
+  $('#title').keyup( () -> $('#title-view').text( $('#title').val() ) )
   $('#content').keyup( () -> convertMarkdown() )
   $('.like-active').on( 'click', (event) -> likeAction() ) # For 成長したねボタン
   new jBox('Tooltip', {attach: $('.like-active') } )

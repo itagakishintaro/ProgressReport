@@ -6,6 +6,10 @@
   overflow: hidden;
 }
 
+.content-body {
+  width: 100%;
+}
+
 .content-view {
   margin-bottom: 1em;
 
@@ -25,7 +29,8 @@
   background-color: $green;
   color: $white;
   font-size: 3rem;
-  padding: .5rem;
+  padding: 0 .5rem;
+  line-height: 1.5em;
 }
 
 img {

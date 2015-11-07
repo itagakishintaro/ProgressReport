@@ -3,7 +3,7 @@
     "description": "Progress Report",
     "website": "https://github.com/itagakishintaro/ProgressReport",
     "repository": "https://github.com/itagakishintaro/ProgressReport",
-    "logo": "https://github.com/itagakishintaro/ProgressReport/public/images/logo.png",
+    "logo": "https://github.com/itagakishintaro/ProgressReport/blob/master/public/images/logo.png",
     "success_url": "/",
     "keywords": [
         "ruby",

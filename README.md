@@ -8,6 +8,36 @@
 じゃあ、今月は自分もがんばろう。<br>
 そんな風に使ってほしい。<br>
 
+# 動作環境
+
+* ruby 2.2.0
+* rails 4.2.1
+
+## docker
+
+Apache, Passenger, Postgresql9.3で構成
+
+### イメージをpullする場合
+
+```
+docker pull -a itagakishintaro/pr
+docker run --privileged -d -p 80:80 --name pr itagakishintaro/pr /sbin/init
+```
+
+### Dockerfileをビルドする場合
+
+dockerフォルダ配下をダウンロードして以下を実行
+
+```
+docker build -t [YOURNAME]/pr [Dockerfile DIRECTORY]
+docker run --privileged -d -p 80:80 --name pr [YOURNAME]/pr /sbin/init
+docker exec -it pr /home/pr/run-pr.sh
+```
+
+## Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/itagakishintaro/ProgressReport)
+
 # Licence
 
 商用利用はしないでください。<br>

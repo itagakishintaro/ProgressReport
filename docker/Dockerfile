@@ -23,7 +23,7 @@ ADD createdb.sh /createdb.sh
 RUN chmod +x /createdb.sh
 RUN /createdb.sh
 RUN sed -i -e "s/local   all             all                                     peer/local   all             all                                     md5/g" /var/lib/pgsql/9.3/data/pg_hba.conf
-RUN service postgresql-9.3 restart
+RUN service postgresql-9.3 start
 
 EXPOSE 5432
 
@@ -112,4 +112,4 @@ RUN sed -i -e "s/# config.secret_key = 'b3b6eee7381b583dc16ae58e230767124d0ee73a
 RUN echo -e "service postgresql-9.3 start\nservice httpd start\n/bin/bash" > /start_service.sh
 RUN chmod o+x /start_service.sh
 
-CMD ["/start_service.sh", "/home/pr/run-pr.sh"]
+CMD ["/start_service.sh"]

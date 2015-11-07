@@ -1,0 +1,13 @@
+{
+    "name": "Progress Report",
+    "description": "Progress Report",
+    "website": "https://github.com/itagakishintaro/ProgressReport",
+    "repository": "https://github.com/itagakishintaro/ProgressReport",
+    "logo": "https://github.com/itagakishintaro/ProgressReport/public/images/logo.png",
+    "success_url": "/",
+    "keywords": [
+        "ruby",
+        "rails"
+    ],
+    "generator": "https://www.expeditedssl.com/heroku-button-maker"
+}

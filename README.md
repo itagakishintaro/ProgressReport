@@ -38,6 +38,14 @@ docker exec -it pr /home/pr/run-pr.sh
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/itagakishintaro/ProgressReport)
 
+```
+heroku login
+heroku git:clone -a [apps名]
+cd [apps名]/
+heroku run rake db:migrate
+heroku open
+```
+
 # Licence
 
 商用利用はしないでください。<br>

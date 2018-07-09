@@ -10,7 +10,8 @@ gem 'rails-i18n'
 gem 'ransack'
 
 # ログイン認証追加
-gem 'devise'
+# gem 'devise'
+gem 'devise', '~> 3.4.1'
 
 # URLを自動でリンクにする
 gem 'rails_autolink'
@@ -34,7 +35,7 @@ gem 'momentjs-rails'
 # ---------- 基本的なgem ----------
 
 # 追加（HerokuデプロイでWARNINGがでるから）
-ruby '2.2.0'
+# ruby '2.2.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
@@ -65,6 +66,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+gem 'rake', '< 11.0'
 
 # ---------- 場合分けするgem ----------
 

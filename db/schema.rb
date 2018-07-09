@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930051742) do
+ActiveRecord::Schema.define(version: 20151005103402) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "name"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20150930051742) do
     t.string   "comment"
     t.integer  "report_id"
     t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "start"
+    t.datetime "end"
+    t.string   "color"
+    t.boolean  "allDay"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

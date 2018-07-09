@@ -64,8 +64,8 @@ ENV PATH "$RBENV_ROOT/bin:$RBENV_ROOT/shims:/usr/local/sbin:/usr/local/bin:/usr/
 # install ruby
 
 RUN rbenv --version
-RUN rbenv install 2.2.0
-RUN rbenv global 2.2.0
+RUN rbenv install 2.2.3
+RUN rbenv global 2.2.3
 RUN ruby -v
 RUN rbenv rehash
 

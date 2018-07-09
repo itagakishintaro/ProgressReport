@@ -78,7 +78,7 @@ group :development do
 end
 # 追加
 group :production, :docker do
-  gem 'pg'
+  gem 'pg', '~> 0.18.1'
   gem 'rails_12factor'
 end
 

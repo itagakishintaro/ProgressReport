@@ -7,9 +7,9 @@
 <%= form_for(@report) do |f| %>
 <div class="row">
   <div class="col-md-6">
-    <% if name == '作成' %>
+    <!-- <% if name == '作成' %>
     <%= collection_select :templates, :title, Report.where('tag LIKE ?', '%テンプレート%'), :id, :title, {:prompt => "テンプレート選択"}, class: 'form-control margin-bottom-md js-template-select' %>
-    <% end %>
+    <% end %> -->
     <% if @report.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@report.errors.count, "error") %>
@@ -23,9 +23,9 @@
     </div>
     <% end %>
 
-    <div class="field form-group">
+    <!-- <div class="field form-group">
       <%= f.text_field :tag, class: "form-control typeahead", placeholder:"タグ", autocomplete: "off" %>
-    </div>
+    </div> -->
     <div class="field form-group">
       <%= f.text_field :title, id: "title", class: "form-control", placeholder:"タイトル" %>
     </div>
@@ -37,13 +37,13 @@
       <input class="image-uploader-input" id="image" type="file"></input>
     </div>
 
-    <!-- <div class="field form-group">
+    <div class="field form-group">
       <%= f.text_field :tag, class: "form-control typeahead", placeholder:"タグ", autocomplete: "off" %>
     </div>
 
     <% if name == '作成' %>
     <%= collection_select :templates, :title, Report.where('tag LIKE ?', '%テンプレート%'), :id, :title, {:prompt => "テンプレート選択"}, class: 'form-control margin-bottom-md js-template-select' %>
-    <% end %> -->
+    <% end %>
 
     <div class="field form-group">
       <%= f.label :attachments, '添付ファイル', class: 'label label-default' %>

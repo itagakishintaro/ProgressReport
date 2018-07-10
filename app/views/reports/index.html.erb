@@ -5,9 +5,9 @@
 </div>
 <% end %>
 
-<%= link_to new_report_path, id: 'new-change', class: "new-report-change" do %>
+<!-- <%= link_to new_report_path, id: 'new-change', class: "new-report-change" do %>
   NEW
-<% end %>
+<% end %> -->
 
 <div class="well">
   <span class="font-md margin-right-md">今月の人</span>
@@ -52,7 +52,7 @@
         <th><%= sort_link(@q, 'attachments_name', '添付ファイル') %></th>
         <!-- <th>Created at</th> -->
         <th><%= sort_link(@q, :updated_at, '更新日時', default_order: :desc) %></th>
-        <th>操作</th>
+        <!-- <th>操作</th> -->
       </tr>
     </thead>
 
@@ -73,8 +73,8 @@
           <td><%= report.progress_points %></td>
           <td><%= report.number_of_comments %></td>
           <td><%= report.tag %></td>
-          <!-- <td><%= link_to report.title, report %></td> -->
-          <td><%= report.title %></td>
+          <td><%= link_to report.title, report %></td>
+          <!-- <td><%= report.title %></td> -->
           <!-- <td><%= report.content.split[0] %></td> -->
           <td>
             <% unless report.user.nil? %>
@@ -88,13 +88,13 @@
           </td>
           <!-- <td><%= report.created_at.strftime("%Y/%m/%d %H:%M") %></td> -->
           <td><%= report.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
-          <td>
+          <!-- <td>
             <%= link_to "参照", report %>
             <% if report.user_id == current_user.id || report.collaboration == 1 %>
               <%= link_to "更新", edit_report_path(report) %>
               <%= link_to '削除', report, method: :delete, data: { confirm: '削除しますか?' } %>
             <% end %>
-          </td>
+          </td> -->
         </tr>
       <% end %>
     </tbody>
@@ -102,6 +102,6 @@
 </div>
 <%= paginate @reports %>
 
-<!-- <%= link_to new_report_path, id: 'new', class: "new-report" do %>
+<%= link_to new_report_path, id: 'new', class: "new-report" do %>
   <span class="font-xlg">新</span>しい<div class="margin-left-md"><span class="font-lg">R</span>eport</div>
-<% end %> -->
+<% end %>

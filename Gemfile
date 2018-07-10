@@ -80,6 +80,7 @@ end
 group :production, :docker do
   gem 'pg', '~> 0.18.1'
   gem 'rails_12factor'
+  gem 'therubyracer', platforms: :ruby
 end
 
 group :development, :test do

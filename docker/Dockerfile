@@ -11,7 +11,7 @@ RUN passwd -f -u pr
 
 # postgres
 
-RUN rpm -i http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-redhat93-9.3-1.noarch.rpm
+RUN rpm -i http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-redhat93-9.3-3.noarch.rpm
 RUN yum -y install postgresql93-server  postgresql93-devel postgresql93-docs postgresql93-libs; yum clean all
 
 RUN chkconfig postgresql-9.3 on
@@ -64,8 +64,8 @@ ENV PATH "$RBENV_ROOT/bin:$RBENV_ROOT/shims:/usr/local/sbin:/usr/local/bin:/usr/
 # install ruby
 
 RUN rbenv --version
-RUN rbenv install 2.2.0
-RUN rbenv global 2.2.0
+RUN rbenv install 2.3.8
+RUN rbenv global 2.3.8
 RUN ruby -v
 RUN rbenv rehash
 
@@ -86,9 +86,9 @@ RUN echo '</Directory>' >> /etc/httpd/conf/httpd.conf
 
 RUN cp -p /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
 RUN sed -i -e "s/AddDefaultCharset UTF-8/# AddDefaultCharset UTF-8/g" /etc/httpd/conf/httpd.conf
-RUN echo 'LoadModule passenger_module /usr/local/rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/passenger-5.0.21/buildout/apache2/mod_passenger.so' >> /etc/httpd/conf/httpd.conf
+RUN echo 'LoadModule passenger_module /usr/local/rbenv/versions/2.3.8/lib/ruby/gems/2.3.8/gems/passenger-5.0.21/buildout/apache2/mod_passenger.so' >> /etc/httpd/conf/httpd.conf
 RUN echo '<IfModule mod_passenger.c>' >> /etc/httpd/conf/httpd.conf
-RUN echo '  PassengerRoot /usr/local/rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/passenger-5.0.21' >> /etc/httpd/conf/httpd.conf
+RUN echo '  PassengerRoot /usr/local/rbenv/versions/2.3.8/lib/ruby/gems/2.3.8/gems/passenger-5.0.21' >> /etc/httpd/conf/httpd.conf
 RUN echo '  PassengerDefaultRuby /usr/local/rbenv/shims/ruby' >> /etc/httpd/conf/httpd.conf
 RUN echo '</IfModule>' >> /etc/httpd/conf/httpd.conf
 RUN echo 'RailsEnv pr' >> /etc/httpd/conf/httpd.conf
